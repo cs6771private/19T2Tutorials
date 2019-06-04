@@ -1,0 +1,249 @@
+{% extends "templates/base.html" %}
+
+{% block body_contents %}
+<div class="container">
+<div class="page-header">
+<h1>Assignment 1 - Word Ladder</h1>
+</div>
+</a>
+<h3>Overview</h3>
+
+In Week 2 we are learning about C++ STL, and this assignment is your chance to practice those skills. In 
+
+<h3>Introduction</h3>
+
+<p>Your task is to write a program to build <b>word ladders</b>. You will leverage C++ STL containers std::vector, std::queue, and std::set to complete this task.</p>
+
+<p>A word ladder is a connection from one word to another word formed by changing one letter at a time with the constraint that at each step the sequence of letters still forms a valid word. For example, here is a word ladder connecting "code" to "data".:</p>
+<pre>code -> cade -> cate -> date -> data</pre>
+
+<p>You will ask the user to enter a start and a destination word and then your program is to find a word ladder between them if one exists. By using an algorithm known as breadth-first search, you are guaranteed to find the shortest such sequence.</p>
+
+<p>Here is some sample output of the word ladder program (with at most one solution shown here for illustration purposes):</p>
+
+<pre>
+Enter start word (RETURN to quit): work
+Enter destination word: play
+Found ladder: work fork form foam flam flay play
+
+Enter start word (RETURN to quit): awake
+Enter destination word: sleep
+Found ladder: awake aware sware share shire shirr shier sheer sheep sleep
+
+Enter start word (RETURN to quit): airplane
+Enter destination word: tricycle
+No ladder found.
+</pre>
+
+<h3>Exploring the problem</h3>
+
+<p>Finding a word ladder is a specific instance of a shortest path problem, where the challenge is to find the
+shortest path from a starting position to a goal. Shortest path problems come up in a variety of situations
+such as packet routing, robot motion planning, social networks, studying gene mutations, and more. One
+approach for finding a shortest path is the classic algorithm known as breadth-first search. A breadth-first
+search searches outward from the start in a radial fashion until it hits the goal. For word ladder, this means
+first examining those ladders that represent “one hop” (i.e. one changed letter) from the start. If any of
+these reaches the destination, we’re done. If not, the search now examines all ladders that add one more hop
+(i.e. two changed letters). By expanding the search at each step, all one-hop ladders are examined before
+two-hops, and three-hop ladders only considered if none of the one-hop nor two-hop ladders worked out, thus
+the algorithm is guaranteed to find the shortest successful ladder.</p>
+
+<p>Breadth-first is typically implemented using a queue. The queue is used to store partial ladders that
+represent possibilities to explore. The ladders are enqueued in order of increasing length. The first elements
+enqueued are all the one-hop ladders, followed by the two-hop ladders, and so on. Due to FIFO handling,
+ladders will be dequeued in order of increasing length. The algorithm operates by dequeueing the front ladder
+from the queue and determining if it reaches the goal. If it does, you have a complete ladder, and it is the
+shortest. If not, you take that partial ladder and extend it to reach words that are one more hop away, and
+enqueue those extended ladders onto the queue to be examined later. If you exhaust the queue of possibilities
+without having found a completed ladder, you can conclude that no ladder exists.</p>
+
+<p>A few of these tasks deserve a bit more explanation. For example, you will need to find all the words that
+differ by one letter from a given word. A simple loop can change the first letter to each of the other letters
+in the alphabet and ask the lexicon if that transformation results in a valid word. Repeat that for each letter
+position in the given word and you will have discovered all the words that are one letter away.</p>
+
+<p>Another issue that is a bit subtle is the restriction that you not re-use words that have been included in a
+previous and shorter ladder. This is an optimization that avoids exploring redundant paths. For example, if
+you have previously tried the ladder cat -> cot -> cog and are now processing cat -> cot -> con, you
+would find the word cog one letter away from con, so looks like a potential candidate to extend this ladder. 
+However, cog has already been reached in an earlier and shorter ladder, and there is no point in re-considering 
+it in a longer ladder.</p>
+
+<p>Finally, you need to avoid unwanted loops or redundant paths such as a circular ladder like:</p>
+
+<pre>cat -> cot -> cog -> bog -> bat -> cat</pre>
+
+<p>Since you need linear access to all of the items in a word ladder when time comes to print it, it makes sense to
+model a word ladder using a vector&lt;string&gt;. And remember that you can make a copy of a vector&lt;string&gt;
+by just assigning it to be equal to another via traditional assignment (i.e., vector&lt;string&gt; wordLadderClone
+= wordLadder).
+
+<h4>If more than one shortest path</h4>
+
+<p>In this case, your implementation must print all solutions as follows:</p>
+<ul>
+	<li>Each solution appears on a separate line (terminated by a newline). The very first one is printed after "Found ladder: ".</li>
+	<li>The words in each solution are separated by exactly one blank space without leading or trailing whitespaces.</li>
+	<li>All solutions (considered as a string each) are printed in their lexicographic order</li>
+</ul>
+<p>Sample output:</p>
+
+<pre>
+Enter start word (RETURN to quit): con
+Enter destination word: cat
+Found ladder: con can cat
+con cot cat
+</pre>
+
+<p>Please ensure all words outputted from the word ladder are lowercase</p>
+
+<h4>Implementation Hints</h4>
+
+<p>Please leverage STL libraries, such as:</p>
+<ul>
+	<li>The linear, random-access collection managed by a vector is deal for storing a word ladder</li>
+	<li>A queue object is a FIFO collection that is just what's needed to track those partial ladders under consideration. The ladders are enqueued (and thus dequeued) in order of length so as to find the shortest option first.</li>
+	<li>As a minor detail, it doesn't matter if the start and destination word are contained in the lexicon or not. You can eliminate non-words at the get-go if you like, or just allow them to fall through and be searched anyway. During marking, the start and destination words are always taken from the lexicon</li>
+</ul>
+
+<h3>The Task</h3>
+
+<p>Here is a development plan to help you if you're struggling to figure out how to approach the problem</p>
+
+<h4>Task 1: Get familiar with STL and Lexicon classes</h4>
+<p>You've seen std::vector and std::queue in lectures during week 2, but <b>Lexicon</b> is new. The document <b>lexicon.pdf</b> which appears in the repository (see below) outlines everything you need to know about the Lexicon, so make sure you can read it (it's really very easy). In addition, you should also read the interface provided in <b>lexicon.h</b>. Note that all words in the provided English dictionary are stored in lower case. The fuctionality given in lexicon.h for the member function containsWord(w) is repeated here. </p>
+
+<pre><code>
+/*
+* Member function: containsWord
+* Usage: if (lex.containsWord(‘‘happy’’))...
+* ----------------------------------------
+* This member function returns true if word is contained in this lexicon,
+* false otherwise. Words are considered case-insensitively, ‘‘zoo’’ is the
+* same as ‘‘ZOO’’ or ‘‘zoo’’. */
+bool containsWord(string word);
+</code></pre>
+
+<p>You dont need to know the implementation details of Lexicon in order to use it</p>
+
+<h4>Step 2: Conceptualise algorithm and design your data structure</h4>
+<p>Be sure you understand the breadth-first search algorithm and what the various data types you will be using
+
+<h4>Step 3: Dictionary handling</h4>
+<p>Set up a <b>Lexicon</b> object with the large dictionary read from our data file. Write a function that will iteratively construct strings that are one letter different from a given word and run them by the dictionary to determine which strings are words. Why not add some testing code that lets the user enter a word and prints a list of all words that are one letter different so you can verify that it is working!
+
+<h4>Step 4: Implement breadth-first search</h4>
+<p>The code is not long, but it can be dense, and definitely requires understanding how a BFS works. We recommend practicing the BFS logic on a test data set until you're confident your algorith mis working.</p>
+
+<h3>Getting Started</h3>
+
+<p>If you haven't done so already, clone the repository</p>
+
+<pre>$ git clone https://github.com/cs6771/comp6771 comp6771</pre>
+
+<p>Then navigate to the <b>assignments/wl</b> directory</p>
+
+<p>Here is a list of files that and a description of their purpose:</p>
+<table>
+	<tr>
+		<th>File</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>EnglishWords.dat</td>
+		<td>Our English dictionary containing 127142 words</td>
+	</tr>
+	<tr>
+		<td>WordLadder.cpp</td>
+		<td>Your implementation of WordLadder</td>
+	</tr>
+	<tr>
+		<td>lexico.*</td>
+		<td>The implementation of a lexicon</td>
+	</tr>
+	<tr>
+		<td>genlib.*, strutils.*</td>
+		<td>Some utility functions used in implementing lexicon object</td>
+	</tr>
+</table>
+
+<H3>Assessment</H3>
+<P>
+This assignment will contribute 15% to your final mark.
+<P>
+The assessment for the assignment recognizes the difficulty of the task, the importance of style, and the importance of appropriate use of programming methods (e.g. using while loops instead of a dozen if statements).
+
+<table class="table table-bordered table-striped">
+<tr><td align=right>55%<td><b>Correctness</b><br />
+    <P>
+The correctness of your program will be determined automatically by tests that we will run against your program. You will not know the full sample of tests used prior to marking.
+
+<tr><td align=right>25%<td><b>Your tests</b><br />TBD
+
+<tr><td align=right>20%<td><b>C++ Style</b><br />Your adherence to good C++ style. This means your code should not be C-style.
+
+<tr><td align=right>20%<td><b>Linter Compliance</b><br />cpplint / clang-format
+
+</table>
+
+The following actions will result in a 0/100 mark for Word Ladder, and in some cases a 0 for COMP6771:
+<ul>
+<li>Knowingly providing your work to anyone and it is subsequently submitted (by anyone).
+<li>Submitting any other person's work. This includes joint work.
+<li>Submitting another person's work without their consent.
+</ul>
+
+<P>
+The lecturer may vary the assessment scheme after inspecting
+the assignment submissions but it will remain broadly similar to the description above.
+
+
+<h3>Originality of Work</h3>
+<P>
+The work you submit must be your own work.  Submission of work partially or completely derived
+from any other person or jointly written with any other person is not permitted.
+The penalties for such an offence may include negative marks,
+automatic failure of the course and possibly other academic discipline.
+Assignment submissions will be examined both automatically and manually
+for such submissions.
+<p>
+Relevant scholarship authorities will be informed if students holding scholarships
+are involved in an incident of plagiarism or other misconduct.
+<p>
+Do not provide or show your assignment work to any other person - apart from the teaching staff
+of COMP6771.
+If you knowingly provide or show your assignment work to another person for any
+reason, and work derived from it is submitted you may be penalized, even
+if the work was submitted without your knowledge or consent.  This may
+apply even if your work is submitted by a third party unknown to you.
+<p>
+Note, you will not be penalized if your work has the potential to be taken without your consent or knowledge.
+<P>
+
+<h3>Submission</h3>
+<P>
+This assignment is due Friday 21st of June 16:59:59
+Submit the assignment using this <I>give</I> command:
+<P>
+<PRE>
+give cs6771 wordladder Makefile WordLadder.cpp your-other-files
+</PRE>
+
+<h3>Late Submission Policy</h3>
+<p>
+If your assignment is submitted after this date, each hour it is late reduces
+the maximum mark it can achieve by 2%.
+For example if an assignment worth 76% was submitted
+5 hours late, the late submission would have no effect (as maximum mark would be 90%).
+If the same assignment was submitted 30 hours late it would be awarded
+40%, the maximum mark it can achieve at that time.
+</div>
+
+
+{% endblock %}
+
+</div>
+
+</body>
+</html>
+
