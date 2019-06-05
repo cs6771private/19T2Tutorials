@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Google C++ Style Guide</title>
+<title>COMP6771 C++ Style Guide</title>
 <link rel="stylesheet" href="https://google.github.io/styleguide/include/styleguide.css">
 <script src="https://google.github.io/styleguide/include/styleguide.js"></script>
 <link rel="shortcut icon" href="https://www.google.com/favicon.ico">
@@ -9,6 +9,33 @@
 <body onload="initStyleGuide();">
 <div id="content">
 <h1>COMP6771 C++ Style Guide (modified google style guide)</h1>
+
+<h2>Important things you absolutely need to remember</h2>
+  We will specifically be telling tutors to look out for these things when marking. These are the things you should absolutely remember.
+
+  <ul>
+    <li>Always run clang-format -i &lt;file&gt; and cpplint.py</li>
+    <li>Includes</li>
+    <ul>
+      <li>Includes should always be absolute, never relative</li>
+      <li>Include in this order:</li>
+      <ul>
+        <li>Header corresponding to your CPP file (if applicable), followed by a blank line</li>
+        <li>System headers in sorted order, followed by a blank line</li>
+        <li>Your headers in sorted order, followed by a blank line</li>
+      </ul>
+    </ul>
+    <li>Naming</li>
+    <ul>
+      <li>Variables are snake_case</li>
+      <li>Functions and classes are TitleCase</li>
+      <li>Constexpr variables are CAPS_SNAKE_CASE</li>
+      <li>Member variables are always followed by an _</li>
+    </ul>
+  </li>
+
+<h2>The detailed style guide</h2>
+  We don't expect you to remember, or even read, all of this. The style guide is very long, but should answer most questions you have about the best style for something.
 <div class="horizontal_toc" id="tocDiv"><div class="toc_title"></div><h3 class="ignoreLink" id="toc">Table of Contents</h3><table><tbody valign="top" class="toc"><tr valign="top"><td><div class="toc_category"><a href="#C++_Version">C++ Version</a></div></td><td><div class="toc_stylepoint"></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Header_Files">Header Files</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Self_contained_Headers">Self-contained Headers</a></li><li class="toc_entry"><a href="#The__define_Guard">The #define Guard</a></li><li class="toc_entry"><a href="#Forward_Declarations">Forward Declarations</a></li><li class="toc_entry"><a href="#Inline_Functions">Inline Functions</a></li><li class="toc_entry"><a href="#Names_and_Order_of_Includes">Names and Order of Includes</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Scoping">Scoping</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Namespaces">Namespaces</a></li><li class="toc_entry"><a href="#Unnamed_Namespaces_and_Static_Variables">Unnamed Namespaces and Static
 Variables</a></li><li class="toc_entry"><a href="#Nonmember,_Static_Member,_and_Global_Functions">Nonmember, Static Member, and Global Functions</a></li><li class="toc_entry"><a href="#Local_Variables">Local Variables</a></li><li class="toc_entry"><a href="#Static_and_Global_Variables">Static and Global Variables</a></li><li class="toc_entry"><a href="#thread_local">thread_local Variables</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Classes">Classes</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Doing_Work_in_Constructors">Doing Work in Constructors</a></li><li class="toc_entry"><a href="#Implicit_Conversions">Implicit Conversions</a></li><li class="toc_entry"><a href="#Copyable_Movable_Types">Copyable and Movable Types</a></li><li class="toc_entry"><a href="#Structs_vs._Classes">Structs vs. Classes</a></li><li class="toc_entry"><a href="#Inheritance">Inheritance</a></li><li class="toc_entry"><a href="#Operator_Overloading">Operator Overloading</a></li><li class="toc_entry"><a href="#Access_Control">Access Control</a></li><li class="toc_entry"><a href="#Declaration_Order">Declaration Order</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Functions">Functions</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Output_Parameters">Output Parameters</a></li><li class="toc_entry"><a href="#Write_Short_Functions">Write Short Functions</a></li><li class="toc_entry"><a href="#Reference_Arguments">Reference Arguments</a></li><li class="toc_entry"><a href="#Function_Overloading">Function Overloading</a></li><li class="toc_entry"><a href="#Default_Arguments">Default Arguments</a></li><li class="toc_entry"><a href="#trailing_return">Trailing Return Type Syntax</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Google-Specific_Magic">Google-Specific Magic</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Ownership_and_Smart_Pointers">Ownership and Smart Pointers</a></li><li class="toc_entry"><a href="#cpplint">cpplint</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Other_C++_Features">Other C++ Features</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Rvalue_references">Rvalue References</a></li><li class="toc_entry"><a href="#Friends">Friends</a></li><li class="toc_entry"><a href="#Exceptions">Exceptions</a></li><li class="toc_entry"><a href="#noexcept">noexcept</a></li><li class="toc_entry"><a href="#Run-Time_Type_Information__RTTI_">Run-Time Type
 Information (RTTI)</a></li><li class="toc_entry"><a href="#Casting">Casting</a></li><li class="toc_entry"><a href="#Streams">Streams</a></li><li class="toc_entry"><a href="#Preincrement_and_Predecrement">Preincrement and Predecrement</a></li><li class="toc_entry"><a href="#Use_of_const">Use of const</a></li><li class="toc_entry"><a href="#Use_of_constexpr">Use of constexpr</a></li><li class="toc_entry"><a href="#Integer_Types">Integer Types</a></li><li class="toc_entry"><a href="#64-bit_Portability">64-bit Portability</a></li><li class="toc_entry"><a href="#Preprocessor_Macros">Preprocessor Macros</a></li><li class="toc_entry"><a href="#0_and_nullptr/NULL">0 and nullptr/NULL</a></li><li class="toc_entry"><a href="#sizeof">sizeof</a></li><li class="toc_entry"><a href="#auto">auto</a></li><li class="toc_entry"><a href="#Braced_Initializer_List">Braced Initializer List</a></li><li class="toc_entry"><a href="#Lambda_expressions">Lambda expressions</a></li><li class="toc_entry"><a href="#Template_metaprogramming">Template metaprogramming</a></li><li class="toc_entry"><a href="#Boost">Boost</a></li><li class="toc_entry"><a href="#std_hash">std::hash</a></li><li class="toc_entry"><a href="#C++11">C++11</a></li><li class="toc_entry"><a href="#Nonstandard_Extensions">Nonstandard Extensions</a></li><li class="toc_entry"><a href="#Aliases">Aliases</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Naming">Naming</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#General_Naming_Rules">General Naming Rules</a></li><li class="toc_entry"><a href="#File_Names">File Names</a></li><li class="toc_entry"><a href="#Type_Names">Type Names</a></li><li class="toc_entry"><a href="#Variable_Names">Variable Names</a></li><li class="toc_entry"><a href="#Constant_Names">Constant Names</a></li><li class="toc_entry"><a href="#Function_Names">Function Names</a></li><li class="toc_entry"><a href="#Namespace_Names">Namespace Names</a></li><li class="toc_entry"><a href="#Enumerator_Names">Enumerator Names</a></li><li class="toc_entry"><a href="#Macro_Names">Macro Names</a></li><li class="toc_entry"><a href="#Exceptions_to_Naming_Rules">Exceptions to Naming Rules</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Comments">Comments</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Comment_Style">Comment Style</a></li><li class="toc_entry"><a href="#File_Comments">File Comments</a></li><li class="toc_entry"><a href="#Class_Comments">Class Comments</a></li><li class="toc_entry"><a href="#Function_Comments">Function Comments</a></li><li class="toc_entry"><a href="#Variable_Comments">Variable Comments</a></li><li class="toc_entry"><a href="#Implementation_Comments">Implementation Comments</a></li><li class="toc_entry"><a href="#Punctuation,_Spelling_and_Grammar">Punctuation, Spelling and Grammar</a></li><li class="toc_entry"><a href="#TODO_Comments">TODO Comments</a></li><li class="toc_entry"><a href="#Deprecation_Comments">Deprecation Comments</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Formatting">Formatting</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Line_Length">Line Length</a></li><li class="toc_entry"><a href="#Non-ASCII_Characters">Non-ASCII Characters</a></li><li class="toc_entry"><a href="#Spaces_vs._Tabs">Spaces vs. Tabs</a></li><li class="toc_entry"><a href="#Function_Declarations_and_Definitions">Function Declarations and Definitions</a></li><li class="toc_entry"><a href="#Formatting_Lambda_Expressions">Lambda Expressions</a></li><li class="toc_entry"><a href="#Function_Calls">Function Calls</a></li><li class="toc_entry"><a href="#Braced_Initializer_List_Format">Braced Initializer List Format</a></li><li class="toc_entry"><a href="#Conditionals">Conditionals</a></li><li class="toc_entry"><a href="#Loops_and_Switch_Statements">Loops and Switch Statements</a></li><li class="toc_entry"><a href="#Pointer_and_Reference_Expressions">Pointer and Reference Expressions</a></li><li class="toc_entry"><a href="#Boolean_Expressions">Boolean Expressions</a></li><li class="toc_entry"><a href="#Return_Values">Return Values</a></li><li class="toc_entry"><a href="#Variable_and_Array_Initialization">Variable and Array Initialization</a></li><li class="toc_entry"><a href="#Preprocessor_Directives">Preprocessor Directives</a></li><li class="toc_entry"><a href="#Class_Format">Class Format</a></li><li class="toc_entry"><a href="#Constructor_Initializer_Lists">Constructor Initializer Lists</a></li><li class="toc_entry"><a href="#Namespace_Formatting">Namespace Formatting</a></li><li class="toc_entry"><a href="#Horizontal_Whitespace">Horizontal Whitespace</a></li><li class="toc_entry"><a href="#Vertical_Whitespace">Vertical Whitespace</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Exceptions_to_the_Rules">Exceptions to the Rules</a></div></td><td><div class="toc_stylepoint"><li class="toc_entry"><a href="#Existing_Non-conformant_Code">Existing Non-conformant Code</a></li><li class="toc_entry"><a href="#Windows_Code">Windows Code</a></li></div></td></tr><tr valign="top"><td><div class="toc_category"><a href="#Parting_Words">Parting Words</a></div></td><td><div class="toc_stylepoint"></div></td></tr></tbody></table><div class="toc_title"></div><h3 class="ignoreLink" id="toc">Table of Contents</h3><table><tbody valign="top" class="toc"></tbody></table></div>
@@ -933,13 +960,13 @@ void foo() {
 }
 
 // allowed: constexpr guarantees trivial destructor
-constexpr std::array&lt;int, 3&gt; kArray = {{1, 2, 3}};</pre>
+constexpr std::array&lt;int, 3&gt; ARRAY = {{1, 2, 3}};</pre>
 <pre class="badcode">// bad: non-trivial destructor
-const string kFoo = "foo";
+const string FOO = "foo";
 
-// bad for the same reason, even though kBar is a reference (the
+// bad for the same reason, even though BAR is a reference (the
 // rule also applies to lifetime-extended temporary objects)
-const string&amp; kBar = StrCat("a", "b", "c");
+const string&amp; BAR = StrCat("a", "b", "c");
 
 void bar() {
   // bad: non-trivial destructor
@@ -4287,13 +4314,12 @@ versus a class.</p>
 
 <div class="summary">
   <p>Variables declared constexpr or const, and whose value is fixed for
-  the duration of the program, are named with a leading "k" followed
-  by mixed case. Underscores can be used as separators in the rare cases
-  where capitalization cannot be used for separation. For example:</p>
+  the duration of the program, are named with CAPS_CASE.
+  For example:</p>
 </div>
 
-<pre>const int kDaysInAWeek = 7;
-const int kAndroid8_0_0 = 24;  // Android 8.0.0
+<pre>const int DAYS_IN_A_WEEK = 7;
+const int ANDROID_8_0_0 = 24;  // Android 8.0.0
 </pre>
 
 <div class="stylebody">
@@ -5439,8 +5465,8 @@ line if this enhances readability. You may use this only
 when the line is brief and the statement does not use the
 <code>else</code> clause.</p>
 
-<pre>if (x == kFoo) return new Foo();
-if (x == kBar) return new Bar();
+<pre>if (x == FOO) return new Foo();
+if (x == BAR) return new Bar();
 </pre>
 
 <p>This is not allowed when the if statement has an
