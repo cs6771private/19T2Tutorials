@@ -2,7 +2,7 @@
 
 int main() {
   std::string buffer;
-  std::cin >> buffer;
+  getline(std::cin, buffer);
   std::cout << buffer << "\n";
   return 0;
 }
