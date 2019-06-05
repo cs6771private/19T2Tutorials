@@ -110,29 +110,13 @@ con cot cat
 
 <p>Here is a development plan to help you if you're struggling to figure out how to approach the problem</p>
 
-<h4>Task 1: Get familiar with STL and Lexicon classes</h4>
-<p>You've seen std::vector and std::queue in lectures during week 2, but <b>Lexicon</b> is new. The document <b>lexicon.pdf</b> which appears in the repository (see below) outlines everything you need to know about the Lexicon, so make sure you can read it (it's really very easy). In addition, you should also read the interface provided in <b>lexicon.h</b>. Note that all words in the provided English dictionary are stored in lower case. The fuctionality given in lexicon.h for the member function containsWord(w) is repeated here. </p>
-
-<pre><code>
-/*
-* Member function: containsWord
-* Usage: if (lex.containsWord(‘‘happy’’))...
-* ----------------------------------------
-* This member function returns true if word is contained in this lexicon,
-* false otherwise. Words are considered case-insensitively, ‘‘zoo’’ is the
-* same as ‘‘ZOO’’ or ‘‘zoo’’. */
-bool containsWord(string word);
-</code></pre>
-
-<p>You dont need to know the implementation details of Lexicon in order to use it</p>
-
-<h4>Step 2: Conceptualise algorithm and design your data structure</h4>
+<h4>Step 1: Conceptualise algorithm and design your data structure</h4>
 <p>Be sure you understand the breadth-first search algorithm and what the various data types you will be using
 
-<h4>Step 3: Dictionary handling</h4>
+<h4>Step 2: Dictionary handling</h4>
 <p>Set up a <b>Lexicon</b> object with the large dictionary read from our data file. Write a function that will iteratively construct strings that are one letter different from a given word and run them by the dictionary to determine which strings are words. Why not add some testing code that lets the user enter a word and prints a list of all words that are one letter different so you can verify that it is working!
 
-<h4>Step 4: Implement breadth-first search</h4>
+<h4>Step 3: Implement breadth-first search</h4>
 <p>The code is not long, but it can be dense, and definitely requires understanding how a BFS works. We recommend practicing the BFS logic on a test data set until you're confident your algorith mis working.</p>
 
 <h3>Getting Started</h3>
@@ -150,20 +134,28 @@ bool containsWord(string word);
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td>EnglishWords.dat</td>
-		<td>Our English dictionary containing 127142 words</td>
+		<td>word_ladder.cpp</td>
+		<td>Your implementation of the word ladder function(s)</td>
 	</tr>
 	<tr>
-		<td>WordLadder.cpp</td>
-		<td>Your implementation of WordLadder</td>
+		<td>word_ladder_test.cpp</td>
+		<td>Catch2 test files that you will write to test your code</td>
 	</tr>
 	<tr>
-		<td>lexico.*</td>
-		<td>The implementation of a lexicon</td>
+		<td>word_ladder_main.cpp</td>
+		<td>Your main function that takes input and produces output as per the assignment spec by using your word_ladder.cpp function(s)</td>
 	</tr>
 	<tr>
-		<td>genlib.*, strutils.*</td>
-		<td>Some utility functions used in implementing lexicon object</td>
+		<td>word_ladder.h</td>
+		<td>Header file for all word ladder cpp files</td>
+	</tr>
+	<tr>
+		<td>words.txt</td>
+		<td>Full list of valid words in the lexicon</td>
+	</tr>
+	<tr>
+		<td>BUILD</td>
+		<td>Build file containing build, test, dependency instructions</td>
 	</tr>
 </table>
 
