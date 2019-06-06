@@ -110,14 +110,11 @@ con cot cat
 
 <p>Here is a development plan to help you if you're struggling to figure out how to approach the problem</p>
 
-<h4>Step 1: Conceptualise algorithm and design your data structure</h4>
-<p>Be sure you understand the breadth-first search algorithm and what the various data types you will be using
+<h4>Step 1: Dictionary handling</h4>
+<p>Use lexicon.cpp to set up write function(s) that will iteratively construct strings that are one letter different from a given word and run them by the dictionary to determine which strings are words. Why not add some testing code that lets the user enter a word and prints a list of all words that are one letter different so you can verify that it is working!
 
-<h4>Step 2: Dictionary handling</h4>
-<p>Set up a <b>Lexicon</b> object with the large dictionary read from our data file. Write a function that will iteratively construct strings that are one letter different from a given word and run them by the dictionary to determine which strings are words. Why not add some testing code that lets the user enter a word and prints a list of all words that are one letter different so you can verify that it is working!
-
-<h4>Step 3: Implement breadth-first search</h4>
-<p>The code is not long, but it can be dense, and definitely requires understanding how a BFS works. We recommend practicing the BFS logic on a test data set until you're confident your algorith mis working.</p>
+<h4>Step 2: Implement breadth-first search</h4>
+<p>Impement function(s) to apply a breadth-first search algorithm starting from your initial word and using the capabilities you created in the first step. We recommend practicing the BFS logic on a test data set until you're confident your algorith mis working.</p>
 
 <h3>Getting Started</h3>
 
@@ -127,7 +124,7 @@ con cot cat
 
 <p>Then navigate to the <b>assignments/wl</b> directory</p>
 
-<p>Here is a list of files that and a description of their purpose:</p>
+<p>All of the files you need are in this directory. Here is a list of files that and a description of their purpose:</p>
 <table>
 	<tr>
 		<th>File</th>
@@ -142,7 +139,7 @@ con cot cat
 		<td>Catch2 test files that you will write to test your code</td>
 	</tr>
 	<tr>
-		<td>word_ladder_main.cpp</td>
+		<td>main.cpp</td>
 		<td>Your main function that takes input and produces output as per the assignment spec by using your word_ladder.cpp function(s)</td>
 	</tr>
 	<tr>
@@ -152,6 +149,14 @@ con cot cat
 	<tr>
 		<td>words.txt</td>
 		<td>Full list of valid words in the lexicon</td>
+	</tr>
+	<tr>
+		<td>lexicon.cpp</td>
+		<td>File that gets the words from a lexicon and stores it in a set of strings for you to use</td>
+	</tr>
+	<tr>
+		<td>lexicon.h</td>
+		<td>Header file for lexicon.cpp</td>
 	</tr>
 	<tr>
 		<td>BUILD</td>
@@ -170,11 +175,11 @@ The assessment for the assignment recognizes the difficulty of the task, the imp
     <P>
 The correctness of your program will be determined automatically by tests that we will run against your program. You will not know the full sample of tests used prior to marking.
 
-<tr><td align=right>25%<td><b>Your tests</b><br />TBD
+<tr><td align=right>25%<td><b>Your tests</b><br />You are required to write your own tests to ensure your program works. We will be assessing you on the extensiveness and thoughtfulness of your tests. You will write tests in <code>word_ladder_test.cpp</code>. At the top of this file you will also include a block comment to explain the rational and approach you took to writing tests. Please read the <a href="https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md">Catch2 tutorial</a> or review lecture/tutorial content to see how to write tests.
 
-<tr><td align=right>20%<td><b>C++ Style</b><br />Your adherence to good C++ style. This means your code should not be C-style.
+<tr><td align=right>20%<td><b>C++ style</b><br />Your adherence to good C++ style. This is <b>not</b> saying that if you conform to the style guide you will receive full marks for this section. This 20% is based on how well you use modern C++ methodologies taught in this course as oposed to using backwards-compatible C methods. Examples include: Not using primitive arrays and not using pointers.
 
-<tr><td align=right>50%<td><b>Linter Compliance</b><br />cpplint / clang-format
+<tr><td align=right>5%<td><b>Linter Compliance</b><br />A score of 5% that you receive if your coded passed the cpplint that we have provided as part of the VM.
 
 </table>
 
