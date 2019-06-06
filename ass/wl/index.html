@@ -8,18 +8,18 @@
 </a>
 <h3>Overview</h3>
 
-In Week 2 we are learning about C++ STL, and this assignment is your chance to practice those skills.
+In Week 2 we are learning about the C++ STL, and this assignment is your chance to practice those skills.
 
 <h3>Introduction</h3>
 
-<p>Your task is to write a program to build <b>word ladders</b>. You will leverage C++ STL containers std::vector, std::queue, and std::set to complete this task.</p>
+<p>Your task is to write a program to build <b>word ladders</b>. You will leverage the C++ standard containers <code>std::vector</code>, <code>std::queue</code>, and <code>std::set</code> to complete this task.</p>
 
-<p>A word ladder is a connection from one word to another word formed by changing one letter at a time with the constraint that at each step the sequence of letters still forms a valid word. For example, here is a word ladder connecting "code" to "data".:</p>
+<p>A word ladder is a connection from one word to another word formed by changing one letter at a time with the constraint that at each step the sequence of letters still forms a valid word. For example, here is a word ladder connecting "code" to "data":</p>
 <pre>code -> cade -> cate -> date -> data</pre>
 
-<p>You will ask the user to enter a start and a destination word and then your program is to find a word ladder between them if one exists. By using an algorithm known as breadth-first search, you are guaranteed to find the shortest such sequence.</p>
+<p>You will ask the user to enter a start and a destination word, and then your program should find a word ladder between them if one exists. By using an algorithm known as breadth-first search, you are guaranteed to find the shortest such sequence.</p>
 
-<p>Here is some sample output of the word ladder program (with at most one solution shown here for illustration purposes):</p>
+<p>Here is some sample output of the word ladder program (with at most one solution shown here for illustrative purposes):</p>
 
 <pre>
 Enter start word (RETURN to quit): work
@@ -37,7 +37,7 @@ No ladder found.
 
 <h3>Exploring the problem</h3>
 
-<p>Finding a word ladder is a specific instance of a shortest path problem, where the challenge is to find the
+<p>Finding a word ladder is a specific instance of the shortest path problem, where the challenge is to find the
 shortest path from a starting position to a goal. Shortest path problems come up in a variety of situations
 such as packet routing, robot motion planning, social networks, studying gene mutations, and more. One
 approach for finding a shortest path is the classic algorithm known as breadth-first search. A breadth-first
@@ -62,23 +62,23 @@ differ by one letter from a given word. A simple loop can change the first lette
 in the alphabet and ask the lexicon if that transformation results in a valid word. Repeat that for each letter
 position in the given word and you will have discovered all the words that are one letter away.</p>
 
-<p>Another issue that is a bit subtle is the restriction that you not re-use words that have been included in a
-previous and shorter ladder. This is an optimization that avoids exploring redundant paths. For example, if
-you have previously tried the ladder cat -> cot -> cog and are now processing cat -> cot -> con, you
-would find the word cog one letter away from con, so looks like a potential candidate to extend this ladder. 
-However, cog has already been reached in an earlier and shorter ladder, and there is no point in re-considering 
+<p>Another subtle issue is the restriction that you may not re-use words that have been included in a
+previous (and shorter) ladder. This is an optimization that avoids exploring redundant paths. For example, if
+you have previously tried the ladder <code>cat -> cot -> cog</code> and are now processing <code>cat -> cot -> con</code>, you
+would find the word <code>cog</code> one letter away from <code>con</code>, so <code>cog</code> looks like a potential candidate to extend this ladder. 
+However, <code>cog</code> has already been reached in an earlier and shorter ladder, and there is no point in re-considering 
 it in a longer ladder.</p>
 
-<p>Finally, you need to avoid unwanted loops or redundant paths such as a circular ladder like:</p>
+<p>Finally, you need to avoid unwanted loops or redundant paths, such as in a circular ladder like:</p>
 
 <pre>cat -> cot -> cog -> bog -> bat -> cat</pre>
 
 <p>Since you need linear access to all of the items in a word ladder when time comes to print it, it makes sense to
-model a word ladder using a vector&lt;string&gt;. And remember that you can make a copy of a vector&lt;string&gt;
-by just assigning it to be equal to another via traditional assignment (i.e., vector&lt;string&gt; wordLadderClone
-= wordLadder).
+model a word ladder using a <code>vector&lt;string&gt;</code>. And remember that you can make a copy of a <code>vector&lt;string&gt;</code>
+by just assigning it to be equal to another via traditional assignment (i.e., <code>vector&lt;string&gt; wordLadderClone
+= wordLadder</code>).
 
-<h4>If more than one shortest path</h4>
+<h4>If there is more than one shortest path</h4>
 
 <p>In this case, your implementation must print all solutions as follows:</p>
 <ul>
@@ -95,7 +95,7 @@ Found ladder: con can cat
 con cot cat
 </pre>
 
-<p>Please ensure all words outputted from the word ladder are lowercase</p>
+<p>Please ensure all words output from the word ladder are lowercase.</p>
 
 <h4>Implementation Hints</h4>
 
@@ -108,26 +108,26 @@ con cot cat
 
 <h3>The Task</h3>
 
-<p>Here is a development plan to help you if you're struggling to figure out how to approach the problem</p>
+<p>Here is a development plan to help you if you're struggling to figure out how to approach the problem:</p>
 
 <h4>Step 1: Conceptualise algorithm and design your data structure</h4>
-<p>Be sure you understand the breadth-first search algorithm and what the various data types you will be using
+<p>Be sure you understand the breadth-first search algorithm and what the various data types you will be using.
 
 <h4>Step 2: Dictionary handling</h4>
 <p>Set up a <b>Lexicon</b> object with the large dictionary read from our data file. Write a function that will iteratively construct strings that are one letter different from a given word and run them by the dictionary to determine which strings are words. Why not add some testing code that lets the user enter a word and prints a list of all words that are one letter different so you can verify that it is working!
 
 <h4>Step 3: Implement breadth-first search</h4>
-<p>The code is not long, but it can be dense, and definitely requires understanding how a BFS works. We recommend practicing the BFS logic on a test data set until you're confident your algorith mis working.</p>
+<p>The code is not long, but it can be dense, and definitely requires understanding how a BFS works. We recommend practicing the BFS logic on a test data set until you're confident your algorithm is working.</p>
 
 <h3>Getting Started</h3>
 
-<p>If you haven't done so already, clone the repository</p>
+<p>If you haven't done so already, clone the repository:</p>
 
 <pre>$ git clone https://github.com/cs6771/comp6771 comp6771</pre>
 
 <p>Then navigate to the <b>assignments/wl</b> directory</p>
 
-<p>Here is a list of files that and a description of their purpose:</p>
+<p>Here is a list of files and a description of their purpose:</p>
 <table>
 	<tr>
 		<th>File</th>
@@ -197,26 +197,26 @@ from any other person or jointly written with any other person is not permitted.
 The penalties for such an offence may include negative marks,
 automatic failure of the course and possibly other academic discipline.
 Assignment submissions will be examined both automatically and manually
-for such submissions.
+for such submissions.</p>
 <p>
 Relevant scholarship authorities will be informed if students holding scholarships
-are involved in an incident of plagiarism or other misconduct.
+are involved in an incident of plagiarism or other misconduct.</p>
 <p>
-Do not provide or show your assignment work to any other person - apart from the teaching staff
+Do not provide or show your assignment work to any other person &mdash; apart from the teaching staff
 of COMP6771.
 If you knowingly provide or show your assignment work to another person for any
-reason, and work derived from it is submitted you may be penalized, even
+reason, and work derived from it is submitted, you may be penalized, even
 if the work was submitted without your knowledge or consent.  This may
-apply even if your work is submitted by a third party unknown to you.
+apply even if your work is submitted by a third party unknown to you.</p>
 <p>
-Note, you will not be penalized if your work has the potential to be taken without your consent or knowledge.
-<P>
+Note you will not be penalized if your work has the potential to be taken without your consent or knowledge.
+</p>
 
 <h3>Submission</h3>
 <P>
-This assignment is due Friday 21st of June 16:59:59
+This assignment is due Friday 21st of June, 16:59:59.
 Submit the assignment using this <I>give</I> command:
-<P>
+</P>
 <PRE>
 give cs6771 wordladder word_ladder.cpp word_ladder_test.cpp word_ladder.h
 </PRE>
