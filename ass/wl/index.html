@@ -12,7 +12,9 @@ In Week 2 we are learning about the C++ STL, and this assignment is your chance 
 
 <h3>Change Log</h3>
 <ul>
-  <li>No changes yet</li>
+  <li>09/06: Clarification on give command: Able to submit more than the core files if desired (but certainly not necessary)</li>
+  <li>09/06: First examples of word ladders now contain all of their possible outputs to avoid confusion.</li>
+  <li>09/06: Added line "In this assignment you may use any STL containers or algorithms that you see fit"</li>
 </ul>
 <h3>Introduction</h3>
 
@@ -23,16 +25,28 @@ In Week 2 we are learning about the C++ STL, and this assignment is your chance 
 
 <p>You will ask the user to enter a start and a destination word, and then your program should find a word ladder between them if one exists. By using an algorithm known as breadth-first search, you are guaranteed to find the shortest such sequence.</p>
 
-<p>Here is some sample output of the word ladder program (with at most one solution shown here for illustrative purposes):</p>
+<p>Here is some sample output of the word ladder program:</p>
 
 <pre>
 Enter start word (RETURN to quit): work
 Enter destination word: play
-Found ladder: work fork form foam flam flay play
+Found ladder: work fork form foam flam flay play 
+work pork perk peak pean plan play 
+work pork perk peak peat plat play 
+work pork perk pert peat plat play 
+work pork porn pirn pian plan play 
+work pork port pert peat plat play 
+work word wood pood plod ploy play 
+work worm form foam flam flay play 
+work worn porn pirn pian plan play 
+work wort bort boat blat plat play 
+work wort port pert peat plat play 
+work wort wert pert peat plat play
 
 Enter start word (RETURN to quit): awake
 Enter destination word: sleep
-Found ladder: awake aware sware share shire shirr shier sheer sheep sleep
+Found ladder: awake aware sware share sharn shawn shewn sheen sheep sleep 
+awake aware sware share shire shirr shier sheer sheep sleep
 
 Enter start word (RETURN to quit): airplane
 Enter destination word: tricycle
@@ -114,8 +128,8 @@ con cot cat
 
 <p>Here is a development plan to help you if you're struggling to figure out how to approach the problem</p>
 
-<h4>Task 1: Get familiar with the STL</h4>
-<p>You've seen std::vector and std::queue in lectures during week 2, but <b>std::set</b> is new. There's not a lot you'll need to do, but make sure you understand it.
+<h4>Step 1: Get familiar with the STL</h4>
+<p>You've seen std::vector and std::queue in lectures during week 2, but <b>std::set</b> is new. There's not a lot you'll need to do, but make sure you understand it. <b>In this assignment you may use any STL containers or algorithms that you see fit.</b></p>
 
 <h4>Step 2: Dictionary handling</h4>
 <p>In the starter code, we set up a std::set with the large dictionary read from our data file. Write a function that will iteratively construct strings that are one letter different from a given word and run them by the dictionary to determine which strings are words. You will be required to write tests for your code, but we are specifically not telling you what to test and what not to - we will leave that up to you. You may do as little or as much testing as you like (testing marking scheme will be in the marking criteria).
@@ -187,8 +201,14 @@ The correctness of your program will be determined automatically by tests that w
 
 <tr><td align=right>20%<td><b>C++ style</b><br />Your adherence to good C++ style. This is <b>not</b> saying that if you conform to the style guide you will receive full marks for this section. This 20% is also based on how well you use modern C++ methodologies taught in this course as opposed to using backwards-compatible C methods. Examples include: Not using primitive arrays and not using pointers.
 
-<tr><td align=right>5%<td><b>cpplint and clang-format</b><br />0 if either of them fail, 5 if they both pass. There is no in-between.
-
+<tr><td align=right>5%<td><b>cpplint and clang-format</b><br />
+In your project folder, run the following commands on all C++ files you submit:<br />
+<code>$ clang-format -i /path/to/file.cpp && python cpplint.py /path/to/file.cpp</code>
+<p>or (a shorthand equivalent)</p>
+<code>$ ./styleCheck.sh /path/to/file.cpp</code>
+<p>If the program outputs the following, you will receive full marks for this section (5%). Otherwise you will receive no marks.</p>
+<pre>Done processing assignments/wl/main.cpp
+Total errors found: 0</pre>
 
 </table>
 
@@ -232,8 +252,9 @@ This assignment is due <b>Friday 21st of June, 19:59:59</b>.
 Submit the assignment using this <I>give</I> command:
 </P>
 <PRE>
-give cs6771 wordladder main.cpp word_ladder.cpp word_ladder_test.cpp word_ladder.h
+give cs6771 wordladder main.cpp word_ladder.cpp word_ladder_test.cpp word_ladder.h *
 </PRE>
+<p>Note: The files above are the minimum required to submit. However, you can submit further files if you would like (e.g. if you create helper files). You can also submit your own BUILD file if varies from the one provided. Do not modify or submit lexicon.(cpp|h])</p>
 
 <h3>Late Submission Policy</h3>
 <p>
