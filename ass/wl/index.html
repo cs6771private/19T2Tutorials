@@ -16,6 +16,7 @@ In Week 2 we are learning about the C++ STL, and this assignment is your chance 
   <li>09/06: First examples of word ladders now contain all of their possible outputs to avoid confusion.</li>
   <li>09/06: Added line "In this assignment you may use any STL containers or algorithms that you see fit"</li>
   <li>09/06: 5% linter mark instructions given more clearly</li>
+  <li>09/06: Reference solution & time limit section added</li>
 </ul>
 <h3>Introduction</h3>
 
@@ -178,6 +179,19 @@ con cot cat
   </tr>
 </table>
 
+<H3>Reference Solution & Time Limits</H3>
+<p>A reference solution has been included in the word ladder folder (named "reference_solution").</p>
+<p>Your program must solve the problem in a time no greater than 10 times the time taken for the reference solution to complete it.</p>
+<p>For a given test file (e.g. test1, shown below) you can test the timing of the reference solution as follows:</p>
+<code>
+time ./reference_solution < test1
+</code>
+Where <b>test1</b> is:
+<pre>
+cat
+dog
+</pre>
+
 <H3>Assessment</H3>
 <P>
 This assignment will contribute 15% to your final mark.
@@ -187,7 +201,7 @@ The assessment for the assignment recognizes the difficulty of the task, the imp
 <table class="table table-bordered table-striped">
 <tr><td align=right>55%<td><b>Correctness</b><br />
     <P>
-The correctness of your program will be determined automatically by tests that we will run against your program. You will not know the full sample of tests used prior to marking.
+The correctness of your program will be determined automatically by tests that we will run against your program. You will not know the full sample of tests used prior to marking. Your program must also find the word ladder(s) for a given input in the time limit specified above.
 
 <tr><td align=right>20%<td><b>Your tests</b><br />
   You are required to write your own tests to ensure your program works.
