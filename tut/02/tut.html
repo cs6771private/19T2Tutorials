@@ -11,12 +11,23 @@ What is the difference between each kind of iterator?
   <li>Random-access iterator</li>
 </ul>
 <div class="answer">
-{{ include_code("solutions/test.c") }}
+  <ul>
+    <li>An input iterator allows read and increment. However, it cannot make multiple passes when incrementing</li>
+    <li>An output iterator allows write and increment. However, it cannot make multiple passes when incrementing</li>
+    <li>A forward iterator allows read, write and increment</li>
+    <li>A bidirectional iterator allows read, write, increment, and decrement</li>
+    <li>A random-access iterator allows read, write, increment, decrement, +x, and -x</li>
+  </ul>
+
+  Multiple passes means you can read an old value of an iterator (by copying the iterator and advancing a copy, for example).
 </div>
 </li>
 
 <li>
 What is different about a const iterator compared to a non-const iterator?
+<div class="answer">
+  A const iterator does not allow modification of the value that the iterator refers to.
+</div>
 </li>
 
 <li>
@@ -24,30 +35,20 @@ What kind of iterator is each of the following (and are the iterators const)?<br
 Which of these will compile, and which of these will not?<br />
 Note: std::list is a doubly linked list, and std::forward_list is a singly linked list.<br />
 
-<pre><code>
-  const std::vector&lt;int&gt vec;
-  std::list&lt;int&gt; li;
-  std::forward_list&lt;double&gt; forward_li;
-  std::string s;
-
-  vec.begin();
-  vec.cbegin();
-  (*vec.begin())++;
-  li.cbegin();
-  li.rbegin();
-  forward_li.cbegin();
-  (*forward_li.cbegin())++;
-  forward_li.crbegin();
-  s.begin();
-  std::back_inserter(vec);
-  std::back_inserter(li);
-  std::istream_iterator&lt;int&gt;(std::cin);
-  std::ostream_iterator&lt;int&gt;(std::cout, " ");
-</code></pre>
+{{ include_code("iteratorclass.cpp") }}
+<div class="answer">
+  {{ include_code "solutions/iteratorclass.cpp" }}
+</div>
+</li>
 
 <li>
 What is the relationship between containers, iterators, and algorithms?<br />
 Why is this relationship so important, and how does it help us as programmers<br >
-How does this relate to the DRY (don't repeat yourself) principle? 
+How does this relate to the DRY (don't repeat yourself) principle?
+  <div class="answer">
+    Each container defines an iterator. Iterators act as an API which is used by algorithms. The algorithms, despite knowing nothing about the containers, are able to access them through zero-overhead abstractions through iterators.<br/>
+    The relationship is very important, since it allows us to write generic code that doesn't need to be rewritten and retested for each different type. It also means that we can swap out types without the need to make many changes.<br/>
+    It relates to the DRY principle in that we need to write m Containers + n algorithms, instead of m containers * n algorithms.
+  </div>
 </li>
 {% endblock %}
