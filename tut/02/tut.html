@@ -32,11 +32,11 @@ Note: std::list is a doubly linked list, and std::forward_list is a singly linke
 
   vec.begin();
   vec.cbegin();
-  *vec.begin()++;
+  (*vec.begin())++;
   li.cbegin();
   li.rbegin();
   forward_li.cbegin();
-  *forward_li.cbegin()++;
+  (*forward_li.cbegin())++;
   forward_li.crbegin();
   s.begin();
   std::back_inserter(vec);
