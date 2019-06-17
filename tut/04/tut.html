@@ -2,6 +2,8 @@
 {% block questions %}
 
 <li>
+{{ include_code("questions/car.h") }}
+{{ include_code("questions/car.cpp") }}
 <ol>
   <li> <strong>Open tutorials/week3/car.(cpp/h) (you should have started on this last week):</strong></li>
   <li>Create a copy constructor, should the object count change?</li>
@@ -13,7 +15,7 @@
 </pre>
   The output should be:
 <pre>
-2
+2	
 3
 4
 5
@@ -21,6 +23,25 @@
 5
 </pre></li>
 </ol>
-
 </li>
+
+<li>
+Why are some operator overloads done as member functions, and others as friends?
+</li>
+
+<li>
+{{ include_code("questions/book.h") }}
+  <ol>
+	<li>Write the function definition for a constructor that takes values for name, author, isbn and price and uses a member initializer list to set the value of each data member.</li>
+	<li>Write the overloaded == operator to compare if two book objects are identical</li>
+	<li>Write the overloaded != operator that calls the already overloaded == operator to return true when two book objects are not identical. 
+	<li>Write the overloaded &lt;&lt; operator to print out the name, author, isbn and price of a book using std::cout</li>
+	<li>Write the overloaded type conversion operator to enable the conversion of the Book class to a std::string in the form of "author, name"</li>
+	<li>Create a main function that creates a std::vector&lt;book&gt;, add a few Book objects into the vector with different isbn numbers and prices</li>
+	<li>Write the overloaded &lt; operator to allow you to sort books by their isbn number. Test this in your main method using std::sort</li>
+	<li>Call std::sort again with a lamda function as the predicate that sorts the books by price.</li>
+  </ol>
+</li>
+
+
 {% endblock %}
