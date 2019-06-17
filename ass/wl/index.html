@@ -20,6 +20,7 @@ In Week 2 we are learning about the C++ STL, and this assignment is your chance 
   <li>10/06: Directory in which to call reference solution updated</li>
   <li>10/06: "You are allowed to have a trailing space at the end of each line." for each ladder you output. This now reflects the reference solution. Previously it said no trailing whitespace. If your program already accounted for having no trailing whitespace, you will not be penalised at all.</li>
   <li>15/06: Input and output words will be the same length during testing</li>
+  <li>18/06: Start and destination words will always be in the lexicon</li>
 </ul>
 <h3>Introduction</h3>
 
@@ -126,7 +127,7 @@ con cot cat
 <ul>
 	<li>The linear, random-access collection managed by a vector is deal for storing a word ladder</li>
 	<li>A queue object is a FIFO collection that is just what's needed to track those partial ladders under consideration. The ladders are enqueued (and thus dequeued) in order of length so as to find the shortest option first.</li>
-	<li>As a minor detail, it doesn't matter if the start and destination word are contained in the lexicon or not. You can eliminate non-words at the get-go if you like, or just allow them to fall through and be searched anyway. During marking, the start and destination words are always taken from the lexicon</li>
+	<li>The start and destination words are always taken from the lexicon</li>
 </ul>
 
 <h3>The Task</h3>
