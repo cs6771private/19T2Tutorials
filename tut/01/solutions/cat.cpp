@@ -12,10 +12,16 @@ int main() {
   std::string buffer;
 
 
-  //
+  // getline, although slower than fgets, is easier to use as
+  //  no explicit buffer size or maximum size is required. That's handled
+  //  by the steram and string object. fgets also doesn't work with
+  //  a string, but instead only a raw character array
   std::getline(std::cin, buffer);
 
-  //
+  // printf has some benefits such as complex format strings, however,
+  //  using streams and cout gives more power by allowing for the use
+  //  of operator overloading, so that objects themselves have more
+  //  control over how they're printed out
   std::cout << buffer << "\n";
   return 0;
 }
