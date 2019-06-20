@@ -33,21 +33,36 @@
     <li>Write a function that:
       <ol>
         <li>Takes in the word list and a string</li>
+        <div class="answer">
+          {{ include_code("solutions/dict1.cpp") }}
+        </div>
         <li>Uses standard algorithms to split the string into words, filtered to only words that are
           in the word dict, and reconstruct this into a string (hint: see std::istringstream,
           std::istream_iterator, std::copy_if, std::ostringstream, and std::ostream_iterator)
         </li>
+        <div class="answer">
+          {{ include_code("solutions/dict2.cpp") }}
+        </div>
       </ol>
     </li>
     <li>Discuss why separating your functions you want to test is a good idea</li>
+    <div class="answer">
+      You can't test any file with a main function in it. Additionally, testing is much easier when you have several small parts to test.
+    </div>
     <li>Assume now that the word list and strings are both very large. Discuss how we could make
       this code run much faster (hint: a different data structure may be required. Tutors, students
       should know the data type, but not what it is called in C++)
     </li>
+    <div class="answer">
+      A std::set would be faster. std::binary_search on a std::vector which was in sorted order would be faster still. std::unordered_set would be fastest.
+    </div>
     <li>Discuss the effect the use of automatic type deduction (through the use of auto keyword, and
       by not having to declare types at all when calling functions) on the quantity of code you had
       to change, and the depth of the testing required.
     </li>
+    <div class="answer">
+      When you change the type of the function, only the things that specifically declared their type had to be changed. Anything that declared itself as auto was able to use the same constructors.
+    </div>
   </ol>
 </li>
 
