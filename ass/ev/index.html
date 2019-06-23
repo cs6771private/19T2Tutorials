@@ -39,17 +39,17 @@ and its implementation in <code>EuclideanVector.cpp</code>.
 
 <table border="1" cellspacing="0">
   <tr><td>Constructor </td><td>Description and Hints</td><td>Examples</td></tr>
-  <tr><td>Constructor</td><td>A constructor that takes the number of dimensions (as an unsigned int) but no magnitudes, sets the magnitude in each dimension as 0.0. Hint: you may want to make this a delegating constructor to the next constructor below. <br>
+  <tr><td>Constructor</td><td>A constructor that takes the number of dimensions (as a uint32_t) but no magnitudes, sets the magnitude in each dimension as 0.0. Hint: you may want to make this a delegating constructor to the next constructor below. <br>
 This is the default constructor, with the default value
 being 1.
 </td><td><pre>(1) EuclideanVector a(1);
-(2) unsigned int i {3};
+(2) uint32_t i {3};
     EuclideanVector b(i);
 (3) EuclidenVector c; // or c{}
     // same as EuclidenVector c(1);
 </pre></td></tr>
-  <tr><td>Constructor</td><td>A constructor that takes the number of dimensions (as an unsigned int) and initialises the magnitude in each dimension as the second argument (a double)</td><td><pre>(1) EuclideanVector a(2,4.0);
-(2) unsigned int x {3};
+  <tr><td>Constructor</td><td>A constructor that takes the number of dimensions (as a uint32_t) and initialises the magnitude in each dimension as the second argument (a double)</td><td><pre>(1) EuclideanVector a(2,4.0);
+(2) uint32_t x {3};
     double y {3.24};
     EuclideanVector b(x,y);</pre></td></tr>
   <tr><td>Constructor</td><td>A constructor (or constructors) that takes the start and end of an
@@ -94,8 +94,8 @@ You must explicitly declare the destructor as default.
   <tr><td>Operation </td><td>Description and Hints</td><td>Examples</td></tr>
   <tr><td>Copy Assignment</td><td>A copy assignment operator overload</td><td><pre>EuclideanVector a {b};</pre></td></tr>
   <tr><td>Move Assignment</td><td>A move assignment operator</td><td><pre>EuclideanVector a {std::move(b};</pre></td></tr>
-  <tr><td>getNumDimensions()</td><td>Returns an unsigned int containing the number of dimensions in a particular vector</td><td><pre>a.getNumDimensions();</pre></td></tr>
-  <tr><td>get(unsigned int)</td><td>Returns a double, the value of the magnitude in the dimension given as the function parameter</td><td><pre>a.get(1);</pre></td></tr>
+  <tr><td>getNumDimensions()</td><td>Returns a uint32_t containing the number of dimensions in a particular vector</td><td><pre>a.getNumDimensions();</pre></td></tr>
+  <tr><td>get(uint32_t)</td><td>Returns a double, the value of the magnitude in the dimension given as the function parameter</td><td><pre>a.get(1);</pre></td></tr>
   <tr><td>getEuclideanNorm()</td><td>Returns the Euclidean norm of the vector as a double. The Euclidean norm is the square root of the sum of the squares of the magnitudes in each dimension. E.g, for the vector [1 2 3] the Euclidean norm is sqrt(1*1 + 2*2 + 3*3) = 3.74.
 Hint: the Euclidean norm should only be calculated when required and ideally should be cached if required again.</td><td><pre>a.getEuclideanNorm();</pre></td></tr>
   <tr><td>createUnitVector()</td><td>Returns an Euclidean vector that is the unit vector of *this vector. The magnitude for each dimension in the unit vector is the original vector's magnitude divided by the Euclidean norm.</td><td><pre>a.createUnitVector();</pre></td></tr>
@@ -119,53 +119,6 @@ EucilideanVector a;
 std::vector&lt;double&gt; vf = a;
 std::list&lt;double&gt; lf = a;
 </pre></td></tr>
-</table>
-
-<h3>Operator Overloads (Friends)</h3>
-
-<table>
-  <tr>
-  	<td><pre><code>a == b</code></pre></td>
-  	<td>None</td>
-  	<td>XXtrueYY if XXaYY and XXbYY have the same dimensions and for all {i, j}: a(i,j) = b(i,j)</td>
-  	<td>None</td>
-  </tr>
-  <tr>
-  	<td><pre><code>a != b</code></pre></td>
-  	<td>None</td>
-  	<td>XXtrueYY if XXaYY and XXbYY have different dimensions or for any {i, j}: a(i,j) != b(i,j)</td>
-  	<td>None</td>
-  </tr>
-  <tr>
-  	<td><pre><code>a + b</code></pre></td>
-  	<td>None</td>
-  	<td>A new matrix equal to the sum of XXaYY and XXbYY</td>
-  	<td>XXaYY and XXbYY have the same dimension</td>
-  </tr>
-  <tr>
-  	<td><pre><code>a - b</code></pre></td>
-  	<td>None</td>
-  	<td>A new matrix equal to the difference of XXaYY and XXbYY</td>
-  	<td>XXaYY and XXbYY have the same dimension</td>
-  </tr>
-  <tr>
-  	<td><pre><code>a * b</code></pre></td>
-  	<td>None</td>
-  	<td>A new matrix equal to the product of XXaYY and XXbYY</td>
-  	<td>XXa.cols() == b.rows()YY</td>
-  </tr>
-  <tr>
-  	<td><pre><code>transpose(a)</code></pre></td>
-  	<td>None</td>
-  	<td>A new matrix equal to the transpose of XXaYY</td>
-  	<td>None</td>
-  </tr>
-  <tr>
-  	<td><pre><code>os << a</code></pre></td>
-  	<td>Prints XXaYY to output stream XXosYY</td>
-  	<td>a reference to XXosYY</td>
-  	<td>None</td>
-  </tr>
 </table>
 
 <h3>Friends</h3>
