@@ -1,0 +1,476 @@
+{% extends "templates/base.html" %}
+
+{% block body_contents %}
+<div class="container">
+<div class="page-header">
+<h1>Assignment 1 - Word Ladder</h1>
+</div>
+</a>
+<h3>Overview</h3>
+
+In Week 2 we are learning about the C++ STL, and this assignment is your chance to practise those skills.
+
+<h3>Change Log</h3>
+<ul>
+  <li>09/06: Clarification on give command: Able to submit more than the core files if desired (but certainly not necessary)</li>
+  <li>09/06: First examples of word ladders now contain all of their possible outputs to avoid confusion.</li>
+  <li>09/06: Added line "In this assignment you may use any STL containers or algorithms that you see fit"</li>
+  <li>09/06: 5% linter mark instructions given more clearly</li>
+  <li>09/06: Reference solution & time limit section added</li>
+  <li>10/06: Directory in which to call reference solution updated</li>
+  <li>10/06: "You are allowed to have a trailing space at the end of each line." for each ladder you output. This now reflects the reference solution. Previously it said no trailing whitespace. If your program already accounted for having no trailing whitespace, you will not be penalised at all.</li>
+  <li>15/06: Input and output words will be the same length during testing</li>
+  <li>18/06: Start and destination words will always be in the lexicon</li>
+</ul>
+<h3>Introduction</h3>
+
+<p>Your task is to write a program to build <b>word ladders</b>. You will leverage the C++ standard containers <code>std::vector</code>, <code>std::queue</code>, and <code>std::set</code> to complete this task.</p>
+
+<p>A word ladder is a connection from one word to another word formed by changing one letter at a time with the constraint that at each step the sequence of letters still forms a valid word. For example, here is a word ladder connecting "code" to "data":</p>
+<pre>code -> cade -> cate -> date -> data</pre>
+
+<p>You will ask the user to enter a start and a destination word, and then your program should find a word ladder between them if one exists. By using an algorithm known as breadth-first search, you are guaranteed to find the shortest such sequence.</p>
+
+<p>Here is some sample output of the word ladder program:</p>
+
+<pre>
+Enter start word (RETURN to quit): work
+Enter destination word: play
+Found ladder: work fork form foam flam flay play 
+work pork perk peak pean plan play 
+work pork perk peak peat plat play 
+work pork perk pert peat plat play 
+work pork porn pirn pian plan play 
+work pork port pert peat plat play 
+work word wood pood plod ploy play 
+work worm form foam flam flay play 
+work worn porn pirn pian plan play 
+work wort bort boat blat plat play 
+work wort port pert peat plat play 
+work wort wert pert peat plat play
+
+Enter start word (RETURN to quit): awake
+Enter destination word: sleep
+Found ladder: awake aware sware share sharn shawn shewn sheen sheep sleep 
+awake aware sware share shire shirr shier sheer sheep sleep
+
+Enter start word (RETURN to quit): airplane
+Enter destination word: tricycle
+No ladder found.
+</pre>
+
+<h3>Exploring the problem</h3>
+
+<p>Finding a word ladder is a specific instance of the shortest path problem, where the challenge is to find the
+shortest path from a starting position to a goal. Shortest path problems come up in a variety of situations
+such as packet routing, robot motion planning, social networks, studying gene mutations, and more. One
+approach for finding a shortest path is the classic algorithm known as breadth-first search. A breadth-first
+search searches outward from the start in a radial fashion until it hits the goal. For word ladder, this means
+first examining those ladders that represent “one hop” (i.e. one changed letter) from the start. If any of
+these reaches the destination, we’re done. If not, the search now examines all ladders that add one more hop
+(i.e. two changed letters). By expanding the search at each step, all one-hop ladders are examined before
+two-hops, and three-hop ladders only considered if none of the one-hop nor two-hop ladders worked out, thus
+the algorithm is guaranteed to find the shortest successful ladder.</p>
+
+<p>Breadth-first is typically implemented using a queue. The queue is used to store partial ladders that
+represent possibilities to explore. The ladders are enqueued in order of increasing length. The first elements
+enqueued are all the one-hop ladders, followed by the two-hop ladders, and so on. Due to FIFO handling,
+ladders will be dequeued in order of increasing length. The algorithm operates by dequeueing the front ladder
+from the queue and determining if it reaches the goal. If it does, you have a complete ladder, and it is the
+shortest. If not, you take that partial ladder and extend it to reach words that are one more hop away, and
+enqueue those extended ladders onto the queue to be examined later. If you exhaust the queue of possibilities
+without having found a completed ladder, you can conclude that no ladder exists.</p>
+
+<p>A few of these tasks deserve a bit more explanation. For example, you will need to find all the words that
+differ by one letter from a given word. A simple loop can change the first letter to each of the other letters
+in the alphabet and ask the lexicon if that transformation results in a valid word. Repeat that for each letter
+position in the given word and you will have discovered all the words that are one letter away.</p>
+
+<p>Another subtle issue is the restriction that you may not re-use words that have been included in a
+previous (and shorter) ladder. This is an optimization that avoids exploring redundant paths. For example, if
+you have previously tried the ladder <code>cat -> cot -> cog</code> and are now processing <code>cat -> cot -> con</code>, you
+would find the word <code>cog</code> one letter away from <code>con</code>, so <code>cog</code> looks like a potential candidate to extend this ladder.
+However, <code>cog</code> has already been reached in an earlier and shorter ladder, and there is no point in re-considering
+it in a longer ladder.</p>
+
+<p>Finally, you need to avoid unwanted loops or redundant paths, such as in a circular ladder like:</p>
+
+<pre>cat -> cot -> cog -> bog -> bat -> cat</pre>
+
+<p>Since you need linear access to all of the items in a word ladder when time comes to print it, it makes sense to
+model a word ladder using a <code>vector&lt;string&gt;</code>. And remember that you can make a copy of a <code>vector&lt;string&gt;</code>
+by just assigning it to be equal to another via traditional assignment (i.e., <code>vector&lt;string&gt; wordLadderClone
+= wordLadder</code>).
+
+<h4>If there is more than one shortest path</h4>
+
+<p>In this case, your implementation must print all solutions as follows:</p>
+<ul>
+	<li>Each solution appears on a separate line (terminated by a newline). The very first one is printed after "Found ladder: ".</li>
+	<li>The words in each solution are separated by exactly one blank space. You are allowed to have a trailing space at the end of each line.</li>
+	<li>All solutions (considered as a string each) are printed in their lexicographic order</li>
+</ul>
+<p>Sample output:</p>
+
+<pre>
+Enter start word (RETURN to quit): con
+Enter destination word: cat
+Found ladder: con can cat
+con cot cat
+</pre>
+
+<p>Please ensure all words output from the word ladder are lowercase.</p>
+
+<h4>Implementation Hints</h4>
+
+<p>Please leverage STL libraries, such as:</p>
+<ul>
+	<li>The linear, random-access collection managed by a vector is deal for storing a word ladder</li>
+	<li>A queue object is a FIFO collection that is just what's needed to track those partial ladders under consideration. The ladders are enqueued (and thus dequeued) in order of length so as to find the shortest option first.</li>
+	<li>The start and destination words are always taken from the lexicon</li>
+</ul>
+
+<h2>The Task</h2>
+
+<h3>Constructors</h3>
+
+<table>
+  <tr>
+  	<th>Constructor</th>
+  	<th>Side-effects</th>
+  	<th>Error checking required</th>
+  </tr>
+  <tr>
+  	<td><pre><code>SMatrix(size_type, size_type);</code></pre></td>
+  	<td>Given <pre><code>SMatrix a(3, 5)</code></pre>, <pre><code>a</code></pre> is constructed as a 3 x 5 matrix (3 rows, 5 columns), with its entries being zero.</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>SMatrix(size_type size = 1)</code></pre></td>
+  	<td><p>Given <pre><code>SMatrix a(3)</code></pre>, <pre><code>a</code></pre> is constructed as square matrix of size 3 x 3, with its entries being zero. By default, a square matrix of size 1 x 1 is constructed. So this is the default constructor for this class.</p><p>This must be implemented as a <i>delegating constructor</i> that delegates its work to the constructor above.</p></td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>SMatrix(std::istream&)</code></pre></td>
+  	<td>Given <pre><code>Smatrix b(cin)</code></pre>, <pre><code>b</code></pre>is constructed based on a serialised representation read from the input stream <pre><code>cin</code></pre>which has exactly the same format as the one produced by the output operator.</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>SMatrix(const SMatrix&)</code></pre></td>
+  	<td>This is the copy constructor that implements copy semantics. Given <pre><code>Smatrix a = b</code></pre>, where <pre><code>b</code></pre>is an lvalue, this constructor will be called to initialise <pre><code>a</code></pre> as an identical copy of <pre><code>b</code></pre>while keeping <pre><code>b</code></pre>unchanged.</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>SMatrix(Smatrix &&)</code></pre></td>
+  	<td>This is the move constructor that implements move semantics. Given <pre><code>SMatrix a = b</code></pre>, where <pre><code>b</code></pre>is an rvalue, this constructor will be called to initialise <pre><code>a</code></pre> as an identical copy of <pre><code>b</code></pre>by moving the value from <pre><code>b</code></pre>to <pre><code>a</code></pre>. Please remember to leave the moved-from object <pre><code>b</code></pre>in a valid state. Its size must be set to 0 x 0</td>
+  	<td>No</td>
+  </tr>
+</table>
+
+<h4>Notes</h4>
+<ul>
+	<li>It's <b>very important</b> your constructors work. If we can't validly construct your objects, we can't test any of your other functions.</li>
+</ul>
+
+<h3>Operator Overloads (Instance)</h3>
+<table>
+  <tr>
+  	<td><pre><code>a = b</code>code></pre>pre>(copy assignment)</td>
+  	<td><pre><code>a</code></pre>becomes a copy of <pre><code>b</code>code></becomes>pre>(copy semantics)</td>
+  	<td>a reference to <pre><code>a</code></pre></td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a = b</code>code></pre>pre>(move assignment)</td>
+  	<td><pre><code>a</code></pre>becomes a copy of <pre><code>b</code>code></becomes>pre>(move semantics) - the moved from object <pre><code>b</code></pre>should be put in the same valid state as is the case for the move constructor (specified earlier)</td>
+  	<td>a reference to <pre><code>a</code></pre></td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a += b</code></pre></td>
+  	<td><pre><code>a</code></pre>is replaced with the sum of <pre><code>a</code></pre> and <pre><code>b</code></pre></td>
+  	<td>a reference to <pre><code>a</code></pre></td>
+  	<td><pre><code>a</code></pre>and <pre><code>b</code></pre>have the ame dimensions.</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a -= b</code></pre></td>
+  	<td><pre><code>a</code></pre>is replaced with the difference of <pre><code>a</code></pre> and <pre><code>b</code></pre></td>
+  	<td>a reference to <pre><code>a</code></pre></td>
+  	<td><pre><code>a</code></pre>and <pre><code>b</code></pre>have the ame dimensions.</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a *= b</code></pre></td>
+  	<td><pre><code>a</code></pre>is replaced with the product of <pre><code>a</code></pre> and <pre><code>b</code></pre></td>
+  	<td>a reference to <pre><code>a</code></pre></td>
+  	<td><pre><code>a.cols() == b.rows()</code></pre></td>
+  </tr>
+  <tr>
+  	<td><pre><code>a(i, j)</code></pre></td>
+  	<td>None</td>
+  	<td>The value of the (i,j)-th element of XXaYY</td>
+  	<td>values of <pre><code>i</code></pre>and <pre><code>j</code></pre>are in bounds</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a.rows()</code></pre></td>
+  	<td>None</td>
+  	<td>The number of rows in XXaYY</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a.cols()</code></pre></td>
+  	<td>None</td>
+  	<td>The number of cols in XXaYY</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a.setVal(i, j, v)</code></pre></td>
+  	<td>The value of the (i,j)-th element of XXaYY is set to XXvYY</td>
+  	<td>a reference to <pre><code>a</code></pre></td>
+  	<td>values of <pre><code>i</code></pre>and <pre><code>j</code></pre>are in bounds</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a.begin()</code></pre></td>
+  	<td>Set an internal pointer to the first element of XXaYY</td>
+  	<td>None</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a.end()</code></pre></td>
+  	<td>None</td>
+  	<td>XXtrueYY once internal pointer goes past the last element of XXaYY and XXfalseYY otherwise.</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a.next()</code></pre></td>
+  	<td>Move the internal pointer to the next element of XXaYY</td>
+  	<td>None</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a.value()</code></pre></td>
+  	<td>None</td>
+  	<td>The element value pointed to be the internal pointer</td>
+  	<td>No</td>
+  </tr>
+  <tr>
+  	<td><pre><code>identity(n)</code></pre> (static member)</td>
+  	<td>None</td>
+  	<td>a new matrix, the XXn x nYY identity matrix</td>
+  	<td>n > 0</td>
+  </tr>
+</table>
+
+<h3>Operator Overloads (Friends)</h3>
+
+<table>
+  <tr>
+  	<td><pre><code>a == b</code></pre></td>
+  	<td>None</td>
+  	<td>XXtrueYY if XXaYY and XXbYY have the same dimensions and for all {i, j}: a(i,j) = b(i,j)</td>
+  	<td>None</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a != b</code></pre></td>
+  	<td>None</td>
+  	<td>XXtrueYY if XXaYY and XXbYY have different dimensions or for any {i, j}: a(i,j) != b(i,j)</td>
+  	<td>None</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a + b</code></pre></td>
+  	<td>None</td>
+  	<td>A new matrix equal to the sum of XXaYY and XXbYY</td>
+  	<td>XXaYY and XXbYY have the same dimension</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a - b</code></pre></td>
+  	<td>None</td>
+  	<td>A new matrix equal to the difference of XXaYY and XXbYY</td>
+  	<td>XXaYY and XXbYY have the same dimension</td>
+  </tr>
+  <tr>
+  	<td><pre><code>a * b</code></pre></td>
+  	<td>None</td>
+  	<td>A new matrix equal to the product of XXaYY and XXbYY</td>
+  	<td>XXa.cols() == b.rows()YY</td>
+  </tr>
+  <tr>
+  	<td><pre><code>transpose(a)</code></pre></td>
+  	<td>None</td>
+  	<td>A new matrix equal to the transpose of XXaYY</td>
+  	<td>None</td>
+  </tr>
+  <tr>
+  	<td><pre><code>os << a</code></pre></td>
+  	<td>Prints XXaYY to output stream XXosYY</td>
+  	<td>a reference to XXosYY</td>
+  	<td>None</td>
+  </tr>
+</table>
+
+<h3>Internal iterator</h3>
+
+<p><b>This assignment involves creating a <i>fake</i> iterator. We will produce a proper iterator in assignment 3</b></p>
+
+<p>We will use 4 member functions XXbegin(), end(), next(), and value()YY.</p>
+
+<p>Our fake iterator will provide an enumerated/linear representation of the matrix. This means that it will print ou elements in each column one row at a time.</p>
+
+<h2>Getting Started</h2>
+
+<p>If you haven't done so already, clone the repository:</p>
+
+<pre>$ git clone https://github.com/cs6771/comp6771 comp6771</pre>
+
+<p>Then navigate to the <b>assignments/spc</b> directory</p>
+
+<p>All of the files you need are in this directory. Here is a list of files that and a description of their purpose:</p>
+<table>
+	<tr>
+		<th>File</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<th>main.cpp</th>
+		<th>The binary that will be ran</th>
+	</tr>
+	<tr>
+		<td>sparse_matrix.cpp/h</td>
+		<td>Your "library" of word ladder functions</td>
+	</tr>
+	<tr>
+		<td>sparse_matrix_test.cpp</td>
+		<td>Your tests for the library of word ladder functions</td>
+	</tr>
+	<tr>
+		<td>lexicon.cpp/h</td>
+		<td>The function to generate the set from the file</td>
+    </tr>
+    <tr>
+      <td>BUILD</td>
+      <td>Build file containing build, test, dependency instructions</td>
+    </tr>
+</table>
+
+<H3>Reference Solution & Time Limits</H3>
+<p>A reference solution has been included in the word ladder folder (named "reference_solution").</p>
+<p>Your program must solve the problem in a time no greater than 10 times the time taken for the reference solution to complete it.</p>
+<p>For a given test file (e.g. test1, shown below) you can test the timing of the reference solution as follows:</p>
+<pre><code>
+# Note: This must be run in the project directory
+time ./assignments/wl/reference_solution < test1
+</code></pre>
+Where <b>test1</b> is:
+<pre>
+cat
+dog
+</pre>
+
+<h3>Running your code</h3>
+
+From your project directory:
+
+<h4>Running</h4>
+
+<pre><code>$ bazel build //assignments/wl:main</code></pre>
+<pre><code>$ bazel run //assignments/wl:main</code></pre>
+
+<h4>Testing</h4>
+
+<pre><code>$ bazel build //assignments/wl:sparse_matrix_test</code></pre>
+<pre><code>$ ./bazel-bin/assignments/wl/sparse_matrix_test</code></pre>
+
+<H3>Assessment</H3>
+<P>
+This assignment will contribute 15% to your final mark.
+<P>
+The assessment for the assignment recognizes the difficulty of the task, the importance of style, and the importance of appropriate use of programming methods (e.g. using while loops instead of a dozen if statements).
+
+<table class="table table-bordered table-striped">
+<tr><td align=right>60%<td><b>Correctness</b><br />
+    <P>
+The correctness of your program will be determined automatically by tests that we will run against your program. You will not know the full sample of tests used prior to marking. Your program must also find the word ladder(s) for a given input in the time limit specified above.
+
+<tr><td align=right>20%<td><b>Your tests</b><br />
+  You are required to write your own tests to ensure your program works.
+  You will write tests in <code>sparse_matrix_test.cpp</code>. At the top of this file you will also include a block comment to explain the rational and approach you took to writing tests. Please read the <a href="https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md">Catch2 tutorial</a> or review lecture/tutorial content to see how to write tests.
+  Tests will be marked on several factors. These include, but are not limited to
+	<ul>
+    <li>Correctness - an incorrect test is worse than useless.</li>
+		<li>Coverage - your tests might be great, but if they don't cover the part that ends up failing, they weren't much good to you.</li>
+		<li>Brittleness - If you change your implementation, will the tests need to be changed (this generally means avoiding calling functions specific to your implementation where possible - ones that would be private if you were doing OOP).</li>
+		<li>Clarity - If your test case failed, it should be immediately obvious what went wrong (this means splitting it up into appropriately sized sub-tests, amongst other things).</li>
+	</ul>
+
+<tr><td align=right>15%<td><b>C++ style</b><br />Your adherence to good C++ style. This is <b>not</b> saying that if you conform to the style guide you will receive full marks for this section. This 20% is also based on how well you use modern C++ methodologies taught in this course as opposed to using backwards-compatible C methods. Examples include: Not using primitive arrays and not using pointers.
+
+<tr><td align=right>5%<td><b>cpplint and clang-format</b><br />
+In your project folder, run the following commands on all C++ files you submit:<br />
+<code>$ clang-format -i /path/to/file.cpp && python cpplint.py /path/to/file.cpp</code>
+<p>If the program outputs the following, you will receive full marks for this section (5%). Otherwise you will receive no marks.</p>
+<pre>Done processing assignments/smc/sparse_matrix.cpp
+Total errors found: 0</pre>
+
+</table>
+
+The following actions will result in a 0/100 mark for Word Ladder, and in some cases a 0 for COMP6771:
+<ul>
+<li>Knowingly providing your work to anyone and it is subsequently submitted (by anyone).
+<li>Submitting any other person's work. This includes joint work.
+<li>Submitting another person's work without their consent.
+</ul>
+
+<P>
+The lecturer may vary the assessment scheme after inspecting
+the assignment submissions but it will remain broadly similar to the description above.
+
+
+<h3>Originality of Work</h3>
+<P>
+The work you submit must be your own work.  Submission of work partially or completely derived
+from any other person or jointly written with any other person is not permitted.
+The penalties for such an offence may include negative marks,
+automatic failure of the course and possibly other academic discipline.
+Assignment submissions will be examined both automatically and manually
+for such submissions.</p>
+<p>
+Relevant scholarship authorities will be informed if students holding scholarships
+are involved in an incident of plagiarism or other misconduct.</p>
+<p>
+Do not provide or show your assignment work to any other person &mdash; apart from the teaching staff
+of COMP6771.
+If you knowingly provide or show your assignment work to another person for any
+reason, and work derived from it is submitted, you may be penalized, even
+if the work was submitted without your knowledge or consent.  This may
+apply even if your work is submitted by a third party unknown to you.</p>
+<p>
+Note you will not be penalized if your work has the potential to be taken without your consent or knowledge.
+</p>
+
+<h3>Submission</h3>
+<P>
+This assignment is due <b>Saturday 13th of July, 21:59:59</b>.
+Submit the assignment using this <I>give</I> command:
+</P>
+<PRE>
+give cs6771 sparsematrix sparse_matrix.cpp sparse_matrix.h sparse_matrix_test.cpp
+
+</PRE>
+
+<h3>Late Submission Policy</h3>
+<p>
+If your assignment is submitted after this date, each hour it is late reduces
+the maximum mark it can achieve by 2%.
+For example if an assignment worth 76% was submitted
+5 hours late, the late submission would have no effect (as maximum mark would be 90%).
+If the same assignment was submitted 30 hours late it would be awarded
+40%, the maximum mark it can achieve at that time.
+</div>
+
+
+{% endblock %}
+
+</div>
+
+</body>
+</html>
+
