@@ -18,8 +18,8 @@ table td, table th { padding: 3px; }
 <h2>1. Overview</h2>
 
 <p>Write a Euclidean Vector Class Library in C++, with
-its interface given in <code>EuclideanVector.h</code>
-and its implementation in <code>EuclideanVector.cpp</code>.
+its interface given in <code>euclidean_vector.h</code>
+and its implementation in <code>euclidean_vector.cpp</code>.
 
 <h3>1.1 Aims</h3>
 <ul>
@@ -368,7 +368,7 @@ operator/</td>
 
 <h3>3.6. Internal Representation</h3>
 
-<p>Your Euclidean Vector is <b>required</b> to store the magnitudes of each dimension inside of a unique_ptr. This is a unique_ptr to a C-style double array. This has been added as part of the stub to your EuclideanVector.h file.</p>
+<p>Your Euclidean Vector is <b>required</b> to store the magnitudes of each dimension inside of a unique_ptr. This is a unique_ptr to a C-style double array. This has been added as part of the stub to your euclidean_vector.h file.</p>
 
 <p>To create a dynamically allocated C-style double array and add it to a unique pointer, but not require any <i>direct</i> use of the new/malloc call, you can use the following:</p>
 
@@ -384,7 +384,7 @@ operator/</td>
 <h3>3.8. Other requirements</h3>
 You must:
 <ul>
-  <li>Include a header guard in EuclideanVector.h</li>
+  <li>Include a header guard in euclidean_vector.h</li>
   <li>Use C++17 style and methods</li>
   <li>Make sure that <i>all appropriate member functions</i> are const qualified</li>
 </ul>
@@ -392,7 +392,7 @@ You must:
 You must not:
 <ul>
   <li>Write to any files that aren't provided in the repo (e.g. storing your vector data in an auxilliary file)</li>
-  <li>Add a main function EuclideanVector.cpp</li>
+  <li>Add a main function euclidean_vector.cpp</li>
 </ul>
 
 <h2>4. Getting Started</h2>
