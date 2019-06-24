@@ -44,7 +44,7 @@ and its implementation in <code>EuclideanVector.cpp</code>.
     <td>Constructor</td>
     <td>Description and Hints</td>
     <td>Examples</td>
-    <th>Precondition & Exception thrown</th>
+    <th>Exception: Why thrown & what message</th>
   </tr>
   <tr>
     <td>Default Constructor</td>
@@ -53,7 +53,7 @@ and its implementation in <code>EuclideanVector.cpp</code>.
     This is the default constructor, with the default value being 1.<br />
     You can assume the integer input will always be non-negative.
 </td>
-<td><pre>(1) EuclideanVector a(1);
+<td><pre>(1) EuclideanVector a{1};
 (2) int i {3};
     EuclideanVector b(i);
 (3) EuclidenVector c; // or c{}
@@ -65,7 +65,7 @@ and its implementation in <code>EuclideanVector.cpp</code>.
     <td>Constructor</td>
     <td>EuclideanVector(int, double);</td>
     <td>A constructor that takes the number of dimensions (as a int) and initialises the magnitude in each dimension as the second argument (a double). You can assume the integer input will always be non-negative.</td>
-    <td><pre>(1) EuclideanVector a(2,4.0);
+    <td><pre>(1) EuclideanVector a{2, 4.0};
 (2) int x {3};
     double y {3.24};
     EuclideanVector b(x,y);</pre></td>
@@ -86,21 +86,21 @@ and its implementation in <code>EuclideanVector.cpp</code>.
   <tr>
     <td>Copy Constructor</td>
     <td>EuclideanVector(const EuclideanVector&)</td>
-    <td><pre>EuclideanVector aCopy(a);</pre></td>
+    <td><pre>EuclideanVector aCopy{a};</pre></td>
     <td>N/A</td>
   </tr>
   <tr>
     <td>Move Constructor</td>
     <td>EuclideanVector(EuclideanVector&&)</td>
-    <td><pre>EuclideanVector aMove(a);</pre></td>
+    <td><pre>EuclideanVector aMove{a};</pre></td>
     <td>N/A</td>
   </tr>
 </table>
 
 <h4>Example Usage</h4>
 <pre>
-EuclideanVector a(1);      // a Euclidean Vector in 1 dimension, with default magnitude 0.0.
-EuclideanVector b(2,4.0);    // a Euclidean Vector in 2 dimensions with magnitude 4.0 in both dimensions
+EuclideanVector a{1};      // a Euclidean Vector in 1 dimension, with default magnitude 0.0.
+EuclideanVector b{2, 4.0};    // a Euclidean Vector in 2 dimensions with magnitude 4.0 in both dimensions
 
 std::list&lt;double&gt; l;
 l.push_back(5.0);
@@ -126,13 +126,13 @@ You must explicitly declare the destructor as default.
     <th>Operator</th>
     <td>Description</td>
     <td>Examples</td>
-    <th>Precondition & Exception thrown</th>
+    <th>Exception: Why thrown & what message</th>
   </tr>
   <tr>
     <td>Copy Assignment</td>
     <td>operator=(const EuclideanVector&)</td>
     <td>A copy assignment operator overload</td>
-    <td><pre>EuclideanVector a = b;</pre></td>
+    <td><pre>a = b;</pre></td>
     <td>
       <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
       <b>When</b>: X != Y<br />
@@ -143,7 +143,7 @@ You must explicitly declare the destructor as default.
     <td>Move Assignment</td>
     <td>operator=(EuclideanVector&&)</td>
     <td>A move assignment operator</td>
-    <td><pre>EuclideanVector a  = std::move(b);</pre></td>
+    <td><pre>a  = std::move(b);</pre></td>
     <td>
       <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
       <b>When</b>: X != Y<br />
@@ -154,7 +154,7 @@ You must explicitly declare the destructor as default.
     <td>Subscript</td>
     <td>operator[]</td>
     <td>Allows to get and set
-the value in a given dimension of the Euclidean Vector. Hint: you may need two overloaded functions to achieve this requirement.</td>
+the value in a given dimension of the Euclidean Vector. Hint: you may need two overloaded functions to achieve this requirement.<br /><b>Note: It's a requirement you use asserts to ensure the index passed is valid.</b></td>
 <td><pre>double a {b[1]};
 b[2] = 3.0;</pre></td>
     <td>N/A</td>
@@ -210,7 +210,7 @@ a -= b;</pre></td>
 </tr>
   <tr>
     <td>Vector Type Conversion<br /></td>
-    <td>operator std::vector&lt;double&gt;()</td>
+    <td>explicit operator std::vector&lt;double&gt;()</td>
 <td>Operators for type casting to a <code>std::vector</code></td>
 <td><pre>
 EucilideanVector a;
@@ -220,7 +220,7 @@ std::vector&lt;double&gt; vf = a;
 </tr>
 <tr>
     <td>Vector Type Conversion<br /></td>
-    <td>operator std::list&lt;double&gt;()</td>
+    <td>explicit operator std::list&lt;double&gt;()</td>
 <td>Operators for type casting to a <code>std::list</code></td>
 <td><pre>
 EucilideanVector a;
@@ -237,7 +237,7 @@ std::list&lt;double&gt; lf = a;
     <th>Prototype</th>
     <th>Description</th>
     <th>Usage</th>
-    <th>Precondition & Exception thrown</th>
+    <th>Exception: Why thrown & what message</th>
   </tr>
   <tr>
     <td>double at(int)</td>
@@ -247,7 +247,7 @@ std::list&lt;double&gt; lf = a;
   </tr>
   <tr>
     <td>int GetNumDimensions()</td>
-    <td>Return the number of dimensions in a particular vector</td>
+    <td>Return the number of dimensions in a particular EuclideanVector</td>
     <td><pre>a.GetNumDimensions();</pre></td>
     <td>N/A</td>
   </tr>
@@ -262,8 +262,8 @@ std::list&lt;double&gt; lf = a;
     <td>Returns a Euclidean vector that is the unit vector of *this vector. The magnitude for each dimension in the unit vector is the original vector's magnitude divided by the Euclidean norm.</td>
     <td><pre>a.CreateUnitVector();</pre></td>
     <td>
-      <b>When</b>: X != Y<br />
-      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>When</b>: this->GetNumDimensions() == 0<br />
+      <b>Throw</b>: "EuclideanVector with no dimensions does not have a unit vector"
     </td>
   </tr>
 </table>
@@ -279,7 +279,7 @@ Note that these friend operations don't modify any of the given operands.
     <th>Operator</th>
     <th>Description</th>
     <th>Usage</th>
-    <th>Precondition & Exception thrown</th>
+    <th>Exception: Why thrown & what message</th>
   <tr>
     <td>Equal</td>
     <td>operator==</td>
@@ -370,9 +370,9 @@ operator/</td>
 
 <p>Your Euclidean Vector is <b>required</b> to store the magnitudes of each dimension inside of a unique_ptr. This is a unique_ptr to a C-style double array. This has been added as part of the stub to your EuclideanVector.h file.</p>
 
-<p>To create a dynamically allocated C-style double array and add it to a unique pointer, but not require any use of the new/malloc call, you can use the following:</p>
+<p>To create a dynamically allocated C-style double array and add it to a unique pointer, but not require any <i>direct</i> use of the new/malloc call, you can use the following:</p>
 
-<pre><code>unique_ptr&lt;double[]&gt; magnitudes_ = std::make_unqiue&lt;double[]&gt;(8); // 8 is an example</code></pre>
+<pre><code>unique_ptr&lt;double[]&gt; magnitudes_ = std::make_unique&lt;double[]&gt;(8); // 8 is an example</code></pre>
 
 <h3>3.7. Throwing Exceptions</h3>
 
