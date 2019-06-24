@@ -142,9 +142,9 @@ You must explicitly declare the destructor as default.
     <td>A copy assignment operator overload</td>
     <td><pre>EuclideanVector a {b};</pre></td>
     <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
   </tr>
   <tr>
@@ -153,9 +153,9 @@ You must explicitly declare the destructor as default.
     <td>A move assignment operator</td>
     <td><pre>EuclideanVector a {std::move(b};</pre></td>
     <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
   </tr>
   <tr>
@@ -173,9 +173,9 @@ b[2] = 3.0;</pre></td>
     <td>For adding vectors of the same dimension. </td>
     <td><pre>a += b;</pre></td>
     <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
   </tr>
   <tr>
@@ -186,9 +186,9 @@ b[2] = 3.0;</pre></td>
 <td><pre>
 a -= b;</pre></td>
 <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
 </tr>
   <tr>
@@ -199,9 +199,9 @@ a -= b;</pre></td>
 </td>
 <td><pre>a *= 3;</pre></td>
 <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
 </tr>
   <tr>
@@ -211,9 +211,9 @@ a -= b;</pre></td>
 <td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
 <td><pre>a /= 4;</pre></td>
 <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
 </tr>
   <tr>
@@ -334,9 +334,9 @@ Note that these friend operations don't modify any of the given operands.
     <td><pre>
 a = b + c;</pre></td>
     <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
   </tr>
   <tr>
@@ -347,9 +347,9 @@ a = b + c;</pre></td>
 <td><pre>
 a = b - c;</pre></td>
   <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
 </tr>
   <tr>
@@ -359,9 +359,9 @@ a = b - c;</pre></td>
 E.g., [1 2] * [3 4] = 1 * 3 + 2 * 4 = 11</td>
 <td><pre>double c {a * b};</pre></td>
     <td>
-      Given: X = a.getNumDimensions(), Y = b.getNumDimensions()
-      Precondition: X == Y<br />
-      Exception: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Given</b>: X = a.getNumDimensions(), Y = b.getNumDimensions()
+      <b>Precondition</b>: X == Y<br />
+      <b>Exception</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
 </tr>
   <tr>
