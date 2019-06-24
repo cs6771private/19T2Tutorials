@@ -6,65 +6,88 @@
 <h1>Assignment 2 - Euclidean Vector</h1>
 </div>
 </a>
-<h2>Overview</h2>
-
-<p>Write a Euclidean Vector Class Library in C++, with
-its interface given in <code>EuclideanVector.h</code>
-and its implementation in <code>EuclideanVector.cpp</code>.
-
-<h3>Aims</h3>
-<ul>
-  <li>Familiarity with C++ Classes</li>
-  <li>Constructors </li>
-  <li>Destructor </li>
-  <li>Uniform initialisation </li>
-  <li>Copy Control </li>
-  <li>Function Overloading</li>
-  <li>Operator Overloading</li>
-  <li>Friends </li>
-  <li>Exception throwing</li>
-  <li>Seperation of Interface from Implementation</li>
-</ul>
 
 <h3>Change Log</h3>
 <ul>
   <li></li>
 </ul>
 
-<h2>Introduction</h2>
+<h2>1. Overview</h2>
 
-<h2>Your task</h2>
+<p>Write a Euclidean Vector Class Library in C++, with
+its interface given in <code>EuclideanVector.h</code>
+and its implementation in <code>EuclideanVector.cpp</code>.
 
-<h3>Constructors</h3>
+<h3>1.1 Aims</h3>
+<ul>
+  <li>Familiarity with C++ Classes</li>
+  <li>Constructors </li>
+  <li>Uniform initialisation </li>
+  <li>Value semantics (Copy Control) </li>
+  <li>Function Overloading</li>
+  <li>Operator Overloading</li>
+  <li>Friends </li>
+  <li>Exception handling</li>
+  <li>Separation of Interface from Implementation</li>
+</ul>
 
-<table border="1" cellspacing="0">
-  <tr><td>Constructor </td><td>Description and Hints</td><td>Examples</td></tr>
-  <tr><td>Constructor</td><td>A constructor that takes the number of dimensions (as a uint32_t) but no magnitudes, sets the magnitude in each dimension as 0.0. Hint: you may want to make this a delegating constructor to the next constructor below. <br>
+<h2>2. Your task</h2>
+
+<h3>2.1 Constructors</h3>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <td>Constructor </td>
+    <td>Description and Hints</td>
+    <td>Examples</td>
+  </tr>
+  <tr>
+    <td>Constructor</td>
+    <td>A constructor that takes the number of dimensions (as a std::int32_t) but no magnitudes, sets the magnitude in each dimension as 0.0. Hint: you may want to make this a delegating constructor to the next constructor below. <br>
 This is the default constructor, with the default value
 being 1.
-</td><td><pre>(1) EuclideanVector a(1);
-(2) uint32_t i {3};
+</td>
+<td><pre>(1) EuclideanVector a(1);
+(2) std::int32_t i {3};
     EuclideanVector b(i);
 (3) EuclidenVector c; // or c{}
     // same as EuclidenVector c(1);
-</pre></td></tr>
-  <tr><td>Constructor</td><td>A constructor that takes the number of dimensions (as a uint32_t) and initialises the magnitude in each dimension as the second argument (a double)</td><td><pre>(1) EuclideanVector a(2,4.0);
-(2) uint32_t x {3};
+</pre></td>
+</tr>
+  <tr>
+    <td>Constructor</td>
+    <td>A constructor that takes the number of dimensions (as a std::int32_t) and initialises the magnitude in each dimension as the second argument (a double)</td>
+    <td><pre>(1) EuclideanVector a(2,4.0);
+(2) std::int32_t x {3};
     double y {3.24};
-    EuclideanVector b(x,y);</pre></td></tr>
-  <tr><td>Constructor</td><td>A constructor (or constructors) that takes the start and end of an
- iterator and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values. 
-  The iterators will be from std::vector or std::list. Hint: a function template may help.
-</td><td><pre>
+    EuclideanVector b(x,y);</pre></td>
+  </tr>
+  <tr>
+    <td>Constructor</td>
+    <td>A constructor (or constructors) that takes the start and end of an iterator and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values. The iterators will be from std::vector or std::list. Hint: a function template may help.</td>
+    <td><pre>
 (1) std::list<double> l;
     EuclideanVector a{l.begin(),l.end()};
 (2) std::vector<double> v;
     EuclideanVector b{v.begin(),v.end()};
-</pre></td></tr>
-  <tr><td>Constructor</td><td>An initialiser-list constructor that creates
-an Euclidean vector from a list of double values. See Pages 220 -- 224 of the text. </td><td><pre>EuclideanVector a {1,2,3,4};</pre></td></tr>
-  <tr><td>Constructor</td><td>A copy constructor</td><td><pre>EuclideanVector aCopy(a);</pre></td></tr>
-  <tr><td>Constructor</td><td>A move constructor</td><td><pre>EuclideanVector aMove(a);</pre></td></tr>
+</pre></td>
+</tr>
+  <tr>
+    <td>Constructor</td>
+    <td>An initialiser-list constructor that creates
+an Euclidean vector from a list of double values. See Pages 220 -- 224 of the text. </td>
+<td><pre>EuclideanVector a {1,2,3,4};</pre></td>
+</tr>
+  <tr>
+    <td>Constructor</td>
+    <td>A copy constructor</td>
+    <td><pre>EuclideanVector aCopy(a);</pre></td>
+  </tr>
+  <tr>
+    <td>Constructor</td>
+    <td>A move constructor</td>
+    <td><pre>EuclideanVector aMove(a);</pre></td>
+  </tr>
 </table>
 
 <h4>Example Usage</h4>
@@ -85,80 +108,161 @@ EuclideanVector c(l.begin(),l.end()); // a Euclidean Vector in 3 dimensions cons
 	<li>It's <b>very important</b> your constructors work. If we can't validly construct your objects, we can't test any of your other functions.</li>
 </ul>
 
-<h3>Destructor</h3>
+<h3>2.2. Destructor</h3>
 You must explicitly declare the destructor as default.
 
-<h3>Operations</h3>
+<h3>2.3. Operations</h3>
 
-<table border="1" cellspacing="0">
-  <tr><td>Operation </td><td>Description and Hints</td><td>Examples</td></tr>
-  <tr><td>Copy Assignment</td><td>A copy assignment operator overload</td><td><pre>EuclideanVector a {b};</pre></td></tr>
-  <tr><td>Move Assignment</td><td>A move assignment operator</td><td><pre>EuclideanVector a {std::move(b};</pre></td></tr>
-  <tr><td>getNumDimensions()</td><td>Returns a uint32_t containing the number of dimensions in a particular vector</td><td><pre>a.getNumDimensions();</pre></td></tr>
-  <tr><td>get(uint32_t)</td><td>Returns a double, the value of the magnitude in the dimension given as the function parameter</td><td><pre>a.get(1);</pre></td></tr>
-  <tr><td>getEuclideanNorm()</td><td>Returns the Euclidean norm of the vector as a double. The Euclidean norm is the square root of the sum of the squares of the magnitudes in each dimension. E.g, for the vector [1 2 3] the Euclidean norm is sqrt(1*1 + 2*2 + 3*3) = 3.74.
-Hint: the Euclidean norm should only be calculated when required and ideally should be cached if required again.</td><td><pre>a.getEuclideanNorm();</pre></td></tr>
-  <tr><td>createUnitVector()</td><td>Returns an Euclidean vector that is the unit vector of *this vector. The magnitude for each dimension in the unit vector is the original vector's magnitude divided by the Euclidean norm.</td><td><pre>a.createUnitVector();</pre></td></tr>
-  <tr><td>operator[]</td><td>Allows to get and set
-the value in a given dimension of the Euclidean Vector. Hint: you may need two overloaded functions to achieve this requirement.</td><td><pre>double a {b[1]};
-b[2] = 3.0;</pre></td></tr>
-  <tr><td>operator+=<br />
-</td><td>For adding vectors of the same dimension. </td><td><pre>
-a += b;</pre></td></tr>
-  <tr><td>operator-=<br />
-</td><td>For subtracting vectors of the same dimension. </td><td><pre>
-a -= b;</pre></td></tr>
-  <tr><td>operator*=<br />
-</td><td>For scalar multiplication, e.g. [1 2] * 3 = [3 6]
-</td><td><pre>a *= 3;</pre></td></tr>
-  <tr><td>operator/=<br />
-</td><td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td><td><pre>a /= 4;</pre></td></tr>
-  <tr><td>Type Conversion<br />
-</td><td>Operators for type casting to a <code>std::vector</code> and a <code>std::list</code></td><td><pre>
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <td>Operation </td>
+    <td>Description and Hints</td>
+    <td>Examples</td>
+  </tr>
+  <tr>
+    <td>Copy Assignment</td>
+    <td>A copy assignment operator overload</td>
+    <td><pre>EuclideanVector a {b};</pre></td>
+  </tr>
+  <tr>
+    <td>Move Assignment</td>
+    <td>A move assignment operator</td>
+    <td><pre>EuclideanVector a {std::move(b};</pre></td>
+  </tr>
+  <tr>
+    <td>getNumDimensions()</td>
+    <td>Returns a std::int32_t containing the number of dimensions in a particular vector</td>
+    <td><pre>a.getNumDimensions();</pre></td>
+  </tr>
+  <tr>
+    <td>get(std::int32_t)</td>
+    <td>Returns a double, the value of the magnitude in the dimension given as the function parameter</td>
+    <td><pre>a.get(1);</pre></td>
+  </tr>
+  <tr>
+    <td>getEuclideanNorm()</td>
+    <td>Returns the Euclidean norm of the vector as a double. The Euclidean norm is the square root of the sum of the squares of the magnitudes in each dimension. E.g, for the vector [1 2 3] the Euclidean norm is sqrt(1*1 + 2*2 + 3*3) = 3.74.</td>
+    <td><pre>a.getEuclideanNorm();</pre></td>
+  </tr>
+  <tr>
+    <td>createUnitVector()</td>
+    <td>Returns an Euclidean vector that is the unit vector of *this vector. The magnitude for each dimension in the unit vector is the original vector's magnitude divided by the Euclidean norm.</td>
+    <td><pre>a.createUnitVector();</pre></td>
+  </tr>
+  <tr>
+    <td>operator[]</td>
+    <td>Allows to get and set
+the value in a given dimension of the Euclidean Vector. Hint: you may need two overloaded functions to achieve this requirement.</td>
+<td><pre>double a {b[1]};
+b[2] = 3.0;</pre></td>
+</tr>
+  <tr>
+    <td>operator+=<br /></td>
+    <td>For adding vectors of the same dimension. </td>
+    <td><pre>a += b;</pre></td>
+  </tr>
+  <tr>
+    <td>operator-=<br />
+</td>
+<td>For subtracting vectors of the same dimension. </td>
+<td><pre>
+a -= b;</pre></td>
+</tr>
+  <tr>
+    <td>operator*=<br />
+</td>
+<td>For scalar multiplication, e.g. [1 2] * 3 = [3 6]
+</td>
+<td><pre>a *= 3;</pre></td>
+</tr>
+  <tr>
+    <td>operator/=<br />
+</td>
+<td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
+<td><pre>a /= 4;</pre></td>
+</tr>
+  <tr>
+    <td>Type Conversion<br />
+</td>
+<td>Operators for type casting to a <code>std::vector</code> and a <code>std::list</code></td>
+<td><pre>
 EucilideanVector a;
 std::vector&lt;double&gt; vf = a;
 std::list&lt;double&gt; lf = a;
-</pre></td></tr>
+</pre></td>
+</tr>
 </table>
 
-<h3>Friends</h3>
+<h3>3.4. Friends</h3>
 
 In addition to the operations indicated earlier, the following operations should be supported as friend functions.
 Note that these friend operations don't modify any of the given operands.
 
-<table border="1" cellspacing="0">
-  <tr><td>operator==</td><td>True if the two vectors are equal in the number of dimensions and the magnitude in each dimension is equal.</td><td><pre>a == b;</pre></td></tr>
-  <tr><td>operator!=</td><td>The opposite of ==</td><td><pre>a != b;</pre></td></tr>
-  <tr><td>operator+<br />
-</td><td>For adding vectors of the same dimension. </td><td><pre>
-a = b + c;</pre></td></tr>
-  <tr><td>operator-<br />
-</td><td>For substracting vectors of the same dimension. </td><td><pre>
-a = b - c;</pre></td></tr>
-  <tr><td>operator*</td><td>For dot-product multiplication, returns a double.
-E.g., [1 2] * [3 4] = 1 * 3 + 2 * 4 = 11</td><td><pre>double c {a * b};</pre></td></tr>
-  <tr><td>
-operator*</td><td>For scalar multiplication, e.g. [1 2] * 3 = 3 * [1 2] = [3 6]. 
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <td>operator==</td>
+    <td>True if the two vectors are equal in the number of dimensions and the magnitude in each dimension is equal.</td>
+    <td><pre>a == b;</pre></td>
+  </tr>
+  <tr>
+    <td>operator!=</td>
+    <td>The opposite of ==</td>
+    <td><pre>a != b;</pre></td>
+  </tr>
+  <tr>
+    <td>operator+<br />
+</td>
+<td>For adding vectors of the same dimension. </td>
+<td><pre>
+a = b + c;</pre></td>
+</tr>
+  <tr>
+    <td>operator-<br />
+</td>
+<td>For substracting vectors of the same dimension. </td>
+<td><pre>
+a = b - c;</pre></td>
+</tr>
+  <tr>
+    <td>operator*</td>
+    <td>For dot-product multiplication, returns a double.
+E.g., [1 2] * [3 4] = 1 * 3 + 2 * 4 = 11</td>
+<td><pre>double c {a * b};</pre></td>
+</tr>
+  <tr>
+    <td>
+operator*</td>
+<td>For scalar multiplication, e.g. [1 2] * 3 = 3 * [1 2] = [3 6]. 
 Hint: you'll obviously need two methods, as the scalar can be either side of the vector. 
-</td><td><pre>
+</td>
+<td><pre>
 (1) a = b * 3;
 (2) a = 3 * b;
-</pre></td></tr>
-  <tr><td>
-operator/</td><td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td><td><pre>a = b / 4;</pre></td></tr>
-  <tr><td>operator&lt;&lt;</td><td>Prints out the magnitude in each dimension of the Euclidean Vector (surrounded by [ and ]), e.g. for a 3-dimensional vector: [1 2 3]</td><td><pre>std::cout &lt;&lt; a;</pre></td></tr>
+</pre></td>
+</tr>
+  <tr>
+    <td>
+operator/</td>
+<td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
+<td><pre>a = b / 4;</pre></td>
+</tr>
+  <tr>
+    <td>operator&lt;&lt;</td>
+    <td>Prints out the magnitude in each dimension of the Euclidean Vector (surrounded by [ and ]), e.g. for a 3-dimensional vector: [1 2 3]</td>
+    <td><pre>std::cout &lt;&lt; a;</pre></td>
+  </tr>
 </table>
 
 
 
 
-<h3>Internal Representation</h3>
+<h3>3.5. Internal Representation</h3>
 
 unique_ptr<double[]> a = std::make_unqiue<double[]>(8);
 
 
 
-<h3> Move Semantics</h3>
+<h3>3.6. Move Semantics</h3>
 
 An Euclidean vector, once moved (by your move
 constructor or move assignment operator), must be
@@ -176,26 +280,20 @@ with nothing inside the brackets.
 
 
 
-
-
-
-
-
-<h3>Other requirements</h3>
+<h3>3.7. Other requirements</h3>
 You must:
 <ul>
   <li>Include a header guard in EuclideanVector.h</li>
   <li>Use C++17 style and methods</li>
 </ul>
 
-<h3>Things not allowed</h3>
-You should not / are not allowed to:
+You must not:
 <ul>
-  <li>Write to any files</li>
+  <li>Write to any files that aren't provided in the repo (e.g. storing your vector data in an auxilliary file)</li>
   <li>Add a main function EuclideanVector.cpp</li>
 </ul>
 
-<h2>Getting Started</h2>
+<h2>4. Getting Started</h2>
 
 <p>If you haven't done so already, clone the repository:</p>
 
@@ -204,7 +302,7 @@ You should not / are not allowed to:
 <p>Then navigate to the <b>assignments/ev</b> directory</p>
 
 <p>All of the files you need are in this directory. Here is a list of files that and a description of their purpose:</p>
-<table>
+<table border="1" cellspacing="0" cellpadding="2">
 	<tr>
 		<th>File</th>
 		<th>Description</th>
@@ -227,28 +325,28 @@ You should not / are not allowed to:
   </tr>
 </table>
 
-<H3>Reference Solution & Time Limits</H3>
+<H3>4.2. Reference Solution & Time Limits</H3>
 
 <p>Due to the simple nature of this data type, there will be performance based measurements</p>
 <p>Each test will still have a time limit to run (1 second max), but unless you do something completely insane this will be more than enough time for all of your operations to complete.</p>
 
-<h3>Running your code</h3>
+<h3>4.3. Running your assignment</h3>
 
-From your project directory:
-
-<h4>Running a basic use case</h4>
+<h4>4.3.1. Running a basic use case</h4>
 
 <p>You can run your code against a basic (non-testing) use case to get a better sense of the behaviour</p>
+
+<p>From your project directory:</p>
 
 <pre><code>$ bazel build //assignments/ev:client</code></pre>
 <pre><code>$ ./bazel-bin/assignments/ev/client | diff client.sampleout -</code></pre>
 
-<h4>Running your tests</h4>
+<h4>4.3.2. Running your tests</h4>
 
 <pre><code>$ bazel build //assignments/ev:euclidean_vector_test</code></pre>
 <pre><code>$ ./bazel-bin/assignments/ev/euclidean_vector_test</code></pre>
 
-<H3>Assessment</H3>
+<H3>4.4. Assessment</H3>
 <P>
 This assignment will contribute 15% to your final mark.
 <P>
@@ -293,7 +391,7 @@ The lecturer may vary the assessment scheme after inspecting
 the assignment submissions but it will remain broadly similar to the description above.
 
 
-<h3>Originality of Work</h3>
+<h3>4.5. Originality of Work</h3>
 <P>
 The work you submit must be your own work.  Submission of work partially or completely derived
 from any other person or jointly written with any other person is not permitted.
@@ -315,7 +413,7 @@ apply even if your work is submitted by a third party unknown to you.</p>
 Note you will not be penalized if your work has the potential to be taken without your consent or knowledge.
 </p>
 
-<h3>Submission</h3>
+<h3>4.6. Submission</h3>
 <P>
 This assignment is due <b>Saturday 13th of July, 22:59:59</b>.
 Submit the assignment using this <I>give</I> command:
@@ -325,7 +423,7 @@ give cs6771 euclideanvector euclidean_vector.cpp euclidean_vector.h euclidean_ve
 
 </PRE>
 
-<h3>Late Submission Policy</h3>
+<h3>4.7. Late Submission Policy</h3>
 <p>
 If your assignment is submitted after this date, each hour it is late reduces
 the maximum mark it can achieve by 1%.
