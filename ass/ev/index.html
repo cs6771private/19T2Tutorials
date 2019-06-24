@@ -55,9 +55,9 @@ and its implementation in <code>EuclideanVector.cpp</code>.
 </td>
 <td><pre>(1) EuclideanVector a{1};
 (2) int i {3};
-    EuclideanVector b(i);
+    EuclideanVector b{i};
 (3) EuclidenVector c; // or c{}
-    // same as EuclidenVector c(1);
+    // same as EuclidenVector c{1};
 </pre></td>
 <td>N/A</td>
 </tr>
@@ -68,7 +68,7 @@ and its implementation in <code>EuclideanVector.cpp</code>.
     <td><pre>(1) EuclideanVector a{2, 4.0};
 (2) int x {3};
     double y {3.24};
-    EuclideanVector b(x,y);</pre></td>
+    EuclideanVector b{x, y};</pre></td>
     <td>N/A</td>
   </tr>
   <tr>
@@ -106,7 +106,7 @@ std::list&lt;double&gt; l;
 l.push_back(5.0);
 l.push_back(6.5);
 l.push_back(7.0);
-EuclideanVector c(l.begin(),l.end()); // a Euclidean Vector in 3 dimensions constructed from a list of magnitudes
+EuclideanVector c{l.begin(), l.end()}; // a Euclidean Vector in 3 dimensions constructed from a list of magnitudes
 </pre>
 
 <h4>Notes</h4>
@@ -143,7 +143,7 @@ You must explicitly declare the destructor as default.
     <td>Move Assignment</td>
     <td>operator=(EuclideanVector&&)</td>
     <td>A move assignment operator</td>
-    <td><pre>a  = std::move(b);</pre></td>
+    <td><pre>a = std::move(b);</pre></td>
     <td>
       <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
       <b>When</b>: X != Y<br />
