@@ -2,7 +2,11 @@
 {% block questions %}
 
 <li>
-  What is the difference between these two
+  What is the difference between these two ways of creating a vector?
+  <ol>
+    <li><pre><code>std::vector&lt;int&gt; a{1, 2, 3}</code></pre></li>
+    <li><pre><code>std::vector&lt;int&gt; a = {1, 2, 3}</code></pre></li>
+  </ol>
 </li>
 
 <li>
@@ -21,7 +25,7 @@
 </li>
 
 <li>
-  In what cases would we want to have two catch statements?
+  In what cases would we want to have two catch statements for a thrown exception?
 </li>
 
 <li>
@@ -29,7 +33,7 @@
 </li>
 
 <li>
-  What is an example of a circumstance a shared_ptr<t> would be preferred over a unique_ptr<T>?
+  What is an example of a circumstance a std::shared_ptr&lt;T&gt; would be preferred over a std::unique_ptr&lt;T&gt;?
 </li>
 
 <li>
