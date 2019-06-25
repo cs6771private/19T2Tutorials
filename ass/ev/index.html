@@ -132,9 +132,7 @@ You must explicitly declare the destructor as default.
     <td>A copy assignment operator overload</td>
     <td><pre>a = b;</pre></td>
     <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
-      <b>When</b>: X != Y<br />
-      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      N/A
     </td>
   </tr>
   <tr>
@@ -143,9 +141,7 @@ You must explicitly declare the destructor as default.
     <td>A move assignment operator</td>
     <td><pre>a = std::move(b);</pre></td>
     <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
-      <b>When</b>: X != Y<br />
-      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      N/A
     </td>
   </tr>
   <tr>
@@ -189,9 +185,7 @@ a -= b;</pre></td>
 </td>
 <td><pre>a *= 3;</pre></td>
 <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
-      <b>When</b>: X != Y<br />
-      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      N/A
     </td>
 </tr>
   <tr>
@@ -201,9 +195,8 @@ a -= b;</pre></td>
 <td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
 <td><pre>a /= 4;</pre></td>
 <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
-      <b>When</b>: X != Y<br />
-      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>When</b>: b == 0<br />
+      <b>Throw</b>: "Invalid vector division by 0"
     </td>
 </tr>
   <tr>
@@ -351,7 +344,7 @@ operator/</td>
 <td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
 <td><pre>a = b / 4;</pre></td>
 <td>
-      <b>When</b>: b != 0<br />
+      <b>When</b>: b == 0<br />
       <b>Throw</b>: "Invalid vector division by 0"
     </td>
 </tr>
@@ -384,6 +377,7 @@ You must:
 <ul>
   <li>Include a header guard in euclidean_vector.h</li>
   <li>Use C++17 style and methods</li>
+  <li>Ensure methods will not throw exceptions are marked <pre><code>noexcept</code></pre></li> 
   <li>Make sure that <i>all appropriate member functions</i> are const qualified</li>
 </ul>
 
@@ -479,7 +473,7 @@ Total errors found: 0</pre>
 
 </table>
 
-The following actions will result in a 0/100 mark for Word Ladder, and in some cases a 0 for COMP6771:
+The following actions will result in a 0/100 mark for EuclideanVector, and in some cases a 0 for COMP6771:
 <ul>
 <li>Knowingly providing your work to anyone and it is subsequently submitted (by anyone).
 <li>Submitting any other person's work. This includes joint work.
