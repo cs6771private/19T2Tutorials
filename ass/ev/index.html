@@ -191,9 +191,7 @@ a -= b;</pre></td>
 </td>
 <td><pre>a *= 3;</pre></td>
 <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
-      <b>When</b>: X != Y<br />
-      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      N/A
     </td>
 </tr>
   <tr>
@@ -203,9 +201,8 @@ a -= b;</pre></td>
 <td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
 <td><pre>a /= 4;</pre></td>
 <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
-      <b>When</b>: X != Y<br />
-      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>When</b>: b == 0<br />
+      <b>Throw</b>: "Invalid vector division by 0"
     </td>
 </tr>
   <tr>
@@ -353,7 +350,7 @@ operator/</td>
 <td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
 <td><pre>a = b / 4;</pre></td>
 <td>
-      <b>When</b>: b != 0<br />
+      <b>When</b>: b == 0<br />
       <b>Throw</b>: "Invalid vector division by 0"
     </td>
 </tr>
