@@ -76,10 +76,8 @@ and its implementation in <code>euclidean_vector.cpp</code>.
     <td>EuclideanVector(std::vector<double>::const_iterator, std::vector<double>::const_iterator)</td>
     <td>A constructor (or constructors) that takes the start and end of an iterator to a std:vector<double> and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values.</td>
     <td><pre>
-(1) std::list&lt;double&gt; l;
-    EuclideanVector a{l.begin(),l.end()};
-(2) std::vector&lt;double&gt; v;
-    EuclideanVector b{v.begin(),v.end()};
+  std::vector&lt;double&gt; v;
+  EuclideanVector b{v.begin(),v.end()};
 </pre></td>
 <td>N/A</td>
 </tr>
