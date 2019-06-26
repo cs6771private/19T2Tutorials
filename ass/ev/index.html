@@ -205,7 +205,7 @@ a -= b;</pre></td>
 <td>Operators for type casting to a <code>std::vector</code></td>
 <td><pre>
 EucilideanVector a;
-std::vector&lt;double&gt; vf = a;
+auto vf = std::vector&lt;double&gt;{a};
 </pre></td>
 <td>N/A</td>
 </tr>
@@ -215,7 +215,7 @@ std::vector&lt;double&gt; vf = a;
 <td>Operators for type casting to a <code>std::list</code></td>
 <td><pre>
 EucilideanVector a;
-std::list&lt;double&gt; lf = a;
+auto lf = std::list&lt;double&gt;{a};
 </pre></td>
 <td>N/A</td>
 </tr>
@@ -363,7 +363,7 @@ operator/</td>
 
 <p>To create a dynamically allocated C-style double array and add it to a unique pointer, but not require any <i>direct</i> use of the new/malloc call, you can use the following:</p>
 
-<pre><code>unique_ptr&lt;double[]&gt; magnitudes_ = std::make_unique&lt;double[]&gt;(8); // 8 is an example</code></pre>
+<pre><code>std::unique_ptr&lt;double[]&gt; magnitudes_ = std::make_unique&lt;double[]&gt;(8); // 8 is an example</code></pre>
 
 <h3>3.7. Throwing Exceptions</h3>
 
