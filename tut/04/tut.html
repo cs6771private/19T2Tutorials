@@ -31,7 +31,26 @@ Complete the istream operator overload from lectures
 </li>
 
 <li>
+Why would this be considered not a very wise decision to overload this operator?
+<pre>Point& operator*=(const Point& p);</pre>
+{{ include_code("questions/badoverload.h") }}
+<div class="answer">
+<p>The semantic of multiplying two vectors together is ambiguous. It could be "multiplied" a few different ways (dot product, lexigraphically). We only use operator overloading when the semantic is clear and intuitive.</p>
+</div>
+</li>
+
+<li>
 Why are some operator overloads done as member functions, and others as friends?
+<div class="answer">
+<ul>
+  <li>Non-members: For when the operator doesn't take an instance of the class as the LHS argument
+    <ul>
+      <li>If we need this non-member function to access private fields of the class type, we define this non-member overload as a friend</li>
+    </ul>
+  </li>
+  <li>Members: For when the operator does take an instance of the class as the LHS argument</li>
+</ul>
+</div>
 </li>
 
 <li>
