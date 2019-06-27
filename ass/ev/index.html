@@ -14,6 +14,7 @@ table td, table th { padding: 3px; }
 <ul>
   <li>27/06: List and vector type conversion examples updated in spec and client.cpp</li>
   <li>28/06: Fixed client.sampleout path</li>
+  <li>28/06: Added exception conditions for at</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -235,7 +236,10 @@ auto lf = std::list&lt;double&gt;{a};
     <td>double at(int)</td>
     <td>Returns the value of the magnitude in the dimension given as the function parameter</td>
     <td><pre>a.at(1);</pre></td>
-    <td>N/A</td>
+    <td>
+      <b>When</b>: For Input X: X is &lt 0 or X is &gte num dimensions<br />
+      <b>Throw</b>: "Index X is not valid for this EuclideanVector object"
+    </td>
   </tr>
   <tr>
     <td>int GetNumDimensions()</td>
