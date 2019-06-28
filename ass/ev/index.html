@@ -15,6 +15,9 @@ table td, table th { padding: 3px; }
   <li>27/06: List and vector type conversion examples updated in spec and client.cpp</li>
   <li>28/06: Fixed client.sampleout path</li>
   <li>28/06: Added exception conditions for at</li>
+  <li>28/06: Example usage of constructors updated from std::list to std::vector</li>
+  <li>28/06: Exception case added for GetEuclideanNorm member function</li>
+  <li>28/06: Typo fixed in 2.3, Addition changed to "Throw" from typo of "0"</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -102,11 +105,11 @@ and its implementation in <code>euclidean_vector.cpp</code>.
 EuclideanVector a{1};      // a Euclidean Vector in 1 dimension, with default magnitude 0.0.
 EuclideanVector b{2, 4.0};    // a Euclidean Vector in 2 dimensions with magnitude 4.0 in both dimensions
 
-std::list&lt;double&gt; l;
+std::vector&lt;double&gt; l;
 l.push_back(5.0);
 l.push_back(6.5);
 l.push_back(7.0);
-EuclideanVector c{l.begin(), l.end()}; // a Euclidean Vector in 3 dimensions constructed from a list of magnitudes
+EuclideanVector c{l.begin(), l.end()}; // a Euclidean Vector in 3 dimensions constructed from a vector of magnitudes
 </pre>
 
 <h4>Notes</h4>
@@ -163,7 +166,7 @@ b[2] = 3.0;</pre></td>
     <td>
       <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
       <b>When</b>: X != Y<br />
-      <b>0</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
   </tr>
   <tr>
@@ -251,7 +254,10 @@ auto lf = std::list&lt;double&gt;{a};
     <td>double GetEuclideanNorm()</td>
     <td>Returns the Euclidean norm of the vector as a double. The Euclidean norm is the square root of the sum of the squares of the magnitudes in each dimension. E.g, for the vector [1 2 3] the Euclidean norm is sqrt(1*1 + 2*2 + 3*3) = 3.74.</td>
     <td><pre>a.GetEuclideanNorm();</pre></td>
-    <td>N/A</td>
+    <td>
+      <b>When</b>: this->GetNumDimensions() == 0<br />
+      <b>Throw</b>: "EuclideanVector with no dimensions does not have a norm"
+    </td>
   </tr>
   <tr>
     <td>EuclideanVector CreateUnitVector()</td>
