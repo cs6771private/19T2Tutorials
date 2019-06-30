@@ -19,7 +19,7 @@
     <li>
       <pre><code>std::vector&lt;int&gt; b = {1, 2, 3}</code></pre>
       <div class="answer">
-        Constructor (copy construction)
+        Constructor (uniform initilization)
       </div>
     </li>
     <li>
@@ -62,7 +62,7 @@
   Why is prefix increment/decrement usually preferred to postfix increment/decrement? When would we use postfix?
   <div class="answer">
     <ul>
-      <li>Prefix is generally preferred (except of case below) due to one less step (a copy and return) being completed. Therefore at scale this operation will yield finite performance improvements</li>
+      <li>Prefix is generally preferred (when no copy is needed) due to one less step (a copy and return) being completed. Therefore at scale this operation will yield finite performance improvements</li>
       <li>Postfix is used when you want to receive a copy of the object's current state prior to the increment/decrement occuring</li>
   </div>
 </li>
@@ -79,7 +79,7 @@
 <li>
   Why do we use smart pointers instead of raw pointers whenever possible?
   <div class="answer">
-    Raw pointers mean:
+    Smart pointers mean:
     <ul>
       <li>We do not have to worry about deleting our heap memory</li>
       <li>(In the case of unique pointer) move semantics is handled for us</li>
