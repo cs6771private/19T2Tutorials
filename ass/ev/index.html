@@ -18,6 +18,7 @@ table td, table th { padding: 3px; }
   <li>28/06: Example usage of constructors updated from std::list to std::vector</li>
   <li>28/06: Exception case added for GetEuclideanNorm member function</li>
   <li>28/06: Typo fixed in 2.3, Addition changed to "Throw" from typo of "0"</li>
+  <li>01/07: Extra exception added to CreateUnitVector for case where euclieannormal is 0</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -266,6 +267,9 @@ auto lf = std::list&lt;double&gt;{a};
     <td>
       <b>When</b>: this->GetNumDimensions() == 0<br />
       <b>Throw</b>: "EuclideanVector with no dimensions does not have a unit vector"
+      <hr />
+      <b>When</b>: this->GetEuclideanNorm() == 0<br />
+      <b>Throw</b>: "EuclideanVector with eucliean normal of 0 does not have a unit vector"
     </td>
   </tr>
 </table>
