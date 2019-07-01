@@ -11,8 +11,13 @@
   <li>Create a copy assignment operator, should the object count change?</li>
   <li>Create a move assignment operator, should the object count change?</li>
   <li>What is the difference between a copy constructor, copy assignment operator, move constructor and move assignment operator?</li>
-  <li>Run your code against //tutorials/week3:car_main<pre>
-</pre>
+  <div class="answer">
+    Copy and move constructors both create a new object. Keep in mind that for move constructors, the moved-from object still exists, and so you have an extra object. When that moved-from object is destructed is when the object count should go back down. Hence, both constructors increase the object count.<br>
+    Assignments simply overwrite one object with the contents of another. Hence, they don't change the object count.<br>
+    The difference between a constructor and an assignment operator is that a constructor creates an object from nothing, while an assignment operator overwrites an object with the content from an existing one (or in other words, the difference is that the target you want to fill with data already contains some valid data)<br>
+    The difference between copy and move is that move calls the T&& overload of the function. This is usually a faster implementation, which might do something such as steal memory from the moved-from object instead of allocating more memory.<br>
+  </div>
+  <li>Run your code against //tutorials/week3:car_main<br/>
   The output should be:
 <pre>
 2	
@@ -24,18 +29,25 @@
 </pre></li>
 </ol>
 </li>
+<div class="answer">
+  {{ include_code("solutions/car.h") }}
+  {{ include_code("solutions/car.cpp") }}
+</div>
 
 <li>
 Complete the istream operator overload from lectures
 {{ include_code("questions/istream.cpp") }}
+  <div class="answer">
+    {{ include_code("solutions/istream.cpp") }}
+  </div>
 </li>
 
 <li>
-Why would this be considered not a very wise decision to overload this operator?
+Why would this be considered not a very wise decision to provide this overload?
 <pre>Point& operator*=(const Point& p);</pre>
 {{ include_code("questions/badoverload.h") }}
 <div class="answer">
-<p>The semantic of multiplying two vectors together is ambiguous. It could be "multiplied" a few different ways (dot product, lexigraphically). We only use operator overloading when the semantic is clear and intuitive.</p>
+  <p>The semantic of multiplying two vectors together is ambiguous. It could be "multiplied" a few different ways (dot product, lexigraphically). We only use operator overloading when the semantic is clear and intuitive.</p>
 </div>
 </li>
 
@@ -63,7 +75,7 @@ Why are some operator overloads done as member functions, and others as friends?
 	<li>Write the overloaded type conversion operator to enable the conversion of the Book class to a std::string in the form of "author, name"</li>
 	<li>Create a main function that creates a std::vector&lt;book&gt;, add a few Book objects into the vector with different isbn numbers and prices</li>
 	<li>Write the overloaded &lt; operator to allow you to sort books by their isbn number. Test this in your main method using std::sort</li>
-	<li>Call std::sort again with a lamda function as the predicate that sorts the books by price.</li>
+	<li>Call std::sort again with a lambda function as the predicate that sorts the books by price.</li>
   </ol>
   <div class="answer">
   {{ include_code("solutions/main.cpp") }}
