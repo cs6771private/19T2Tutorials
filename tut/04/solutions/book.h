@@ -1,51 +1,47 @@
-#ifndef BOOK_HPP
-#define BOOK_HPP
+#ifndef TUTORIALS_WEEK4_BOOK_H_
+#define TUTORIALS_WEEK4_BOOK_H_
 
 #include <string>
 #include <ostream>
 
-/*********************************************************************
- * The Book class
- *********************************************************************/
-
 class Book {
-public:
-    Book(const std::string& name, const std::string& author,
-         int isbn, double price);
+ public:
+  Book(const std::string& name, const std::string& author, int isbn, double price):
+      name_{name}, author_{author}, isbn_{isbn}, price_{price} {}
 
-    // getters
+  // Since these are just getters, we put them in the header file.
+  int getIsbn() const { return isbn_; }
+  double getPrice() const { return price_; }
 
-    // Defining member functions within the class definition should be
-    // avoided as they reduce readability. Single line definitions are
-    // (mostly) ok but for anything else use explicit inline defn.
-    int getIsbn() const { return isbn_; }
-    double getPrice() const;
+  // Type conversion operators
+  operator std::string() const;
 
+  // Friend comparison operators. Note that we always declare these inline.
+  friend bool operator==(const Book& a, const Book& b) {
+    return (a.name_ == b.name_) && (a.author_ == b.author_) &&
+        (a.isbn_ == b.isbn_) && (a.price_ == b.price_);
+  }
 
-    // Type conversion operators
-    operator std::string () const;
+  friend bool operator!=(const Book& lhs, const Book& rhs) {
+    return !(lhs == rhs);
+  }
 
-    // Friend comparison operators
-    friend bool operator==(const Book& a, const Book& b);
-    friend bool operator!=(const Book& a, const Book& b);
-    friend bool operator<(const Book& a, const Book& b);
+  friend bool operator<(const Book& a, const Book& b) {
+    return a.isbn_ < b.isbn_;
+  }
 
-    friend std::ostream& operator<<(std::ostream& out, const Book& b);
-private:
+  friend std::ostream& operator<<(std::ostream& out, const Book& b) {
+    return out << "Name: \"" << b.name_ << "\", "
+               << "(Author: \")" << b.author_ << "(\", )"
+               << "ISBN: " << b.isbn_ << ", "
+               << "Price: " << b.price_;
+  }
+
+ private:
   std::string name_;
   std::string author_;
   int isbn_;
   double price_;
 };
 
-// Note: this must be declared as inline!!!!
-inline double Book::getPrice() const  { return price_; }
-
-bool operator==(const Book& a, const Book& b);
-bool operator!=(const Book& a, const Book& b);
-bool operator<(const Book& a, const Book& b);
-
-//std::ostream& operator<<(std::ostream& out, const Book& b);
-
-
-#endif // BOOK_HPP
+#endif // TUTORIALS_WEEK4_BOOK_H_
