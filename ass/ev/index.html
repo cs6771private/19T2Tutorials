@@ -19,6 +19,7 @@ table td, table th { padding: 3px; }
   <li>28/06: Exception case added for GetEuclideanNorm member function</li>
   <li>28/06: Typo fixed in 2.3, Addition changed to "Throw" from typo of "0"</li>
   <li>01/07: Extra exception added to CreateUnitVector for case where euclieannormal is 0</li>
+  <li>03/07: Making clear that we will not test the case of multiplying two 0-dimension vectors together</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -181,6 +182,8 @@ a -= b;</pre></td>
       <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
       <b>When</b>: X != Y<br />
       <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
+      <hr />
+      <b>Note:</b> We will not be testing the case of multiplying two 0-dimension vectors together.
     </td>
 </tr>
   <tr>
