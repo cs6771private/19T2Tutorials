@@ -20,6 +20,7 @@ table td, table th { padding: 3px; }
   <li>28/06: Typo fixed in 2.3, Addition changed to "Throw" from typo of "0"</li>
   <li>01/07: Extra exception added to CreateUnitVector for case where euclieannormal is 0</li>
   <li>03/07: Making clear that we will not test the case of multiplying two 0-dimension vectors together</li>
+  <li>04/07: Clarification in 2.1 that we will NOT be testing a constructor with no parameters</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -63,9 +64,11 @@ and its implementation in <code>euclidean_vector.cpp</code>.
 <td><pre>(1) EuclideanVector a{1};
 (2) int i {3};
     EuclideanVector b{i};
-(3) EuclidenVector c; // or c{}
-    // same as EuclidenVector c{1};
-</pre></td>
+</pre>
+<hr />
+<b>Note:</b> We will not be testing this case (i.e. no arguments)
+<pre>EuclidenVector c;</pre>
+</td>
 <td>N/A</td>
 </tr>
   <tr>
