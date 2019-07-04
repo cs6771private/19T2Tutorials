@@ -22,6 +22,7 @@ table td, table th { padding: 3px; }
   <li>03/07: Making clear that we will not test the case of multiplying two 0-dimension vectors together</li>
   <li>04/07: Clarification in 2.1 that we will NOT be testing a constructor with no parameters</li>
   <li>04/07: Test cases will use simple numbers such that any float point precision errors will not occur</li>
+  <li>05/07: Clarity that a moved-from object should have 0 dimensions</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -401,6 +402,7 @@ You must:
   <li>Use C++17 style and methods</li>
   <li>Ensure methods will not throw exceptions are marked <pre><code>noexcept</code></pre></li> 
   <li>Make sure that <i>all appropriate member functions</i> are const qualified</li>
+  <li>Leave a moved-from object in a state with 0 dimensions</li>
 </ul>
 
 You must not:
