@@ -82,7 +82,7 @@
     Smart pointers mean:
     <ul>
       <li>We do not have to worry about deleting our heap memory</li>
-      <li>(In the case of unique pointer) move semantics is handled for us</li>
+      <li>Move and copy semantics are handled for us</li>
     </ul>
   </div>
 </li>
@@ -90,8 +90,15 @@
 <li>
   What is an example of a circumstance a std::shared_ptr&lt;T&gt; would be preferred over a std::unique_ptr&lt;T&gt;?
   <div class="answer">
+    In general, you can have it when either:
     <ul>
-      <li>TODO</li> 
+      <li>There is shared ownership (very rare, it's usually one owner and many observers).</li>
+      <li>There is a single owner, but the observers may stick around longer than the owner.</li>
+    </ul>
+    When we have ownership loops (eg. a graph that isn't a dag), we have one of two options:
+    <ul>
+      <li>Preferred: have something like std::vector&lt;std::unique_ptr&lt;Node&gt;&gt;, and each node stores raw pointers to other nodes. This may not be possible if it's hard to find all the raw pointers and remove them when you delete the unique pointer.</li>
+      <li>Otherwise: Have something like std::vector&lt;std::shared_ptr&lt;Node&gt;&gt;, and each node stores weak pointers to other nodes (DO NOT store shared pointers in each node - the nodes will never get removed)</li>
     </ul>
   </div>
 </li>
