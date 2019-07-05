@@ -21,6 +21,23 @@
 </li>
 
 <li>
+  Consider the following code:
+  {{ include_code('questions/partial.cpp') }}
+
+  Find the bug, and discuss what we could do to solve the issue, including the upsides and downsides of each potential solution.
+
+  <div class="answer">
+    The bug is that the object is partially constructed when an exception is thrown (since the constructor doesn't get to finish), and as such, the destructor will not be called if the name is empty.<br>
+    Potential solutions:
+    <ul>
+      <li>Use a unique pointer. While the object will not be destructed, any fully constructed subobjects (like a smart pointer) will be, so this will solve our issue. It's simple and clean</li>
+      <li>Ensure that any potential exceptions are thrown before we obtain resources by putting the new after the throw (initialising ptr outside of the initialiser list). This is considered bad style.</li>
+      <li>Ensure that any potential exceptions are thrown before we obtain resources by swapping around the order of ptr_ and name_, and ensuring that the exception is thrown in the initialiser list. It's reasonable to throw an exception in the initialiser list, but anything managing a resource directly should ideally only manage that one resource.</li>
+    </ul>
+  </div>
+</li>
+
+<li>
 
 
 
