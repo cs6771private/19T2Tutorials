@@ -116,7 +116,7 @@ and its implementation in <code>euclidean_vector.cpp</code>.
 <h4>Move constructor implementation</h4>
 <p>Due to confusion, this is provided to students free of charge! This assumes you use another private field that is a number "size". If your implementation varies, adjust accordingly.</p>
 <pre>
-EuclideanVector(EuclideanVector&& o) : magnitudes_{std::move(o.magnitudes_)}, size_{o.size_} noexcept {
+EuclideanVector(EuclideanVector&& o) noexcept : magnitudes_{std::move(o.magnitudes_)}, size_{o.size_} {
   o.size_ = 0;
 }
 </pre>
