@@ -23,6 +23,11 @@ table td, table th { padding: 3px; }
   <li>04/07: Clarification in 2.1 that we will NOT be testing a constructor with no parameters</li>
   <li>04/07: Test cases will use simple numbers such that any float point precision errors will not occur</li>
   <li>05/07: Clarity that a moved-from object should have 0 dimensions</li>
+  <li>06/07: Added a section 3.9 to reiterate what we expect in terms of const-ness of your methods</li>
+  <li>06/07: Gave you a helping hand by further making clear the two (const and non-const) prototypes for .at</li>
+  <li>06/07: Added more clear information about both (1) explicit keyword, (2) 0-dimension vector math operations</li>
+  <li>06/07: Fixed a one word typo in 3.8 in the part about noexcept</li>
+  <li>06/07: Due to confusion on our end (sorry) we've actually given you pseudocode-near-implementation move constructor and move assignment within the spec. Given it's due in 7 days and people have been confused about this we don't want to create undue stress</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -106,6 +111,14 @@ and its implementation in <code>euclidean_vector.cpp</code>.
     <td>N/A</td>
   </tr>
 </table>
+
+<h4>Move constructor implementation</h4>
+<p>Due to confusion, this is provided to students free of charge! This assumes you use another private field that is a number "size". If your implementation varies, adjust accordingly.</p>
+<pre>
+EuclideanVector(EuclideanVector&& o) : magnitudes_{std::move(o.magnitudes_)}, size_{o.size_} {
+  o.size_ = 0;
+}
+</pre>
 
 <h4>Example Usage</h4>
 <pre>
@@ -235,6 +248,16 @@ auto lf = std::list&lt;double&gt;{a};
 </tr>
 </table>
 
+<h4>Move assignment implementation</h4>
+<p>Due to confusion, this is provided to students free of charge! This assumes you use another private field that is a number "size". If your implementation varies, adjust accordingly.</p>
+<pre>
+operator=(EuclideanVector&& o) {
+  magnitudes_ = std::move(o.magnitudes_);
+  size_ = std::move(o.size_);
+  o.size = 0;
+}
+</pre>
+
 <h3>2.4. Methods</h3>
 
 <table border="1" cellspacing="0" cellpadding="5">
@@ -245,8 +268,17 @@ auto lf = std::list&lt;double&gt;{a};
     <th>Exception: Why thrown & what message</th>
   </tr>
   <tr>
-    <td>double at(int)</td>
+    <td>double at(int) const</td>
     <td>Returns the value of the magnitude in the dimension given as the function parameter</td>
+    <td><pre>a.at(1);</pre></td>
+    <td>
+      <b>When</b>: For Input X: when X is &lt 0 or X is &gt= number of dimensions<br />
+      <b>Throw</b>: "Index X is not valid for this EuclideanVector object"
+    </td>
+  </tr>
+  <tr>
+    <td>double& at(int)</td>
+    <td>Returns the reference of the magnitude in the dimension given as the function parameter</td>
     <td><pre>a.at(1);</pre></td>
     <td>
       <b>When</b>: For Input X: when X is &lt 0 or X is &gt= number of dimensions<br />
@@ -395,14 +427,15 @@ operator/</td>
 <p><b>Note:</b> while the particular exception thrown does not matter, you are required to pass the strings specified in the tables above.</p>
 
 
-<h3>3.8. Other requirements</h3>
+<h3>3.8. Other notes</h3>
 You must:
 <ul>
   <li>Include a header guard in euclidean_vector.h</li>
   <li>Use C++17 style and methods</li>
-  <li>Ensure methods will not throw exceptions are marked <pre><code>noexcept</code></pre></li> 
+  <li>Ensure methods that will not throw exceptions are marked <pre><code>noexcept</code></pre></li> 
   <li>Make sure that <i>all appropriate member functions</i> are const qualified</li>
   <li>Leave a moved-from object in a state with 0 dimensions</li>
+  <li>Must assume that addition, subtraction, multiplication, and division operations on two 0-dimension vectors are valid operations. In all cases the result should still be a 0-dimension vector.</li>
 </ul>
 
 You must not:
@@ -410,6 +443,24 @@ You must not:
   <li>Write to any files that aren't provided in the repo (e.g. storing your vector data in an auxilliary file)</li>
   <li>Add a main function euclidean_vector.cpp</li>
 </ul>
+
+You:
+<ul>
+  <li>Are not required to make any method explicit unless directly asked to in the spec.</li>
+</ul>
+
+<h3>3.9. Const Correctness</h3>
+
+<p>You must ensure that each operator (2.3) and method (2.4) appropriately either has:</p>
+<ul>
+ <li>A const member function; or</li>
+ <li>A non-const member function; or</li>
+ <li>Both a const and non-const member function</li>
+</ul>
+
+<p>Please think carefully about this. The function prototypes intentionally do not specify their constness, except for one exception, the <b>at()</b> operator. This has an explicit const and non-const prototype to help you out.</p>
+
+<p>In most cases you will only need a single function, but in a couple of cases you will need both a const and non-const version.</p>
 
 <h2>4. Getting Started</h2>
 
