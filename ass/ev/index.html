@@ -31,6 +31,7 @@ table td, table th { padding: 3px; }
   <li>06/07: "We will not be testing the case of multiplying two 0-dimension vectors together" moved from subtraction to multiplication</li>
   <li>09/07: Function prototypes for majority of functions properly fleshed out. Please note: Not all information regarding const-ness is given. You will still have to make the appropriate functions const or non-const.</li>
   <li>09/07: Move constructor example changed from <pre>aMove{a}</pre> to <pre>aMove{std::move(a)}</pre></li>
+  <li>09/07: Parameters of iterator custructor have template typed added for full clarity</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -93,7 +94,7 @@ and its implementation in <code>euclidean_vector.cpp</code>.
   </tr>
   <tr>
     <td>Constructor</td>
-    <td>EuclideanVector(std::vector<double>::const_iterator, std::vector<double>::const_iterator)</td>
+    <td>EuclideanVector(std::vector&lt;double&gt;::const_iterator, std::vector&lt;double&gt;::const_iterator)</td>
     <td>A constructor (or constructors) that takes the start and end of an iterator to a std:vector<double> and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values.</td>
     <td><pre>
   std::vector&lt;double&gt; v;
