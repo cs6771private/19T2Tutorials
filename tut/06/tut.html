@@ -55,6 +55,18 @@
 </li>
 
 <li>
+  <p>What are the 4 exception safety levels and what does each mean?</p>
+  <div class="answer">
+    <ul>
+      <li>No-throw (failure transparency): Operations guaranteed to succeed</li>
+      <li>Strong exception safety (commit-or-rollback): Operations can fail, but failed operations will have no side effects</li>
+      <li>Weak exception safety (no-leak): May cause side effects, but guaranteed that no memory leaks will occur</li>
+      <li>No exception safety: No guarantees</li>
+    </ul>
+  </div>
+</li>
+
+<li>
   Consider the following code:
   {{ include_code('questions/partial.cpp') }}
 
