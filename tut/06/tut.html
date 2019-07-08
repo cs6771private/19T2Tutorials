@@ -9,15 +9,49 @@
       <li><b>std::out_of_bounds</b>: </li>
     </ul>
   </div>
-
 </li>
+
+
 
 <li>
   What's an example of a case we'd want to rethrow an exception?
+  <div class="answer">
+    <ul>
+      <li>When you aren't interested in managing a caught exception (wanting to leave that to a higher level), but you would like to log something to do with the exception</li>
+    </ul>
+  </div>
 </li>
+
 
 <li>
   In what cases would we want to have two catch statements for a thrown exception?
+  <div class="answer">
+    When we have some type-specific exceptions to catch (e.g. std::out_of_range), but then also want to handle other exceptions (known or unknown) in other cases (e.g. std::length_error, std::exception).
+  </div>
+</li>
+
+
+<li>
+  When would we use a shared pointer instead of a unique pointer?
+  <div class="answer">
+    When we are unsure which of a series of pointers (to a single resource) will have the longest lifetime. If it's known which will outlast the others, then we use a unique pointer with a number of observers. 
+  </div>
+</li>
+
+<li>
+  <p>What is <b>stack unwinding</b>?</p>
+  <div class="answer">
+    The process of exiting the stack frames until we find an exception handler for the function.
+  </div>
+  <p>What happens during stuck unwinding?</p>
+  <div class="answer">
+    Destructors are called on relevant objects on the way out; and any exceptions thrown in a destructor (that are not caught and handled in that destructor) cause std::terminate to be called
+  </div>
+  <p>What issue can this potentially cause? How can we fix this?</p>
+  <div class="answer">
+    If unmanaged resources were created before an exception throw, they may not be appropriately released. The solution is to ensure that every resource is owned by either another resource, the stack, or an unnamed temporary variable.
+  </div>
+
 </li>
 
 <li>
