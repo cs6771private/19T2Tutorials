@@ -32,6 +32,7 @@ table td, table th { padding: 3px; }
   <li>09/07: Function prototypes for majority of functions properly fleshed out. Please note: Not all information regarding const-ness is given. You will still have to make the appropriate functions const or non-const.</li>
   <li>09/07: Move constructor example changed from <pre>aMove{a}</pre> to <pre>aMove{std::move(a)}</pre></li>
   <li>09/07: Parameters of iterator custructor have template typed added for full clarity</li>
+  <li>09/07: Typos in above changes fixed</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -346,7 +347,7 @@ Note that these friend operations don't modify any of the given operands.
   </tr>
   <tr>
     <td>Addition</td>
-    <td>EuclideanVector operator+(const const EuclideanVector&, const const EuclideanVector&)<br /></td>
+    <td>EuclideanVector operator+(const EuclideanVector&, const EuclideanVector&)<br /></td>
     <td>For adding vectors of the same dimension. </td>
     <td><pre>
 a = b + c;</pre></td>
@@ -409,7 +410,7 @@ Hint: you'll obviously need two methods, as the scalar can be either side of the
 </tr>
   <tr>
     <td>Output Stream</td>
-    <td>std::ostream& operator&lt;&lt;(const std::ostream&, const EuclideanVector&)</td>
+    <td>std::ostream& operator&lt;&lt;(std::ostream&, const EuclideanVector&)</td>
     <td>Prints out the magnitude in each dimension of the Euclidean Vector (surrounded by [ and ]), e.g. for a 3-dimensional vector: [1 2 3]</td>
     <td><pre>std::cout &lt;&lt; a;</pre></td>
     <td>N/A</td>
