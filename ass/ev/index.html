@@ -33,6 +33,8 @@ table td, table th { padding: 3px; }
   <li>09/07: Move constructor example changed from <pre>aMove{a}</pre> to <pre>aMove{std::move(a)}</pre></li>
   <li>09/07: Parameters of iterator custructor have template typed added for full clarity</li>
   <li>09/07: Typos in above changes fixed</li>
+  <li>10/07: Return type of operator= (copy and move) made more clear</li>
+  <li>10/07: Fixed "b.GetEuclideanNorm()" to be "c.GetEuclideanNorm()" for friend addition
 </ul>
 
 <h2>1. Overview</h2>
@@ -158,7 +160,7 @@ You must explicitly declare the destructor as default.
   </tr>
   <tr>
     <td>Copy Assignment</td>
-    <td>operator=(const EuclideanVector&)</td>
+    <td>EuclideanVector& operator=(const EuclideanVector&)</td>
     <td>A copy assignment operator overload</td>
     <td><pre>a = b;</pre></td>
     <td>
@@ -167,7 +169,7 @@ You must explicitly declare the destructor as default.
   </tr>
   <tr>
     <td>Move Assignment</td>
-    <td>operator=(EuclideanVector&&)</td>
+    <td>EuclideanVector& operator=(EuclideanVector&&)</td>
     <td>A move assignment operator</td>
     <td><pre>a = std::move(b);</pre></td>
     <td>
@@ -352,7 +354,7 @@ Note that these friend operations don't modify any of the given operands.
     <td><pre>
 a = b + c;</pre></td>
     <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
+      <b>Given</b>: X = a.GetNumDimensions(), Y = c.GetNumDimensions()
       <b>When</b>: X != Y<br />
       <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
