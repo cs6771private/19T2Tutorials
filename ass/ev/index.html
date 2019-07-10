@@ -34,7 +34,10 @@ table td, table th { padding: 3px; }
   <li>09/07: Parameters of iterator custructor have template typed added for full clarity</li>
   <li>09/07: Typos in above changes fixed</li>
   <li>10/07: Return type of operator= (copy and move) made more clear</li>
-  <li>10/07: Fixed "b.GetEuclideanNorm()" to be "c.GetEuclideanNorm()" for friend addition
+  <li>10/07: Fixed "b.GetEuclideanNorm()" to be "c.GetEuclideanNorm()" for friend addition</li>
+  <li>10/07: Scalar division throw condition better explained</li>
+  <li>10/07: operator* now returns "double" instead of "const"</li>
+  <li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -374,7 +377,7 @@ a = b - c;</pre></td>
 </tr>
   <tr>
     <td>Multiplication</td>
-    <td>const operator*(const EuclideanVector&, const EuclideanVector&)</td>
+    <td>double operator*(const EuclideanVector&, const EuclideanVector&)</td>
     <td>For dot-product multiplication, returns a double.
 E.g., [1 2] * [3 4] = 1 * 3 + 2 * 4 = 11</td>
 <td><pre>double c {a * b};</pre></td>
@@ -404,9 +407,10 @@ Hint: you'll obviously need two methods, as the scalar can be either side of the
     <td>Divide</td>
     <td>EuclideanVector operator/(const EuclideanVector&, double)</td>
 <td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
-<td><pre>a = b / 4;</pre></td>
+<td><pre>double c;
+EuclideanVector a = b / c;</pre></td>
 <td>
-      <b>When</b>: b == 0<br />
+      <b>When</b>: c == 0<br />
       <b>Throw</b>: "Invalid vector division by 0"
     </td>
 </tr>
