@@ -37,7 +37,9 @@ table td, table th { padding: 3px; }
   <li>10/07: Fixed "b.GetEuclideanNorm()" to be "c.GetEuclideanNorm()" for friend addition</li>
   <li>10/07: Scalar division throw condition better explained</li>
   <li>10/07: operator* now returns "double" instead of "const"</li>
-  <li>
+  <li>12/07: More info on default added </li>
+  <li>12/07: Section 4.4 added (automarking)</li>
+  <li>12/07: Section 3.10 added (catch2 test example) </li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -149,7 +151,9 @@ EuclideanVector c{l.begin(), l.end()}; // a Euclidean Vector in 3 dimensions con
 </ul>
 
 <h3>2.2. Destructor</h3>
-You must explicitly declare the destructor as default.
+<p>You must explicitly declare the destructor as default.</p>
+<p>For more info look <a href="https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/defaulted_functions_in_c_11?lang=en">here</a></p>
+
 
 <h3>2.3. Operations</h3>
 
@@ -443,7 +447,6 @@ You must:
 <ul>
   <li>Include a header guard in euclidean_vector.h</li>
   <li>Use C++17 style and methods</li>
-  <li>Ensure methods that will not throw exceptions are marked <pre><code>noexcept</code></pre></li> 
   <li>Make sure that <i>all appropriate member functions</i> are const qualified</li>
   <li>Leave a moved-from object in a state with 0 dimensions</li>
   <li>Must assume that addition, subtraction, multiplication, and division operations on two 0-dimension vectors are valid operations. In all cases the result should still be a 0-dimension vector.</li>
@@ -457,6 +460,7 @@ You must not:
 
 You:
 <ul>
+  <li>Should try to mark methods that will not throw exceptions with <pre><code>noexcept</code></pre></li> 
   <li>Are not required to make any method explicit unless directly asked to in the spec.</li>
 </ul>
 
@@ -472,6 +476,39 @@ You:
 <p>Please think carefully about this. The function prototypes intentionally do not specify their constness, except for one exception, the <b>at()</b> operator. This has an explicit const and non-const prototype to help you out.</p>
 
 <p>In most cases you will only need a single function, but in a couple of cases you will need both a const and non-const version.</p>
+
+<h3>3.10. Catch2 tests</h3>
+
+<p>Here is a sample and example of Catch2 tests to write</p>
+
+<pre>SCENARIO("Creation of unit vectors") {
+  WHEN("You have two identical vectors") {
+    EuclideanVector a{2};
+    a[0] = 1;
+    a[1] = 2;
+    EuclideanVector b{2};
+    b[0] = 2;
+    b[1] = 1;
+    THEN("Get their unit vectors") {
+      EuclideanVector c{a.CreateUnitVector()};
+      EuclideanVector d{b.CreateUnitVector()};
+      REQUIRE(c == d);
+    }
+  }
+}
+
+SCENARIO("Accessing dimension that doesn't exist") {
+  WHEN("You try to split an empty string") {
+    EuclideanVector a{2};
+    a[0] = 1;
+    a[1] = 2;
+    THEN("You get a single empty result") {
+      REQUIRE_THROWS_WITH(a.at(2), "Index 2 is not valid for this EuclideanVector object");
+    }
+  }
+}
+
+</pre>
 
 <h2>4. Getting Started</h2>
 
@@ -526,7 +563,14 @@ You:
 <pre><code>$ bazel build //assignments/ev:euclidean_vector_test</code></pre>
 <pre><code>$ bazel run //assignments/ev:euclidean_vector_test</code></pre>
 
-<H3>4.4. Assessment</H3>
+<h3>4.4. Autotests</h3>
+On a CSE machine you can run
+
+<pre>6771 evtest</pre>
+
+to test your code automatically. Note: euclidean_vector.cpp and euclidean_vector.h must be in that directory.
+
+<H3>4.5. Assessment</H3>
 <P>
 This assignment will contribute 15% to your final mark.
 <P>
@@ -571,7 +615,7 @@ The lecturer may vary the assessment scheme after inspecting
 the assignment submissions but it will remain broadly similar to the description above.
 
 
-<h3>4.5. Originality of Work</h3>
+<h3>4.6. Originality of Work</h3>
 <P>
 The work you submit must be your own work.  Submission of work partially or completely derived
 from any other person or jointly written with any other person is not permitted.
@@ -593,7 +637,7 @@ apply even if your work is submitted by a third party unknown to you.</p>
 Note you will not be penalized if your work has the potential to be taken without your consent or knowledge.
 </p>
 
-<h3>4.6. Submission</h3>
+<h3>4.7. Submission</h3>
 <P>
 This assignment is due <b>Saturday 13th of July, 22:59:59</b>.
 Submit the assignment using this <I>give</I> command:
@@ -603,7 +647,7 @@ give cs6771 euclideanvector euclidean_vector.cpp euclidean_vector.h euclidean_ve
 
 </PRE>
 
-<h3>4.7. Late Submission Policy</h3>
+<h3>4.8. Late Submission Policy</h3>
 <p>
 If your assignment is submitted after this date, each hour it is late reduces
 the maximum mark it can achieve by 1%.
