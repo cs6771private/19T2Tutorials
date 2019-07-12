@@ -220,7 +220,7 @@ a -= b;</pre></td>
 </tr>
   <tr>
     <td>Multiplication</td>
-    <td>EuclideanVector& operator*=(const double)<br />
+    <td>EuclideanVector& operator*=(double)<br />
 </td>
 <td>For scalar multiplication, e.g. [1 2] * 3 = [3 6]
 </td>
@@ -231,7 +231,7 @@ a -= b;</pre></td>
 </tr>
   <tr>
     <td>Division</td>
-    <td>EuclideanVector& operator/=(const double)<br />
+    <td>EuclideanVector& operator/=(double)<br />
 </td>
 <td>For scalar division, e.g. [3 6] / 2 = [1.5 3]</td>
 <td><pre>a /= 4;</pre></td>
@@ -487,8 +487,8 @@ You:
     a[0] = 1;
     a[1] = 2;
     EuclideanVector b{2};
-    b[0] = 2;
-    b[1] = 1;
+    b[0] = 1;
+    b[1] = 2;
     THEN("Get their unit vectors") {
       EuclideanVector c{a.CreateUnitVector()};
       EuclideanVector d{b.CreateUnitVector()};
