@@ -281,6 +281,79 @@ g.addEdge("a",u,1);</pre></td>
     <td></td>
   </tr>
 
+  <tr>
+    <td>gdwg::btree_iterator find(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.find("e")</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_iterator erase(gdwg::btree_iterator it);</td>
+    <td></td>
+    <td><pre>auto it = g.find("e")
+if (it != g.end()) {
+  g.erase(it);
+}</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_iterator begin(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.begin()</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_iterator end(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.end()</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_const_iterator cbegin(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.cbegin()</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_const_iterator cend(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.cend()</pre></td>
+    <td></td>
+  </tr>
+
+    <tr>
+    <td>gdwg::btree_iterator rbegin(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.rbegin()</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_iterator rend(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.rend()</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_const_iterator crbegin(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.crbegin()</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>gdwg::btree_const_iterator crend(const N& n);</td>
+    <td></td>
+    <td><pre>auto it = g.crend()</pre></td>
+    <td></td>
+  </tr>
+
 </table>
 
 <h3>3.4. Friends</h3>
