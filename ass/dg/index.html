@@ -1,0 +1,561 @@
+{% extends "templates/base.html" %}
+
+{% block body_contents %}
+<style type="text/css">
+table td, table th { padding: 3px; }
+</style>
+<div class="container">
+<div class="page-header">
+<h1>Assignment 3 - Generic Directed Weighted graph (GDWG)</h1>
+</div>
+</a>
+
+<h3>Change Log</h3>
+<ul>
+  <li></li>
+</ul>
+
+<h2>1. Overview</h2>
+
+<p>Write a "graph" Class Library in C++, with
+its interface given in <code>graph.h</code>
+and its implementation in <code>graph.cpp</code>.
+</p>
+
+<h3>1.1. Aims</h3>
+<ul>
+  <li>Smart Pointers</li>
+  <li>Exception Handling</li>
+  <li>Lambda Functions</li>
+  <li>Custom Iterators</li>
+  <li>Function and Class templates</li>
+  <li>Operator Overloading</li>
+  <li>Friends</li>
+  <li>Namespaces</li>
+</ul>
+
+<h3>1.2. Description</h3>
+
+<p>In this assignment, you will write a Generic Directed Weighted
+graph (GDWG) with value-like semantics 
+in C++. Both the data stored at a node
+and the weight stored at
+an edge will be of generic types. Both generic types
+may be different.
+For example, here is a graph with nodes storing std::string and edges weighted by int:
+</p>
+<pre>gdwg::graph&lt;std::string,int&gt; g;</pre>
+<p>Formally, this directed weighted graph G=(N,E) will consist of
+a set of nodes N and a set of weighted edges E. Give a node, 
+an edge directed into it is called an <i>incoming edge</i> and
+an edge directed out of it is called an <i>outgoing edge</i>. The
+<i>in-degree</i> of a node is the number of its incoming edges.
+Similarly, the
+<i>out-degree</i> of a node is the number of its outgoing edges.
+Given a directed edge from src to dst, src &rarr; dst, src is the <i>source</i> node
+and dst is known as the <i>destination</i> node. G is a multi-edged
+graph, as there may be two edges from the same source node to the
+same destination node with two different weights. However,
+all nodes are distinct, as they contain different data values.
+
+<h2>2. Your task</h2>
+
+<h3>2.1 Constructors & Destructors</h3>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <td>Name</td>
+    <td>Constructor</td>
+    <td>Description and Hints</td>
+    <td>Examples</td>
+    <th>Exception: Why thrown & what message</th>
+  </tr>
+  <tr>
+    <td>Default Constructor</td>
+    <td>gdwg::graph&lt;N, E&gt;</td>
+    <td>A constructor that takes the number of dimensions (as a int) but no magnitudes, sets the magnitude in each dimension as 0.0. Hint: you may want to make this a delegating constructor to the next constructor below. <br>
+    This is the default constructor, with the default value being 1.<br />
+    You can assume the integer input will always be non-negative.
+</td>
+<td><pre>gdwg::graph&lt;N, E&gt; a;
+</pre>
+</td>
+<td>N/A</td>
+</tr>
+
+
+  <tr>
+    <td>Constructor</td>
+    <td>gdwg::graph&lt;N, E&gt;(const N& initialNode)</td>
+
+    <td>A constructor that takes the number of dimensions (as a int) and initialises the magnitude in each dimension as the second argument (a double). You can assume the integer input will always be non-negative.</td>
+    <td><pre>(1) gdwg::graph&lt;N, E&gt; a{2, 4.0};
+(2) int x {3};
+    double y {3.24};
+    gdwg::graph&lt;N, E&gt; b{x, y};</pre></td>
+    <td>N/A</td>
+  </tr>
+
+
+  <tr>
+    <td>Constructor</td>
+    <td>gdwg::graph&lt;N, E&gt;(std::vector&lt;N&gt;::const_iterator, std::vector&lt;N&gt;::const_iterator)</td>
+
+    <td>A constructor (or constructors) that takes the start and end of an iterator to a std:vector<double> and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values.</td>
+    <td><pre>
+  std::vector&lt;double&gt; v;
+  gdwg::graph&lt;N, E&gt; b{v.begin(),v.end()};
+</pre></td>
+<td>N/A</td>
+</tr>
+
+  <tr>
+    <td>Constructor</td>
+    <td>gdwg::graph&lt;N, E&gt;(std::vector&lt;N&gt;::const_iterator, std::vector&lt;N&gt;::const_iterator, std::vector&lt;std::pair&lt;N, N&gt;&gt;::const_iterator, std::vector&lt;std::pair&lt;N, N&gt;&gt;::const_iterator)</td>
+
+    <td>A constructor (or constructors) that takes the start and end of an iterator to a std:vector<double> and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values.</td>
+    <td><pre>
+  std::vector&lt;double&gt; v;
+  gdwg::graph&lt;N, E&gt; b{v.begin(),v.end()};
+</pre></td>
+<td>N/A</td>
+</tr>
+
+  <tr>
+    <td>Constructor</td>
+    <td>gdwg::graph&lt;N, E&gt;(std::initializer_list&lt;N&gt;)</td>
+
+    <td>A constructor (or constructors) that takes the start and end of an iterator to a std:vector<double> and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values.</td>
+    <td><pre>
+  std::vector&lt;N&gt; v;
+  gdwg::graph&lt;N, E&gt; b{v.begin(),v.end()};
+</pre></td>
+<td>N/A</td>
+</tr>
+
+
+ 
+  <tr>
+    <td>Copy Constructor</td>
+    <td>gdwg::graph&lt;N, E&gt;(const gdwg::graph&lt;N, E&gt;&)</td>
+    <td><pre>gdwg::graph&lt;N, E&gt; aCopy{a};</pre></td>
+    <td>N/A</td>
+  </tr>
+  <tr>
+    <td>Move Constructor</td>
+    <td>gdwg::graph&lt;N, E&gt;(gdwg::graph&lt;N, E&gt;&&)</td>
+    <td><pre>gdwg::graph&lt;N, E&gt; aMove{std::move(a)};</pre></td>
+    <td>N/A</td>
+  </tr>
+  <tr>
+    <td>Destructor</td>
+    <td>~gdwg::graph&lt;N, E&gt;()</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+</table>
+
+
+<h3>2.2. Operations</h3>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <td>Name</td>
+    <th>Operator</th>
+    <td>Description</td>
+    <td>Examples</td>
+    <th>Exception: Why thrown & what message</th>
+  </tr>
+  <tr>
+    <td>Copy Assignment</td>
+    <td>gdwg::graph&lt;N, E&gt;& operator=(const gdwg::graph&lt;N, E&gt;&)</td>
+    <td>A copy assignment operator overload</td>
+    <td><pre>a = b;</pre></td>
+    <td>
+      N/A
+    </td>
+  </tr>
+  <tr>
+    <td>Move Assignment</td>
+    <td>gdwg::graph&lt;N, E&gt;& operator=(gdwg::graph&lt;N, E&gt;&&)</td>
+    <td>A move assignment operator</td>
+    <td><pre>a = std::move(b);</pre></td>
+    <td>
+      N/A
+    </td>
+  </tr>
+  <tr>
+    <td>Vector Type Conversion<br /></td>
+    <td>explicit operator std::vector&lt;N&gt;()</td>
+<td>Operators for type casting to a <code>std::vector</code></td>
+<td><pre>
+gdwg::graph&lt;N, E&gt; a;
+auto vf = std::vector&lt;N&gt;{a};
+</pre></td>
+<td>N/A</td>
+</tr>
+<tr>
+    <td>List Type Conversion<br /></td>
+    <td>explicit operator std::list&lt;N&gt;()</td>
+<td>Operators for type casting to a <code>std::list</code></td>
+<td><pre>
+gdwg::graph&lt;N, E&gt; a;
+auto lf = std::list&lt;N&gt;{a};
+</pre></td>
+<td>N/A</td>
+</tr>
+</table>
+
+<h3>2.3. Methods</h3>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <th>Prototype</th>
+    <th>Description</th>
+    <th>Usage</th>
+    <th>Exception: Why thrown & what message</th>
+  </tr>
+
+  <tr>
+    <td>bool addNode(const N& val)</td>
+    <td>Adds a new node with value val to the graph. This function returns true if the node is added to the graph and false if there is already a node containing val in the graph (with the graph unchanged). </td>
+    <td><pre>std::string s = "a";
+g.addNode(s);</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>bool addEdge(const N& src, const N& dst, const E& w)</td>
+    <td>Adds a new edge src → dst with weight w. This function returns true if the edge is added and false if the edge src → dst with weight w already exists in the graph.</td>
+    <td><pre>std::string u = "c";
+g.addEdge("a",u,1);</pre></td>
+    <td>A std::runtime_error is thrown if either src or dst is not in the graph. </td>
+  </tr>
+
+  <tr>
+    <td>bool replace(const N& oldData, const N& newData)</td>
+    <td>Replaces the original data, oldData, stored at this particular node by the replacement data, newData. This function returns false if a node that contains value newData already exists in the graph (with the graph unchanged) and true otherwise.</td>
+    <td><pre>g.replace("a", "e")</pre></td>
+    <td>If no node that contains value oldData can be found, then a std::runtime_error is thrown.</td>
+  </tr>
+
+  <tr>
+    <td>void mergeReplace(const N& oldData, const N& newData)</td>
+    <td>laces the data, oldData, stored at one node, denoted OldNode, with the data, newData, stored at another node, denoted NewNode, in the graph. After the operation has been performed successfully, every incoming (outgoing) edge of OldNode becomes an incoming (outgoing) edge of newNode, except that duplicate edges must be removed. Note that the edges that connect OldNode and NewNode are handled identically by this edge merging rule. See test6.cpp for an example. </td>
+    <td><pre>g.mergeReplace("c", "e")</pre></td>
+    <td>If either node cannot be found in the graph, then a std::runtime_error is thrown. </td>
+  </tr>
+
+  <tr>
+    <td>void deleteNode(const N&)</td>
+    <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply.</td>
+    <td><pre>g.deleteNode("b")</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>void deleteEdge(const N& src, const N& dst, const E& w)</td>
+    <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph.</td>
+    <td><pre>g.deleteEdge("b", "c", 1)</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>void clear()</td>
+    <td>Remove all nodes and edges from the graph. New nodes or edges can be added to the graph afterwards.</td>
+    <td><pre>g.clear()</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>bool isNode(const N& val);</td>
+    <td>Returns true if a node with value val exists in the graph and false otherwise.</td>
+    <td><pre>g.isNode("a")</pre></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>bool isConnected(const N& src, const N& dst);</td>
+    <td>Returns true if the edge src → dst exists in the graph and false otherwise. This function throws a std::runtime_error if either src or dst is not in the graph.</td>
+    <td><pre>g.isConnected("e","b")</pre></td>
+    <td></td>
+  </tr>
+
+</table>
+
+<h3>3.4. Friends</h3>
+
+In addition to the operations indicated earlier, the following operations should be supported as friend functions.
+Note that these friend operations don't modify any of the given operands.
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <th>Name</th>
+    <th>Operator</th>
+    <th>Description</th>
+    <th>Usage</th>
+    <th>Exception: Why thrown & what message</th>
+  <tr>
+    <td>Equal</td>
+    <td>bool operator==(const gdwg::graph&lt;N, E&gt;&, const gdwg::graph&lt;N, E&gt;&)</td>
+    <td>True if the two graphs contain the same nodes and edges.</td>
+    <td><pre>a == b;</pre></td>
+    <td>N/A</td>
+  </tr>
+  <tr>
+    <td>Not Equal</td>
+    <td>bool operator!=(const gdwg::graph&lt;N, E&gt;&, const gdwg::graph&lt;N, E&gt;&)</td>
+    <td>True if the two graphs do not contain the same nodes or edges.</td>
+    <td><pre>a != b;</pre></td>
+    <td>N/A</td>
+  </tr>
+  <tr>
+    <td>Output Stream</td>
+    <td>std::ostream& operator&lt;&lt;(std::ostream&, const gdwg::graph&lt;N, E&gt;&)</td>
+    <td>Prints out the graph in the following format:
+<pre>[node1] (
+[4 spaces][node1_connected_node1],
+[4 spaces][node1_connected_node2],
+[4 spaces][etc etc]
+),
+[node2] (
+[4 spaces][node2_connected_node1],
+[4 spaces][node2_connected_node2],
+[4 spaces][etc etc]
+),
+[node3] (
+[4 spaces][node3_connected_node1],
+[4 spaces][node3_connected_node2],
+[4 spaces][etc etc]
+),
+[etc etc]</pre>
+<hr />
+For example, for gdwg::graph&lt;std::string, int&gt;, an output may be:
+<pre>hello (
+    1,
+    2,
+    3
+),
+how (
+    4,
+    5
+),
+are (
+),
+you (
+
+)
+<hr />
+Note the placement of commas and the lack of commas in the final item
+</pre></td>
+    <td><pre>std::cout &lt;&lt; a;</pre></td>
+    <td>N/A</td>
+  </tr>
+</table>
+
+<h3>3.5. Iterator</h3>
+
+<p>You are required to define an iterator class <b>gdwg::graph_iterator</b>.</p>
+
+<p>The iterators will come in const and non-const forms, just like they would for any
+built-in STL container. The iterators should respond to the *, ->, ++, --, == and !=
+operators</p>
+
+<p>When iterating through your graph the order of iteration should be based on the operator< for the underlying node type N</p>
+
+<p>Your iterators should be appropriately declared as bi-directional. You should implement
+and test the complete bi-directional iterator functionality. This includes pre/post incre-
+ment and decrement. The post-increment/decrement operations should return a copy of
+the value pointed to before the increment/decrement is performed.</p>
+
+<h3>3.6. Internal Representation</h3>
+
+<p>Your GDWG is <b>required</b> is required to use smart pointers.</p>
+
+<h3>3.7. Throwing Exceptions</h3>
+
+<p>You are required to throw exceptions in certain cases. These are specified in the tables above.</p>
+
+<h3>3.8. Other notes</h3>
+You must:
+<ul>
+  <li>Include a header guard in graph.h</li>
+  <li>Use C++17 style and methods</li>
+  <li>Ensure const-correctness of your code
+  <li>Leave a moved-from object in a state with 0 nodes</li>
+  <li>Mark all appropriate functions <i>noexcept</i>
+</ul>
+
+You must not:
+<ul>
+  <li>Write to any files that aren't provided in the repo (e.g. storing your graph data in an auxilliary file)</li>
+  <li>Required to make any method explicit unless directly asked to in the spec.</li>
+</ul>
+
+<h3>3.9. Const Correctness</h3>
+
+<p>You must ensure that each operator (2.3) and method (2.4) appropriately either has:</p>
+<ul>
+ <li>A const member function; or</li>
+ <li>A non-const member function; or</li>
+ <li>Both a const and non-const member function</li>
+</ul>
+
+<p>Please think carefully about this. The function prototypes intentionally do not specify their constness, except for one exception, the <b>at()</b> operator. This has an explicit const and non-const prototype to help you out.</p>
+
+<p>In most cases you will only need a single function, but in a couple of cases you will need both a const and non-const version.</p>
+
+<h2>4. Getting Started</h2>
+
+<p>If you haven't done so already, clone the repository:</p>
+
+<pre>$ git clone https://github.com/cs6771/comp6771 comp6771</pre>
+
+<p>Then navigate to the <b>assignments/dg</b> directory</p>
+
+<p>All of the files you need are in this directory. Here is a list of files that and a description of their purpose:</p>
+<table border="1" cellspacing="0" cellpadding="2">
+	<tr>
+		<th>File</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>client.(cpp|out)</td>
+		<td>A simple use case of a client using your graph<br /><b>Note: Do NOT modify this file. We will potentially update it. If you want to modify it, make a local copy first.</b></td>
+	</tr>
+	<tr>
+		<td>graph.(inc|h)</td>
+		<td>Your GDWG interface and implementation.</td>
+	</tr>
+	<tr>
+		<td>graph_test.cpp</td>
+		<td>Your tests for your GDWG file</td>
+	</tr>
+	<tr>
+    <td>BUILD</td>
+    <td>Build file containing build, test, dependency instructions</td>
+  </tr>
+</table>
+
+<H3>4.2. Reference Solution & Time Limits</H3>
+
+<p>Due to the simple nature of this data type, there will be performance based measurements</p>
+<p>Each test will still have a time limit to run (1 second max), but unless you do something completely insane this will be more than enough time for all of your operations to complete.</p>
+
+<h3>4.3. Running your assignment</h3>
+
+<h4>4.3.1. Running a basic use case</h4>
+
+<p>You can run your code against a basic (non-testing) use case to get a better sense of the behaviour</p>
+
+<p>From your project directory:</p>
+
+<pre><code>$ bazel build //assignments/dg:client</code></pre>
+<pre><code>$ ./bazel-bin/assignments/dg/client | diff ./assignments/dg/client.sampleout -</code></pre>
+
+<h4>4.3.2. Running your tests</h4>
+
+<pre><code>$ bazel build //assignments/dg:graph_test</code></pre>
+<pre><code>$ bazel run //assignments/dg:graph_test</code></pre>
+
+<h3>4.4. Autotests</h3>
+On a CSE machine you can run
+
+<pre>6771 evtest</pre>
+
+to test your code automatically. Note: graph.cpp and graph.h must be in that directory.
+
+<H3>4.5. Assessment</H3>
+<P>
+This assignment will contribute 15% to your final mark.
+<P>
+The assessment for the assignment recognizes the difficulty of the task, the importance of style, and the importance of appropriate use of programming methods (e.g. using while loops instead of a dozen if statements).
+
+<table class="table table-bordered table-striped">
+<tr><td align=right>60%<td><b>Correctness</b><br />
+    <P>
+The correctness of your program will be determined automatically by tests that we will run against your program. We will create a series of test files that contain their own main function and are compiled with your GDWG file(s).</P>
+
+<tr><td align=right>20%<td><b>Your tests</b><br />
+  You are required to write your own tests to ensure your program works.
+  You will write tests in <code>graph_test.cpp</code>. At the top of this file you will also include a block comment to explain the rational and approach you took to writing tests. Please read the <a href="https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md">Catch2 tutorial</a> or review lecture/tutorial content to see how to write tests.
+  Tests will be marked on several factors. These include, but are not limited to
+	<ul>
+    <li>Correctness - an incorrect test is worse than useless.</li>
+		<li>Coverage - your tests might be great, but if they don't cover the part that ends up failing, they weren't much good to you.</li>
+		<li>Brittleness - If you change your implementation, will the tests need to be changed (this generally means avoiding calling functions specific to your implementation where possible - ones that would be private if you were doing OOP).</li>
+		<li>Clarity - If your test case failed, it should be immediately obvious what went wrong (this means splitting it up into appropriately sized sub-tests, amongst other things).</li>
+	</ul>
+
+<tr><td align=right>15%<td><b>C++ style</b><br />Your adherence to good C++ style. This is <b>not</b> saying that if you conform to the style guide you will receive full marks for this section. This 20% is also based on how well you use modern C++ methodologies taught in this course as opposed to using backwards-compatible C methods. Examples include: Not using primitive arrays and not using pointers.
+
+<tr><td align=right>5%<td><b>cpplint and clang-format</b><br />
+In your project folder, run the following commands on all C++ files you submit:<br />
+<code>$ clang-format -i /path/to/file && python cpplint.py /path/to/file</code>
+<p>If the program outputs the following, you will receive full marks for this section (5%). Otherwise you will receive no marks.</p>
+<pre>Done processing assignments/dg/graph.h
+Total errors found: 0</pre>
+
+</table>
+
+The following actions will result in a 0/100 mark for gdwg::graph&lt;N, E&gt;, and in some cases a 0 for COMP6771:
+<ul>
+<li>Knowingly providing your work to anyone and it is subsequently submitted (by anyone).
+<li>Submitting any other person's work. This includes joint work.
+<li>Submitting another person's work without their consent.
+</ul>
+
+<P>
+The lecturer may vary the assessment scheme after inspecting
+the assignment submissions but it will remain broadly similar to the description above.
+
+
+<h3>4.6. Originality of Work</h3>
+<P>
+The work you submit must be your own work.  Submission of work partially or completely derived
+from any other person or jointly written with any other person is not permitted.
+The penalties for such an offence may include negative marks,
+automatic failure of the course and possibly other academic discipline.
+Assignment submissions will be examined both automatically and manually
+for such submissions.</p>
+<p>
+Relevant scholarship authorities will be informed if students holding scholarships
+are involved in an incident of plagiarism or other misconduct.</p>
+<p>
+Do not provide or show your assignment work to any other person &mdash; apart from the teaching staff
+of COMP6771.
+If you knowingly provide or show your assignment work to another person for any
+reason, and work derived from it is submitted, you may be penalized, even
+if the work was submitted without your knowledge or consent.  This may
+apply even if your work is submitted by a third party unknown to you.</p>
+<p>
+Note you will not be penalized if your work has the potential to be taken without your consent or knowledge.
+</p>
+
+<h3>4.7. Submission</h3>
+<P>
+This assignment is due <b>Sunday 3rd of August, 23:59:59</b>.
+Submit the assignment using this <I>give</I> command:
+</P>
+<PRE>
+give cs6771 gdwg graph.h graph.inc graph_test.cpp
+</PRE>
+
+<h3>4.8. Late Submission Policy</h3>
+<p>
+If your assignment is submitted after this date, each hour it is late reduces
+the maximum mark it can achieve by 1%.
+For example if an assignment worth 76% was submitted
+5 hours late, the late submission would have no effect (as maximum mark would be 95%).
+If the same assignment was submitted 30 hours late it would be awarded
+70%, the maximum mark it can achieve at that time.
+</div>
+
+
+{% endblock %}
+
+</div>
+
+</body>
+</html>
+
