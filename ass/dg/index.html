@@ -19,7 +19,7 @@ table td, table th { padding: 3px; }
 
 <p>Write a "Graph" Class Library in C++, with
 its interface given in <code>graph.h</code>
-and its implementation in <code>graph.cpp</code>.
+and its implementation in <code>graph.tpp</code>.
 </p>
 
 <h3>1.1. Aims</h3>
@@ -97,8 +97,8 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
     <td>gdwg::Graph&lt;N, E&gt;(std::vector&lt;N&gt;::const_iterator, std::vector&lt;N&gt;::const_iterator)</td>
     <td>Takes the start and end of a const_iterator to a std:vector&lt;N&gt; and adds those nodes to the graph.</td>
     <td><pre>
-  std::vector&lt;double&gt; v;
-  gdwg::Graph&lt;N, E&gt; b{v.begin(),v.end()};
+  std::vector&lt;std::string&gt; v{"Hello", "how", "are", "you"};
+  gdwg::Graph&lt;std::string, double&gt; b{v.begin(),v.end()};
 </pre></td>
 <td>N/A</td>
 </tr>
@@ -108,9 +108,14 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
     <td>gdwg::Graph&lt;N, E&gt;(std::vector&lt;N&gt;::const_iterator, std::vector&lt;N&gt;::const_iterator, std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator, std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator)</td>
 
     <td>With the first two arguments, this constructor takes the start and end of a const_iterator to a std:vector&lt;N&gt; and adds those nodes to the graph. With the third and fourth argument, it takes the start and end of a const_iterator to a std::vector&lt;std::tuple&lt;N, N&gt;&gt; which specifies pairs of edges to be added from Node1 -> Node2 with weight E</td>
-    <td><pre>
-  std::vector&lt;double&gt; v;
-  gdwg::Graph&lt;N, E&gt; b{v.begin(),v.end()};
+    <td><pre>std::string s1 = "Hello";
+std::string s2 = "how";
+std::string s3 = "are";
+auto e1 = std::make_tuple&lt;std::string, std::string, double&gt;(s1, s2, 5.4);
+auto e2 = std::make_tuple&lt;std::string, std::string, double&gt;(s2, s3, 7.6);
+std::vector&lt;std::string&gt; v{s1, s2, s3};
+auto e = std::vector&lt;std::tuple&lt;std::string, std::string, double&gt;&gt;{e1, e2};
+gdwg::Graph&lt;std::string, double&gt; b{v.begin(),v.end(), e.begin(), e.end()};
 </pre></td>
 <td>N/A</td>
 </tr>
@@ -119,9 +124,7 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
     <td>Constructor</td>
     <td>gdwg::Graph&lt;N, E&gt;(std::initializer_list&lt;N&gt;)</td>
     <td>A constructor (or constructors) that takes the start and end of an iterator to a std:vector<double> and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values.</td>
-    <td><pre>
-  std::vector&lt;N&gt; v;
-  gdwg::Graph&lt;N, E&gt; b{v.begin(),v.end()};
+    <td><pre>gdwg::Graph&lt;char, std::string&gt; b{'a', 'b', 'x', 'y'};
 </pre></td>
 <td>N/A</td>
 </tr>
@@ -129,15 +132,15 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
   <tr>
     <td>Copy Constructor</td>
     <td>gdwg::Graph&lt;N, E&gt;(const gdwg::Graph&lt;N, E&gt;&)</td>
-    <td><pre>gdwg::Graph&lt;N, E&gt;
-gdwg::Graph&lt;N, E&gt; aCopy{a};</pre></td>
+    <td><pre>gdwg::Graph&lt;std::string, int&gt;
+gdwg::Graph&lt;std::string, int&gt; aCopy{a};</pre></td>
     <td>N/A</td>
   </tr>
   <tr>
     <td>Move Constructor</td>
     <td>gdwg::Graph&lt;N, E&gt;(gdwg::Graph&lt;N, E&gt;&&)</td>
-    <td><pre>gdwg::Graph&lt;N, E&gt; a;
-gdwg::Graph&lt;N, E&gt; aMove{std::move(a)};</pre></td>
+    <td><pre>gdwg::Graph&lt;std::string, int&gt; a;
+gdwg::Graph&lt;std::string, int&gt; aMove{std::move(a)};</pre></td>
     <td>N/A</td>
   </tr>
   <tr>
@@ -193,7 +196,7 @@ gdwg::Graph&lt;N, E&gt; aMove{std::move(a)};</pre></td>
     <td>bool AddNode(const N& val)</td>
     <td>Adds a new node with value val to the graph. This function returns true if the node is added to the graph and false if there is already a node containing val in the graph (with the graph unchanged). </td>
     <td><pre>std::string s = "a";
-g.addNode(s);</pre></td>
+g.AddNode(s);</pre></td>
     <td></td>
   </tr>
 
@@ -201,7 +204,7 @@ g.addNode(s);</pre></td>
     <td>bool AddEdge(const N& src, const N& dst, const E& w)</td>
     <td>Adds a new edge src → dst with weight w. This function returns true if the edge is added and false if the edge src → dst with weight w already exists in the graph.</td>
     <td><pre>std::string u = "c";
-g.addEdge("a",u,1);</pre></td>
+g.AddEdge("a",u,1);</pre></td>
     <td>A std::runtime_error is thrown if either src or dst is not in the graph. </td>
   </tr>
 
@@ -209,56 +212,79 @@ g.addEdge("a",u,1);</pre></td>
     <td>bool Replace(const N& oldData, const N& newData)</td>
     <td>Replaces the original data, oldData, stored at this particular node by the replacement data, newData. This function returns false if a node that contains value newData already exists in the graph (with the graph unchanged) and true otherwise.</td>
     <td><pre>g.replace("a", "e")</pre></td>
-    <td>If no node that contains value oldData can be found, then a std::runtime_error is thrown.</td>
+    <td>
+      <ul>
+        <li><b>Condition</b>: If no node that contains value oldData can be found</li>
+        <li><b>Throw</b>: std::runtime_error</li>
+        <li><b>With string</b>: "Cannot call Graph::Replace on a node that doesn't exist"</li>
+      </ul>
+    </td>
   </tr>
 
   <tr>
     <td>void MergeReplace(const N& oldData, const N& newData)</td>
-    <td>Replaces the data, oldData, stored at one node, denoted OldNode, with the data, newData, stored at another node, denoted NewNode, in the graph. After the operation has been performed successfully, every incoming (outgoing) edge of OldNode becomes an incoming (outgoing) edge of newNode, except that duplicate edges must be removed. Note that the edges that connect OldNode and NewNode are handled identically by this edge merging rule. See test6.cpp for an example. </td>
-    <td><pre>g.mergeReplace("c", "e")</pre></td>
-    <td>If either node cannot be found in the graph, then a std::runtime_error is thrown. </td>
+    <td>Replaces the data, oldData, stored at one node, denoted OldNode, with the data, newData, stored at another node, denoted NewNode, in the graph. After the operation has been performed successfully, every incoming (outgoing) edge of OldNode becomes an incoming (outgoing) edge of newNode, except that duplicate edges must be removed. Note that the edges that connect OldNode and NewNode are handled identically by this edge merging rule.</td>
+    <td><pre>g.MergeReplace("c", "e")</pre></td>
+    <ul>
+        <li><b>Condition</b>: If either node cannot be found in the graph</li>
+        <li><b>Throw</b>: std::runtime_error</li>
+        <li><b>With string</b>: "Cannot call Graph::MergeReplace on old or new data if they don't exist in the graph"</li>
+      </ul>
+    <td>
   </tr>
 
   <tr>
     <td>void DeleteNode(const N&)</td>
     <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply.</td>
-    <td><pre>g.deleteNode("b")</pre></td>
-    <td></td>
+    <td><pre>g.DeleteNode("b")</pre></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>void DeleteEdge(const N& src, const N& dst, const E& w)</td>
     <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph.</td>
-    <td><pre>g.deleteEdge("b", "c", 1)</pre></td>
-    <td></td>
+    <td><pre>g.DeleteEdge("b", "c", 1)</pre></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>void Clear()</td>
     <td>Remove all nodes and edges from the graph. New nodes or edges can be added to the graph afterwards.</td>
-    <td><pre>g.clear()</pre></td>
-    <td></td>
+    <td><pre>g.Clear()</pre></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>bool IsNode(const N& val);</td>
     <td>Returns true if a node with value val exists in the graph and false otherwise.</td>
-    <td><pre>g.isNode("a")</pre></td>
-    <td></td>
+    <td><pre>g.IsNode("a")</pre></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>bool IsConnected(const N& src, const N& dst);</td>
     <td>Returns true if the edge src → dst exists in the graph and false otherwise. This function throws a std::runtime_error if either src or dst is not in the graph.</td>
-    <td><pre>g.isConnected("e","b")</pre></td>
-    <td></td>
+    <td><pre>g.IsConnected("e","b")</pre></td>
+    <td>
+      <ul>
+        <li><b>Condition</b>: If either src or dst is not in the graph</li>
+        <li><b>Throw</b>: std::runtime_error</li>
+        <li><b>With string</b>: "Cannot call Graph::IsConnected if src or dst node don't exist in the graph"</li>
+      </ul>
+    </td>
   </tr>
 
   <tr>
-    <td>E getWeight(const N& src, const N& dst);</td>
+    <td>E GetWeight(const N& src, const N& dst);</td>
     <td>Returns the weight of an edge between two nodes.</td>
-    <td><pre>g.isConnected("e","b")</pre></td>
-    <td>std::out_of_range error. </td>
+    <td><pre>g.IsConnected("e","b")</pre></td>
+    <td>
+    <ul>
+        <li><b>Condition</b>: If either src or dst is not in the graph</li>
+        <li><b>Throw</b>: std::out_of_range</li>
+        <li><b>With string</b>: "Cannot call Graph::GetWeight if src or dst node don't exist in the graph"</li>
+      </ul>
+    </td>
   </tr>
 
   <tr>
@@ -289,56 +315,56 @@ if (it != g.end()) {
     <td>graph_iterator begin(const N& n);</td>
     <td>Returns an iterator pointing to the first element in the container. This iterator can be increased and decreased (unless it is itself also const)</td>
     <td><pre>auto it = g.begin()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>graph_iterator end(const N& n);</td>
     <td>Returns an iterator pointing to the past-the-end element in the container. This iterator can be increased and decreased (unless it is itself also const). If the container is empty, this function returns the same as vector::begin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.end()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>graph_const_iterator cbegin(const N& n);</td>
     <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const.</td>
     <td><pre>auto it = g.cbegin()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>graph_const_iterator cend(const N& n);</td>
     <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.cend()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
     <tr>
     <td>graph_iterator rbegin(const N& n);</td>
     <td>Returns an iterator pointing to the last element in the container. This iterator can be increased and decreased (unless it is itself also const)</td>
     <td><pre>auto it = g.rbegin()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>graph_iterator rend(const N& n);</td>
     <td>Returns an iterator pointing to the before-the-first element in the container. This iterator can be increased and decreased (unless it is itself also const). If the container is empty, this function returns the same as vector::begin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.rend()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>graph_const_iterator crbegin(const N& n);</td>
     <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const.</td>
     <td><pre>auto it = g.crbegin()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
     <td>graph_const_iterator crend(const N& n);</td>
     <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.crend()</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
 </table>
