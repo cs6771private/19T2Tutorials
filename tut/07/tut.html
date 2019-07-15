@@ -1,0 +1,28 @@
+{% extends "templates/tut.html" %}
+{% block questions %}
+
+<li>
+  Convert the following class to a generic (templated) type.
+  {{ include_code('questions/stringqueue.h') }}
+
+  After converting it to a generic type:
+  <ul>
+    <li>Complete all incomplete implementations.</li>
+    <li>Add an appropriate default constructor</li>
+    <li>Add an appropriate copy constructor</li>
+  </ul>
+  <div class="answer">
+    {{ include_code('solutions/stringqueue.h') }}
+  </div>
+  Finally, make the size of this queue a non-type parameter.
+  <div class="answer">
+    {{ include_code('solutions/stringqueuenontype.h') }}
+  </div>
+  What are the advantages and disadvantages of the non-type parameter?
+  <div class="answer">
+  <p><b>Advantage:</b> Improved performance. Size of a queue is determined at compile time requiring less to be done / processed at runtime.</p>
+  <p><b>Disadvantage:</b> (1) Code explosion - instantiation created for a queue of every size. (2) Unable to copy construct easily</p>
+  </div>
+</li>
+
+{% endblock %}

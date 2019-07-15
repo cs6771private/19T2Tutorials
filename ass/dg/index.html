@@ -217,7 +217,7 @@ auto lf = std::list&lt;N&gt;{a};
   </tr>
 
   <tr>
-    <td>bool addNode(const N& val)</td>
+    <td>bool AddNode(const N& val)</td>
     <td>Adds a new node with value val to the graph. This function returns true if the node is added to the graph and false if there is already a node containing val in the graph (with the graph unchanged). </td>
     <td><pre>std::string s = "a";
 g.addNode(s);</pre></td>
@@ -225,7 +225,7 @@ g.addNode(s);</pre></td>
   </tr>
 
   <tr>
-    <td>bool addEdge(const N& src, const N& dst, const E& w)</td>
+    <td>bool AddEdge(const N& src, const N& dst, const E& w)</td>
     <td>Adds a new edge src → dst with weight w. This function returns true if the edge is added and false if the edge src → dst with weight w already exists in the graph.</td>
     <td><pre>std::string u = "c";
 g.addEdge("a",u,1);</pre></td>
@@ -233,49 +233,49 @@ g.addEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td>bool replace(const N& oldData, const N& newData)</td>
+    <td>bool Replace(const N& oldData, const N& newData)</td>
     <td>Replaces the original data, oldData, stored at this particular node by the replacement data, newData. This function returns false if a node that contains value newData already exists in the graph (with the graph unchanged) and true otherwise.</td>
     <td><pre>g.replace("a", "e")</pre></td>
     <td>If no node that contains value oldData can be found, then a std::runtime_error is thrown.</td>
   </tr>
 
   <tr>
-    <td>void mergeReplace(const N& oldData, const N& newData)</td>
+    <td>void MergeReplace(const N& oldData, const N& newData)</td>
     <td>laces the data, oldData, stored at one node, denoted OldNode, with the data, newData, stored at another node, denoted NewNode, in the graph. After the operation has been performed successfully, every incoming (outgoing) edge of OldNode becomes an incoming (outgoing) edge of newNode, except that duplicate edges must be removed. Note that the edges that connect OldNode and NewNode are handled identically by this edge merging rule. See test6.cpp for an example. </td>
     <td><pre>g.mergeReplace("c", "e")</pre></td>
     <td>If either node cannot be found in the graph, then a std::runtime_error is thrown. </td>
   </tr>
 
   <tr>
-    <td>void deleteNode(const N&)</td>
+    <td>void DeleteNode(const N&)</td>
     <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply.</td>
     <td><pre>g.deleteNode("b")</pre></td>
     <td></td>
   </tr>
 
   <tr>
-    <td>void deleteEdge(const N& src, const N& dst, const E& w)</td>
+    <td>void DeleteEdge(const N& src, const N& dst, const E& w)</td>
     <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph.</td>
     <td><pre>g.deleteEdge("b", "c", 1)</pre></td>
     <td></td>
   </tr>
 
   <tr>
-    <td>void clear()</td>
+    <td>void Clear()</td>
     <td>Remove all nodes and edges from the graph. New nodes or edges can be added to the graph afterwards.</td>
     <td><pre>g.clear()</pre></td>
     <td></td>
   </tr>
 
   <tr>
-    <td>bool isNode(const N& val);</td>
+    <td>bool IsNode(const N& val);</td>
     <td>Returns true if a node with value val exists in the graph and false otherwise.</td>
     <td><pre>g.isNode("a")</pre></td>
     <td></td>
   </tr>
 
   <tr>
-    <td>bool isConnected(const N& src, const N& dst);</td>
+    <td>bool IsConnected(const N& src, const N& dst);</td>
     <td>Returns true if the edge src → dst exists in the graph and false otherwise. This function throws a std::runtime_error if either src or dst is not in the graph.</td>
     <td><pre>g.isConnected("e","b")</pre></td>
     <td></td>
