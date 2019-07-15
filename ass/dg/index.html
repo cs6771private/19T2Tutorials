@@ -105,7 +105,12 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
 
   <tr>
     <td>Constructor</td>
-    <td><pre>gdwg::Graph&lt;N, E&gt;(std::vector&lt;N&gt;::const_iterator, std::vector&lt;N&gt;::const_iterator, std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator, std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator)</pre></td>
+    <td><pre>gdwg::Graph&lt;N, E&gt;(
+  std::vector&lt;N&gt;::const_iterator,
+  std::vector&lt;N&gt;::const_iterator,
+  std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator,
+  std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator
+)</pre></td>
 
     <td>With the first two arguments, this constructor takes the start and end of a const_iterator to a std:vector&lt;N&gt; and adds those nodes to the graph. With the third and fourth argument, it takes the start and end of a const_iterator to a std::vector&lt;std::tuple&lt;N, N, E&gt;&gt; which specifies pairs of edges to be added from Node1 -> Node2 with weight E</td>
     <td><pre>std::string s1 = "Hello";
