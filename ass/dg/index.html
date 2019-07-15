@@ -94,7 +94,10 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
 
   <tr>
     <td>Constructor</td>
-    <td><pre>gdwg::Graph&lt;N, E&gt;(std::vector&lt;N&gt;::const_iterator, std::vector&lt;N&gt;::const_iterator)</pre></td>
+    <td><pre>gdwg::Graph&lt;N, E&gt;(
+  std::vector&lt;N&gt;::const_iterator,
+  std::vector&lt;N&gt;::const_iterator
+)</pre></td>
     <td>Takes the start and end of a const_iterator to a std:vector&lt;N&gt; and adds those nodes to the graph.</td>
     <td><pre>
   std::vector&lt;std::string&gt; v{"Hello", "how", "are", "you"};
@@ -636,10 +639,18 @@ This assignment is due <b>Sunday 3rd of August, 23:59:59</b>.
 Submit the assignment using this <I>give</I> command:
 </P>
 <PRE>
-give cs6771 gdwg graph.h graph.tpp graph_test.cpp
+give cs6771 graph graph.h graph.tpp graph_test.cpp
 </PRE>
 
 <h3>4.8. Late Submission Policy</h3>
+
+<p>You can run some basic tests on your code on any CSE machine. In a folder that contains your files, simply run the following command:</p>
+
+<pre>6771 dgtest</pre>
+
+<b>Note: This test will not be available until the at the earliest the final 7 days before submission</b>
+
+<h3>4.9. Late Submission Policy</h3>
 <p>
 If your assignment is submitted after this date, each hour it is late reduces
 the maximum mark it can achieve by 1%.
