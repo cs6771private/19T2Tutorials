@@ -4,7 +4,7 @@
 <style type="text/css">
 table td, table th { padding: 3px; }
 </style>
-<div class="container">
+<div class="container" style="width: 100%;">
 <div class="page-header">
 <h1>Assignment 3 - Generic Directed Weighted graph (GDWG)</h1>
 </div>
@@ -145,7 +145,7 @@ gdwg::Graph&lt;std::string, int&gt; aMove{std::move(a)};</pre></td>
   </tr>
   <tr>
     <td>Destructor</td>
-    <td>~gdwg::Graph&lt;N, E&gt;()</td>
+    <td><pre>~gdwg::Graph&lt;N, E&gt;()</pre></td>
     <td>N/A</td>
     <td>N/A</td>
   </tr>
@@ -227,7 +227,7 @@ g.AddEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td>void MergeReplace(const N& oldData, const N& newData)</td>
+    <td><pre>void MergeReplace(const N& oldData, const N& newData)</pre></td>
     <td>Replaces the data, oldData, stored at one node, denoted OldNode, with the data, newData, stored at another node, denoted NewNode, in the graph. After the operation has been performed successfully, every incoming (outgoing) edge of OldNode becomes an incoming (outgoing) edge of newNode, except that duplicate edges must be removed. Note that the edges that connect OldNode and NewNode are handled identically by this edge merging rule.</td>
     <td><pre>g.MergeReplace("c", "e")</pre></td>
     <ul>
@@ -239,21 +239,21 @@ g.AddEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td>void DeleteNode(const N&)</td>
+    <td><pre>void DeleteNode(const N&)</pre></td>
     <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply.</td>
     <td><pre>g.DeleteNode("b")</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td>void DeleteEdge(const N& src, const N& dst, const E& w)</td>
+    <td><pre>void DeleteEdge(const N& src, const N& dst, const E& w)</pre></td>
     <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph.</td>
     <td><pre>g.DeleteEdge("b", "c", 1)</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td>void Clear()</td>
+    <td><pre>void Clear()</pre></td>
     <td>Remove all nodes and edges from the graph. New nodes or edges can be added to the graph afterwards.</td>
     <td><pre>g.Clear()</pre></td>
     <td>N/A</td>
