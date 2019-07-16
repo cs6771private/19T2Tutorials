@@ -301,14 +301,7 @@ g.AddEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td><pre>graph_iterator find(const N& n);</pre></td>
-    <td>Returns an iterator to the found node in the graph. If the node is not found the equivalent value of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
-    <td><pre>auto it = g.find("e")</pre></td>
-    <td></td>
-  </tr>
-
-  <tr>
-    <td><pre>graph_const_iterator find(const N& n) const;</pre></td>
+    <td><pre>graph_const_iterator find(const N& n);</pre></td>
     <td>Returns an iterator to the found node in the graph. If the node is not found the equivalent value of gdwg::Graph&lt;N, E&gt;::cend() is returned.</td>
     <td><pre>auto it = g.find("e")</pre></td>
     <td></td>
@@ -325,20 +318,6 @@ if (it != g.end()) {
   </tr>
 
   <tr>
-    <td><pre>graph_iterator begin(const N& n);</pre></td>
-    <td>Returns an iterator pointing to the first element in the container. This iterator can be increased and decreased (unless it is itself also const)</td>
-    <td><pre>auto it = g.begin()</pre></td>
-    <td>N/A</td>
-  </tr>
-
-  <tr>
-    <td><pre>graph_iterator end(const N& n);</pre></td>
-    <td>Returns an iterator pointing to the past-the-end element in the container. This iterator can be increased and decreased (unless it is itself also const). If the container is empty, this function returns the same as vector::begin. The value returned shall not be dereferenced.</td>
-    <td><pre>auto it = g.end()</pre></td>
-    <td>N/A</td>
-  </tr>
-
-  <tr>
     <td><pre>graph_const_iterator cbegin(const N& n);</pre></td>
     <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const.</td>
     <td><pre>auto it = g.cbegin()</pre></td>
@@ -349,20 +328,6 @@ if (it != g.end()) {
     <td><pre>graph_const_iterator cend(const N& n);</pre></td>
     <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.cend()</pre></td>
-    <td>N/A</td>
-  </tr>
-
-    <tr>
-    <td><pre>graph_iterator rbegin(const N& n);</pre></td>
-    <td>Returns an iterator pointing to the last element in the container. This iterator can be increased and decreased (unless it is itself also const)</td>
-    <td><pre>auto it = g.rbegin()</pre></td>
-    <td>N/A</td>
-  </tr>
-
-  <tr>
-    <td><pre>graph_iterator rend(const N& n);</pre></td>
-    <td>Returns an iterator pointing to the before-the-first element in the container. This iterator can be increased and decreased (unless it is itself also const). If the container is empty, this function returns the same as vector::begin. The value returned shall not be dereferenced.</td>
-    <td><pre>auto it = g.rend()</pre></td>
     <td>N/A</td>
   </tr>
 
@@ -456,7 +421,7 @@ Note that there is a newline after the last ')'
 
 <h3>3.5. Iterator</h3>
 
-<p>You are required to define an iterator class <b>gdwg::graph_iterator</b> and <b>gdwg::graph_const_iterator</b>.</p>
+<p>You are required to define an iterator class <b>gdwg::graph_const_iterator</b>.</p>
 
 <p>The iterators will come in const and non-const forms, just like they would for any
 built-in STL container. The iterators should respond to the *, ->, ++, --, == and !=
@@ -560,11 +525,14 @@ You must not:
 <pre><code>$ bazel run //assignments/dg:graph_test</code></pre>
 
 <h3>4.4. Autotests</h3>
-On a CSE machine you can run
 
-<pre>6771 evtest</pre>
+<p>You can run some basic tests on your code on any CSE machine. In a folder that contains your files, simply run the following command:</p>
 
-to test your code automatically. Note: graph.tpp and graph.h must be in that directory.
+<pre>6771 dgtest</pre>
+
+<p>Note: graph.tpp and graph.h must be in that directory.</p>
+
+<p><b>Note: This test will not be available until the at the earliest the final 7 days before submission</b></p>
 
 <H3>4.5. Assessment</H3>
 <P>
@@ -642,15 +610,7 @@ Submit the assignment using this <I>give</I> command:
 give cs6771 graph graph.h graph.tpp graph_test.cpp
 </PRE>
 
-<h3>4.8. CSE Server Testing</h3>
-
-<p>You can run some basic tests on your code on any CSE machine. In a folder that contains your files, simply run the following command:</p>
-
-<pre>6771 dgtest</pre>
-
-<b>Note: This test will not be available until the at the earliest the final 7 days before submission</b>
-
-<h3>4.9. Late Submission Policy</h3>
+<h3>4.8. Late Submission Policy</h3>
 <p>
 If your assignment is submitted after this date, each hour it is late reduces
 the maximum mark it can achieve by 1%.
