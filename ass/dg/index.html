@@ -85,7 +85,7 @@ all nodes are distinct, as they contain different data values.
     <td>Constructor</td>
     <td><pre>gdwg::Graph&lt;N, E&gt;(const N& initialNode)</pre></td>
 
-    <td>A constructor that takes the number of dimensions (as a int) and initialises the magnitude in each dimension as the second argument (a double). You can assume the integer input will always be non-negative.</td>
+    <td>A constructor creates a graph and populates it with a single node (argument passed in) and no edges.</td>
     <td><pre>std::string a = "Node1";
 gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
     <td>N/A</td>
@@ -131,7 +131,7 @@ gdwg::Graph&lt;std::string, double&gt; b{v.begin(),v.end(), e.begin(), e.end()};
   <tr>
     <td>Constructor</td>
     <td><pre>gdwg::Graph&lt;N, E&gt;(std::initializer_list&lt;N&gt;)</pre></td>
-    <td>A constructor (or constructors) that takes the start and end of an iterator to a std:vector<double> and works out the required dimensions, and sets the magnitude in each dimension according to the iterated values.</td>
+    <td>A constructor that takes an initialiser list of Nodes to populate the graph.</td>
     <td><pre>gdwg::Graph&lt;char, std::string&gt; b{'a', 'b', 'x', 'y'};
 </pre></td>
 <td>N/A</td>
@@ -568,7 +568,7 @@ to test your code automatically. Note: graph.tpp and graph.h must be in that dir
 
 <H3>4.5. Assessment</H3>
 <P>
-This assignment will contribute 15% to your final mark.
+This assignment will contribute 20% to your final mark.
 <P>
 The assessment for the assignment recognizes the difficulty of the task, the importance of style, and the importance of appropriate use of programming methods (e.g. using while loops instead of a dozen if statements).
 
