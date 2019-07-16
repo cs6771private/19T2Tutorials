@@ -2,6 +2,29 @@
 {% block questions %}
 
 <li>
+  Have you selected your group for ass3 yet?
+</li>
+
+<li>
+  How many instantiations of max are generated?
+  {{ include_code('questions/instant.h') }}
+  <div class="answer">
+    3
+  </div>
+</li>
+
+<li>
+  What is wrong with this implementation?
+  {{ include_code('questions/stack.h') }}
+  {{ include_code('questions/stack.cpp') }}
+  {{ include_code('questions/stack_use.cpp') }}
+  Compiled with <pre>g++ stack_use.cpp stack.cpp -o stack</pre>
+  <div class="answer">
+    Template definitions must be in the .h file because files using templates must be able to generate the code at compile time (as opposed to link time)
+  </div>
+</li>
+
+<li>
   Convert the following class to a generic (templated) type.
   {{ include_code('questions/stringqueue.h') }}
 
