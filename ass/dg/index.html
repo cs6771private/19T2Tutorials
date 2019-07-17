@@ -284,22 +284,22 @@ g.InsertEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td><pre>void erase(const N&)</pre></td>
-    <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply.</td>
+    <td><pre>bool erase(const N&)</pre></td>
+    <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply. This function returns an boolean as to whether the item has been removed or not (true if removed).</td>
     <td><pre>g.erase("b")</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>void erase(const N& src, const N& dst, const E& w)</pre></td>
-    <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph.</td>
+    <td><pre>bool erase(const N& src, const N& dst, const E& w)</pre></td>
+    <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph. This function returns an boolean as to whether the item has been removed or not (true if removed).</td>
     <td><pre>g.erase("b", "c", 1)</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
     <td><pre>graph_const_iterator erase(graph_const_iterator it);</pre></td>
-    <td></td>
+    <td>This function returns an iterator to the element AFTER the one that has been removed. If no erase can be made, the equivalent of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
     <td><pre>auto it = g.find("e")
 if (it != g.end()) {
   g.erase(it);
