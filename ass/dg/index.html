@@ -83,17 +83,6 @@ all nodes are distinct, as they contain different data values.
 
   <tr>
     <td>Constructor</td>
-    <td><pre>gdwg::Graph&lt;N, E&gt;(const N& initialNode)</pre></td>
-
-    <td>A constructor creates a graph and populates it with a single node (argument passed in) and no edges.</td>
-    <td><pre>std::string a{"Node1"};
-gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
-    <td>N/A</td>
-  </tr>
-
-
-  <tr>
-    <td>Constructor</td>
     <td><pre>gdwg::Graph&lt;N, E&gt;(
   std::vector&lt;N&gt;::const_iterator,
   std::vector&lt;N&gt;::const_iterator
@@ -109,8 +98,8 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
   <tr>
     <td>Constructor</td>
     <td><pre>gdwg::Graph&lt;N, E&gt;(
-  std::vector&lt;std::tuple&lt;N, E, N&gt;&gt;::const_iterator,
-  std::vector&lt;std::tuple&lt;N, E, N&gt;&gt;::const_iterator
+  std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator,
+  std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator
 )</pre></td>
 
     <td>Iterators over tuples of (source node, edge weight, destination node) and adds them to the graph. You are responsible for creating nodes if they don't exist as you iterate through.</td>
@@ -207,7 +196,7 @@ g.InsertNode(s);</pre></td>
 
   <tr>
     <td><pre>bool InsertEdge(const N& src, const N& dst, const E& w)</pre></td>
-    <td>Adds a new edge src → dst with weight w. This function returns true if the edge is added and false if the edge src → dst with weight w already exists in the graph. Note: Nodes are allowed to be connected to each other.</td>
+    <td>Adds a new edge src → dst with weight w. This function returns true if the edge is added and false if the edge src → dst with weight w already exists in the graph. Note: Nodes are allowed to be connected to themselves.</td>
     <td><pre>std::string u{"c"};
 g.InsertEdge("a",u,1);</pre></td>
     <td>
@@ -242,20 +231,6 @@ g.InsertEdge("a",u,1);</pre></td>
         <li><b>With string</b>: "Cannot call Graph::MergeReplace on old or new data if they don't exist in the graph"</li>
       </ul>
     <td>
-  </tr>
-
-  <tr>
-    <td><pre>void DeleteNode(const N&)</pre></td>
-    <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply.</td>
-    <td><pre>g.DeleteNode("b")</pre></td>
-    <td>N/A</td>
-  </tr>
-
-  <tr>
-    <td><pre>void DeleteEdge(const N& src, const N& dst, const E& w)</pre></td>
-    <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph.</td>
-    <td><pre>g.DeleteEdge("b", "c", 1)</pre></td>
-    <td>N/A</td>
   </tr>
 
   <tr>
@@ -306,6 +281,20 @@ g.InsertEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
+    <td><pre>void erase(const N&)</pre></td>
+    <td>Deletes a given node and all its associated incoming and outgoing edges. This function does nothing if the node that is to be deleted does not exist in the graph. Hint: if you are using weak ptrs for edges you may be able to do this quite simply.</td>
+    <td><pre>g.erase("b")</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
+    <td><pre>void erase(const N& src, const N& dst, const E& w)</pre></td>
+    <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph.</td>
+    <td><pre>g.erase("b", "c", 1)</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
     <td><pre>graph_const_iterator erase(graph_const_iterator it);</pre></td>
     <td></td>
     <td><pre>auto it = g.find("e")
@@ -316,29 +305,57 @@ if (it != g.end()) {
   </tr>
 
   <tr>
+    <td><pre>graph_const_iterator begin();</pre></td>
+    <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
+    <td><pre>auto it = g.begin()</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
+    <td><pre>graph_const_iterator end();</pre></td>
+    <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
+    <td><pre>auto it = g.end()</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
+    <td><pre>graph_const_iterator rbegin();</pre></td>
+    <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
+    <td><pre>auto it = g.rbegin()</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
+    <td><pre>graph_const_iterator rend();</pre></td>
+    <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
+    <td><pre>auto it = g.rend()</pre></td>
+    <td>N/A</td>
+
+
+  <tr>
     <td><pre>graph_const_iterator cbegin();</pre></td>
-    <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const.</td>
+    <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.cbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
     <td><pre>graph_const_iterator cend();</pre></td>
-    <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
+    <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.cend()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
     <td><pre>graph_const_iterator crbegin();</pre></td>
-    <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const.</td>
+    <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.crbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
     <td><pre>graph_const_iterator crend();</pre></td>
-    <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
+    <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.crend()</pre></td>
     <td>N/A</td>
   </tr>
@@ -376,18 +393,18 @@ Note that these friend operations don't modify any of the given operands.
     <td><pre>std::ostream& operator&lt;&lt;(std::ostream&, const gdwg::Graph&lt;N, E&gt;&)</pre></td>
     <td>Prints out the graph in the following format:
 <pre>[node1] (
-[2 spaces][weight][space][pipe][space][node1_connected_node1],
-[2 spaces][weight][space][pipe][space][node1_connected_node2],
+[2 spaces][node1_connected_node1][space][pipe][space][weight],
+[2 spaces][node1_connected_node2][space][pipe][space][weight],
 [etc etc]
 ),
 [node2] (
-[2 spaces][weight][space][pipe][space][node2_connected_node1],
-[2 spaces][weight][space][pipe][space][node2_connected_node2],
+[2 spaces][node2_connected_node1][space][pipe][space][weight],
+[2 spaces][node2_connected_node2][space][pipe][space][weight],
 [etc etc]
 ),
 [node3] (
-[2 spaces][weight][space][pipe][space][node3_connected_node1],
-[2 spaces][weight][space][pipe][space][node3_connected_node2],
+[2 spaces][node3_connected_node1][space][pipe][space][weight],
+[2 spaces][node3_connected_node2][space][pipe][space][weight],
 [etc etc]
 ),
 [etc etc]</pre>
@@ -396,29 +413,29 @@ For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
 <img src="https://www.ics.uci.edu/~dan/class/161/hw7prob.jpg" style="width: 300px;" />
 
 <pre>1 (
-  -1 | 5
+  5 | -1
 )
 2 (
   1 | 1
-  2 | 4
+  4 | 2
 )
 3 (
-  -8 | 2
+  2 | -8
   2 | 2
 )
 4 (
-  -4 | 1
-  3 | 5
+  1 | -4
+  5 | 3
 5 (
-  7 | 2
+  2 | 7
 )
 6 (
-  5 | 2
-  10 | 3
+  2 | 5
+  3 | 10
 )
 </pre>
 <hr />
-<p>Note that output is sorted by 1) Src node (increasing order); then 2) Edge weight (increasing order); then 3) Dst node (increasing order)</p>
+<p>Note that output is sorted by 1) Src node (increasing order); then 2) Dst node (increasing order); then 3) Edge weight (increasing order)</p>
 <p>Note that there is a newline after the last ')'</p>
 <p>Note that if a node has no outgoing edges then you should still print it such as:<br />
   <i>Node 7 has no outgoing edges:</i><br />
@@ -447,32 +464,34 @@ and test the complete bi-directional iterator functionality. This includes pre/p
 ment and decrement. The post-increment/decrement operations should return a copy of
 the value pointed to before the increment/decrement is performed.</p>
 
-<p>Use the same iterator invalidation semantics as a std::set</p>
+<p><b>We will assume that all iterators are invalidated after any modification of the graph</b></p>
 
 <h4>3.5.1. Iterator Operators & Behaviour</h4>
 
 <p>Iterator operators should have the same structure/schema as discussed in week 7 lectures</p>
 
-<p>The <b>value_type</b> within your iterator should be <pre>std::tuple&lt;N, E, N&gt;</pre></p>
+<p>The <b>value_type</b> within your iterator should be <pre>std::tuple&lt;N, N, E&gt;</pre></p>
 
 <p>In this way, your iterator will iterator through a graph like the one below producing the following tuple values when deferenced each time:</p>
 
 <pre>gdwg::Graph&lt;int, int&gt;</pre>
 <img src="https://www.ics.uci.edu/~dan/class/161/hw7prob.jpg" />
 
-<p>Note that output is sorted by 1) Src node (increasing order); then 2) Edge weight (increasing order); then 3) Dst node (increasing order)</p>
+<h4>3.5.2. Iterator order</h4>
+
+<p>Note that output is sorted by 1) Src node (increasing order); then 2) Dst node (increasing order); then 3) Edge weight (increasing order)</p>
 
 <pre>
-(1, -1, 5)
+(1, 5, -1)
 (2, 1, 1)
-(2, 2, 4)
-(3, -8, 2)
+(2, 4, 2)
+(3, 2, -8)
 (3, 2, 2)
-(4, -4, 1)
-(4, 3, 5)
-(5, 7, 2)
-(6, 5, 2)
-(6, 10, 3)
+(4, 1, -4)
+(4, 5, 3)
+(5, 2, 7)
+(6, 2, 5)
+(6, 3, 10)
 </pre>
 
 <h3>3.6. Internal Representation</h3>
@@ -494,7 +513,9 @@ int main() {
 }
 </pre>
 
-<p>Your Graph is <b>required</b> to use smart pointers (however you please) to solve this problem, because you are <b>only allowed to create one resource per edge and node</b></p>
+<p>Your Graph is <b>required</b> to use smart pointers (however you please) to solve this problem.</p>
+
+<p>You are <b>only allowed to create one resource per edge and node</b></p>
 
 <h3>3.7. Throwing Exceptions</h3>
 
@@ -505,7 +526,6 @@ You must:
 <ul>
   <li>Include a header guard in graph.h</li>
   <li>Use C++17 style and methods</li>
-  <li>Ensure const-correctness of your code. In some cases we have assisted you by making const-correctness clear (e.g. gdwg::Graph&lt;N, E&gt;::find), however in other cases we require you to figure it by yourself</li>
   <li>Leave a moved-from object in a state with 0 nodes</li>
   <li>Mark all appropriate functions <i>noexcept</i>
 </ul>
@@ -513,12 +533,11 @@ You must:
 You must not:
 <ul>
   <li>Write to any files that aren't provided in the repo (e.g. storing your graph data in an auxilliary file)</li>
-  <li>Required to make any method explicit unless directly asked to in the spec.</li>
 </ul>
 
 <h3>3.9. Const Correctness</h3>
 
-<p>You must ensure that each method (2.3) and method (2.4) appropriately either has:</p>
+<p>You must ensure that each method (2.3) and friend (2.4) appropriately either has:</p>
 <ul>
  <li>A const member function; or</li>
  <li>A non-const member function; or</li>
