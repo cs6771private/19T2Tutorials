@@ -1,31 +1,31 @@
 #include <iostream>
 
-class A1 {
+class Animal {
  public:
-  A1() {
-    std::cout << "A1\n";
+  Animal() {
+    std::cout << "Animal\n";
   }
 };
 
-class A2 {
+class Amphibian {
  public:
-  A2() {
-    std::cout << "A2\n";
+  Amphibian() {
+    std::cout << "Amphibian\n";
   }
  private:
-  A1 a1_;
+  Animal a1_;
 };
 
-class A3 {
+class Fish {
  public:
-  A3() {
-    std::cout << "A3\n";
+  Fish() {
+    std::cout << "Fish\n";
   }
  private:
-  A1 a1_;
-  A2 a2_;
+  Animal a1_;
+  Amphibian a2_;
 };
 
 int main() {
-  A3 a3;
+  Fish a3;
 }
