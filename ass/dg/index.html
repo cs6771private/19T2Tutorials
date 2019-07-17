@@ -277,7 +277,7 @@ g.InsertEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator find(const N& n);</pre></td>
+    <td><pre>const_iterator find(const N& n);</pre></td>
     <td>Returns an iterator to the found node in the graph. If the node is not found the equivalent value of gdwg::Graph&lt;N, E&gt;::cend() is returned.</td>
     <td><pre>auto it = g.find("e")</pre></td>
     <td></td>
@@ -298,7 +298,7 @@ g.InsertEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator erase(graph_const_iterator it);</pre></td>
+    <td><pre>const_iterator erase(graph_const_iterator it);</pre></td>
     <td>This function returns an iterator to the element AFTER the one that has been removed. If no erase can be made, the equivalent of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
     <td><pre>auto it = g.find("e")
 if (it != g.end()) {
@@ -308,56 +308,56 @@ if (it != g.end()) {
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator begin();</pre></td>
+    <td><pre>const_iterator begin();</pre></td>
     <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.begin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator end();</pre></td>
+    <td><pre>const_iterator end();</pre></td>
     <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.end()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator rbegin();</pre></td>
+    <td><pre>const_iterator rbegin();</pre></td>
     <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.rbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator rend();</pre></td>
+    <td><pre>const_iterator rend();</pre></td>
     <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.rend()</pre></td>
     <td>N/A</td>
 
 
   <tr>
-    <td><pre>graph_const_iterator cbegin();</pre></td>
+    <td><pre>const_iterator cbegin();</pre></td>
     <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.cbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator cend();</pre></td>
+    <td><pre>const_iterator cend();</pre></td>
     <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.cend()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator crbegin();</pre></td>
+    <td><pre>const_iterator crbegin();</pre></td>
     <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.crbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator crend();</pre></td>
+    <td><pre>const_iterator crend();</pre></td>
     <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.crend()</pre></td>
     <td>N/A</td>
@@ -454,10 +454,10 @@ For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
 
 <h3>3.5. Iterator</h3>
 
-<p>You are required to define an iterator class <b>gdwg::graph_const_iterator</b>.</p>
+<p>You are required to define an iterator class <b>gdwg::const_iterator</b>.</p>
 
 <p>The iterators will come in const and non-const forms, just like they would for any
-built-in STL container. The iterators should respond to the *, ->, ++, --, == and !=
+built-in STL container. The iterators should respond to the *, ++, --, == and !=
 operators</p>
 
 <p>When iterating through your graph the order of iteration should be based on the operator< for the underlying node type N</p>
@@ -474,6 +474,8 @@ the value pointed to before the increment/decrement is performed.</p>
 <p>Iterator operators should have the same structure/schema as discussed in week 7 lectures</p>
 
 <p>The <b>value_type</b> within your iterator should be <pre>std::tuple&lt;N, N, E&gt;</pre></p>
+
+<p>The <b>reference</b> type within your iterator should be <pre>std::tuple&lt;const N&amp;, const N&amp;, const E&amp;&gt;</pre>. Note that this means that when returning references, you cannot return a reference to your value type. Instead, you should write <pre>return {node1, node2, edge};</pre>, where node1, node2, and edge are references to the nodes and the edge. Additionally, <b>do not</b> use std::make_tuple, as that will always copy values instead of returning references.</p>
 
 <p>In this way, your iterator will iterator through a graph like the one below producing the following tuple values when deferenced each time:</p>
 
