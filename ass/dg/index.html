@@ -13,6 +13,7 @@ table td, table th { padding: 3px; }
 <h3>Change Log</h3>
 <ul>
   <li>17/07/2019: erase(const N& n) changed to DeleteNode(const N& n)</li>
+  <li>17/07/2019: GetNodes() added</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -273,13 +274,8 @@ g.InsertEdge("a",u,1);</pre></td>
   <tr>
     <td><pre>std::vector&lt;N&gt; GetNodes()</pre></td>
     <td>Returns a vector of all nodes in the graph. Sorted by increasing order of node.</td>
-    <td><pre>g.GetWeights("e","b")</pre></td>
-    <td>
-    <ul>
-        <li><b>Condition</b>: If either src or dst is not in the graph</li>
-        <li><b>Throw</b>: std::out_of_range</li>
-        <li><b>With string</b>: "Cannot call Graph::GetWeights if src or dst node don't exist in the graph"</li>
-      </ul>
+    <td><pre>g.GetNodes()</pre></td>
+    <td>N/A
     </td>
   </tr>
 
