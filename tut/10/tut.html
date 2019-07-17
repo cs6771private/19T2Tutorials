@@ -82,24 +82,24 @@ protected:
   <li>
     Work out on paper/whiteboard what the output of this program is.
     <div class="answer">
-      A1 (A3 member)<br/>
-      A1 (A2 member)<br/>
-      A2 (A3 member)<br/>
-      A3<br/>
+      Animal (Fish member)<br/>
+      Animal (Amphibian member)<br/>
+      Amphibian (Fish member)<br/>
+      Fish<br/>
     </div>
   </li>
   <li>
-    Change the declaration of class A3 to:
-    <pre>class A3  : public A2 {
+    Change the declaration of class Fish to:
+    <pre>class Fish  : public Amphibian {
 </pre>
     Work out what the new output is.
     <div class="answer">
-      A1 (A2 member)<br/>
-      A2 (A3 base class)<br/>
-      A1 (A3 member)<br/>
-      A1 (A2 member)<br/>
-      A2 (A3 member)<br/>
-      A3
+      Animal (Amphibian member)<br/>
+      Amphibian (Fish base class)<br/>
+      Animal (Fish member)<br/>
+      Animal (Amphibian member)<br/>
+      Amphibian (Fish member)<br/>
+      Fish
     </div>
   </li>
   <li>
