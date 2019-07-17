@@ -86,7 +86,7 @@ all nodes are distinct, as they contain different data values.
     <td><pre>gdwg::Graph&lt;N, E&gt;(const N& initialNode)</pre></td>
 
     <td>A constructor creates a graph and populates it with a single node (argument passed in) and no edges.</td>
-    <td><pre>std::string a = "Node1";
+    <td><pre>std::string a{"Node1"};
 gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
     <td>N/A</td>
   </tr>
@@ -109,21 +109,18 @@ gdwg::Graph&lt;std::string, int&gt;(a);</pre></td>
   <tr>
     <td>Constructor</td>
     <td><pre>gdwg::Graph&lt;N, E&gt;(
-  std::vector&lt;N&gt;::const_iterator,
-  std::vector&lt;N&gt;::const_iterator,
-  std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator,
-  std::vector&lt;std::tuple&lt;N, N, E&gt;&gt;::const_iterator
+  std::vector&lt;std::tuple&lt;N, E, N&gt;&gt;::const_iterator,
+  std::vector&lt;std::tuple&lt;N, E, N&gt;&gt;::const_iterator
 )</pre></td>
 
-    <td>With the first two arguments, this constructor takes the start and end of a const_iterator to a std:vector&lt;N&gt; and adds those nodes to the graph. With the third and fourth argument, it takes the start and end of a const_iterator to a std::vector&lt;std::tuple&lt;N, N, E&gt;&gt; which specifies pairs of edges to be added from Node1 -> Node2 with weight E</td>
-    <td><pre>std::string s1 = "Hello";
-std::string s2 = "how";
-std::string s3 = "are";
-auto e1 = std::make_tuple&lt;std::string, std::string, double&gt;(s1, s2, 5.4);
-auto e2 = std::make_tuple&lt;std::string, std::string, double&gt;(s2, s3, 7.6);
-std::vector&lt;std::string&gt; v{s1, s2, s3};
+    <td>Iterators over tuples of (source node, edge weight, destination node) and adds them to the graph. You are responsible for creating nodes if they don't exist as you iterate through.</td>
+    <td><pre>std::string s{"Hello"};
+std::string s2{"how"};
+std::string s3{"are"};
+auto e1 = std::make_tuple(s1, 5.4, s2);
+auto e2 = std::make_tuple(s2, 7.6, s3);
 auto e = std::vector&lt;std::tuple&lt;std::string, std::string, double&gt;&gt;{e1, e2};
-gdwg::Graph&lt;std::string, double&gt; b{v.begin(),v.end(), e.begin(), e.end()};
+gdwg::Graph&lt;std::string, double&gt; b{e.begin(), e.end()};
 </pre></td>
 <td>N/A</td>
 </tr>
@@ -201,23 +198,23 @@ gdwg::Graph&lt;std::string, int&gt; aMove{std::move(a)};</pre></td>
   </tr>
 
   <tr>
-    <td><pre>bool AddNode(const N& val)</pre></td>
+    <td><pre>bool InsertNode(const N& val)</pre></td>
     <td>Adds a new node with value val to the graph. This function returns true if the node is added to the graph and false if there is already a node containing val in the graph (with the graph unchanged). </td>
-    <td><pre>std::string s = "a";
-g.AddNode(s);</pre></td>
+    <td><pre>std::string s{"a"};
+g.InsertNode(s);</pre></td>
     <td></td>
   </tr>
 
   <tr>
-    <td><pre>bool AddEdge(const N& src, const N& dst, const E& w)</pre></td>
+    <td><pre>bool InsertEdge(const N& src, const N& dst, const E& w)</pre></td>
     <td>Adds a new edge src → dst with weight w. This function returns true if the edge is added and false if the edge src → dst with weight w already exists in the graph. Note: Nodes are allowed to be connected to each other.</td>
-    <td><pre>std::string u = "c";
-g.AddEdge("a",u,1);</pre></td>
+    <td><pre>std::string u{"c"};
+g.InsertEdge("a",u,1);</pre></td>
     <td>
       <ul>
         <li><b>Condition</b>: If either src or dst not cannot be found in the graph</li>
         <li><b>Throw</b>: std::runtime_error</li>
-        <li><b>With string</b>: "Cannot call Graph::AddEdge when either src or dst node does not exist"</li>
+        <li><b>With string</b>: "Cannot call Graph::InsertEdge when either src or dst node does not exist"</li>
       </ul>
   </tr>
 
@@ -289,14 +286,14 @@ g.AddEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td>E GetWeight(const N& src, const N& dst);</td>
+    <td>std::vector<E> GetWeights(const N& src, const N& dst);</td>
     <td>Returns the weight of an edge between two nodes.</td>
-    <td><pre>g.IsConnected("e","b")</pre></td>
+    <td><pre>g.GetWeights("e","b")</pre></td>
     <td>
     <ul>
         <li><b>Condition</b>: If either src or dst is not in the graph</li>
         <li><b>Throw</b>: std::out_of_range</li>
-        <li><b>With string</b>: "Cannot call Graph::GetWeight if src or dst node don't exist in the graph"</li>
+        <li><b>With string</b>: "Cannot call Graph::GetWeights if src or dst node don't exist in the graph"</li>
       </ul>
     </td>
   </tr>
@@ -319,28 +316,28 @@ if (it != g.end()) {
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator cbegin(const N& n);</pre></td>
+    <td><pre>graph_const_iterator cbegin();</pre></td>
     <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const.</td>
     <td><pre>auto it = g.cbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator cend(const N& n);</pre></td>
+    <td><pre>graph_const_iterator cend();</pre></td>
     <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.cend()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator crbegin(const N& n);</pre></td>
+    <td><pre>graph_const_iterator crbegin();</pre></td>
     <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const.</td>
     <td><pre>auto it = g.crbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>graph_const_iterator crend(const N& n);</pre></td>
+    <td><pre>graph_const_iterator crend();</pre></td>
     <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the vector object is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.crend()</pre></td>
     <td>N/A</td>
@@ -348,7 +345,7 @@ if (it != g.end()) {
 
 </table>
 
-<h3>3.4. Friends</h3>
+<h3>2.4. Friends</h3>
 
 In addition to the operations indicated earlier, the following operations should be supported as friend functions.
 Note that these friend operations don't modify any of the given operands.
@@ -379,41 +376,67 @@ Note that these friend operations don't modify any of the given operands.
     <td><pre>std::ostream& operator&lt;&lt;(std::ostream&, const gdwg::Graph&lt;N, E&gt;&)</pre></td>
     <td>Prints out the graph in the following format:
 <pre>[node1] (
-[2 spaces][node1_connected_node1][space][pipe][space][weight],
-[2 spaces][node1_connected_node2][space][pipe][space][weight],
-[2 spaces][etc etc]
+[2 spaces][weight][space][pipe][space][node1_connected_node1],
+[2 spaces][weight][space][pipe][space][node1_connected_node2],
+[etc etc]
 ),
 [node2] (
-[2 spaces][node2_connected_node1][space][pipe][space][weight],
-[2 spaces][node2_connected_node2][space][pipe][space][weight],
-[2 spaces][etc etc]
+[2 spaces][weight][space][pipe][space][node2_connected_node1],
+[2 spaces][weight][space][pipe][space][node2_connected_node2],
+[etc etc]
 ),
 [node3] (
-[2 spaces][node3_connected_node1][space][pipe][space][weight],
-[2 spaces][node3_connected_node2][space][pipe][space][weight],
-[2 spaces][etc etc]
+[2 spaces][weight][space][pipe][space][node3_connected_node1],
+[2 spaces][weight][space][pipe][space][node3_connected_node2],
+[etc etc]
 ),
 [etc etc]</pre>
 <hr />
-For example, for gdwg::Graph&lt;std::string, int&gt;, an output may be:
-<pre>hello (
-    how | 1
-    are | 4
-    you | 3
-)
-how (
-    hello | 6
-    are | 7
-)
-are (
-)
-you (
-    are | 5
-)
+For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
+<img src="https://www.ics.uci.edu/~dan/class/161/hw7prob.jpg" />
 
+(1, -1, 5)
+(2, 1, 1)
+(2, 2, 4)
+(3, -8, 2)
+(3, 2, 2)
+(4, -4, 1)
+(4, 3, 5)
+(5, 7, 2)
+(6, 5, 2)
+(6, 10, 3)
+
+<pre>1 (
+  -1 | 5
+)
+2 (
+  1 | 1
+  2 | 4
+)
+3 (
+  -8 | 2
+  2 | 2
+)
+4 (
+  -4 | 1
+  3 | 5
+5 (
+  7 | 2
+)
+6 (
+  5 | 2
+  10 | 3
+)
 </pre>
 <hr />
-Note that there is a newline after the last ')'
+<p>Note that output is sorted by 1) Src node (increasing order); then 2) Edge weight (increasing order); then 3) Dst node (increasing order)</p>
+<p>Note that there is a newline after the last ')'</p>
+<p>Note that if a node has no outgoing edges then you should still print it such as:<br />
+  <i>Node 7 has no outgoing edges:</i><br />
+  <pre>7 (
+)</pre>
+</p>
+
 </td>
     <td><pre>std::cout &lt;&lt; a;</pre></td>
     <td>N/A</td>
@@ -435,9 +458,52 @@ and test the complete bi-directional iterator functionality. This includes pre/p
 ment and decrement. The post-increment/decrement operations should return a copy of
 the value pointed to before the increment/decrement is performed.</p>
 
+<p>Use the same iterator invalidation semantics as a std::set</p>
+
+<h4>3.5.1. Iterator Operators & Behaviour</h4>
+
+<p>Iterator operators should have the same structure/schema as discussed in week 7 lectures</p>
+
+<p>The <b>value_type</b> within your iterator should be <pre>std::tuple&lt;N, E, N&gt;</pre></p>
+
+<p>In this way, your iterator will iterator through a graph like the one below producing the following tuple values when deferenced each time:</p>
+
+<pre>gdwg::Graph&lt;int, int&gt;</pre>
+<img src="https://www.ics.uci.edu/~dan/class/161/hw7prob.jpg" />
+
+<pre>
+(1, -1, 5)
+(2, 1, 1)
+(2, 2, 4)
+(3, -8, 2)
+(3, 2, 2)
+(4, -4, 1)
+(4, 3, 5)
+(5, 7, 2)
+(6, 5, 2)
+(6, 10, 3)
+</pre>
+
 <h3>3.6. Internal Representation</h3>
 
-<p>Your GDWG is <b>required</b> is required to use smart pointers.</p>
+<p>Your Graph is <b>required</b> to own the resources (nodes and edges) that are passed in through the insert functions. This means creating memory on the heap and doing a proper copy of the values from the caller. This is because resources in your graph should outlive the caller's resouce that was passed in in case it goes out of scope. For example, we want the following code to be valid.</p>
+
+<pre>
+int main() {
+  gdwg::Graph&lt;std::string, int&lt; g;
+  {
+    std::string s1{"Hello"};
+    g.InsertNode(s1);
+  }
+
+  // Even though s1 has gone out of scope, g has its own
+  //  copied resource that it has stored, so the node
+  //  will still be in here.
+  std::cout << g.IsNode("Hello") << "\n"; // prints 'true';
+}
+</pre>
+
+<p>Your Graph is <b>required</b> to use smart pointers (however you please) to solve this problem, because you are <b>only allowed to create one resource per edge and node</b></p>
 
 <h3>3.7. Throwing Exceptions</h3>
 
@@ -468,7 +534,7 @@ You must not:
  <li>Both a const and non-const member function</li>
 </ul>
 
-<p>Please think carefully about this. The function prototypes intentionally do not specify their constness, except for one exception, the <b>at()</b> operator. This has an explicit const and non-const prototype to help you out.</p>
+<p>Please think carefully about this. The function prototypes intentionally do not specify their constness. This has an explicit const and non-const prototype to help you out.</p>
 
 <p>In most cases you will only need a single function, but in a couple of cases you will need both a const and non-const version.</p>
 
@@ -583,7 +649,7 @@ the assignment submissions but it will remain broadly similar to the description
 <h3>4.6. Originality of Work</h3>
 <P>
 The work you submit must be your own work.  Submission of work partially or completely derived
-from any other person or jointly written with any other person is not permitted.
+from any other person (other than your partner) or jointly written with any other person is not permitted.
 The penalties for such an offence may include negative marks,
 automatic failure of the course and possibly other academic discipline.
 Assignment submissions will be examined both automatically and manually
@@ -602,7 +668,25 @@ apply even if your work is submitted by a third party unknown to you.</p>
 Note you will not be penalized if your work has the potential to be taken without your consent or knowledge.
 </p>
 
-<h3>4.7. Submission</h3>
+<h3>4.7. Group Work</h3>
+<p>For this assignment, you can choose to work in a group (of 2) or work by yourself. We STRONGLY recommend you work in a group of 2. Working by yourself is not grounds for special consideration, or compensation of marks. Working in a team will provide you someone you can share and discuss code with and develop your teamwork skills with.</p>
+
+<h4>If working in a group (RECOMMENDED)</h4>
+
+<p>You are <b>required</b> to use a <b>private</b> git repository (e.g. github) to store your assignment code. This repository must be kept after the assignment is due and will be used to resolve any disputes regarding relative contributions between team members.</p>
+
+<p>If you are pair programming (i.e. working off one computer), you can either:<ul>
+<li>Intermittently commit the code under alternating user accounts to your repository</li>
+<li>Just commit it under one person's username. This won't be a problem unless one of you raises a dispute. So do this if you are confident no dispute will be raised.</li>
+</ul></p>
+
+<p><b>Groups will be finalised on Friday 19th July at 11:59pm</b></p>
+
+<h4>If working individually (NOT RECOMMENDED)</h4>
+
+<p>You are not required to use a repository to store your code</p>
+
+<h3>4.8. Submission</h3>
 <P>
 This assignment is due <b>Sunday 4th of August, 23:59:59</b>.
 Submit the assignment using this <I>give</I> command:
@@ -611,7 +695,7 @@ Submit the assignment using this <I>give</I> command:
 give cs6771 graph graph.h graph.tpp graph_test.cpp
 </PRE>
 
-<h3>4.8. Late Submission Policy</h3>
+<h3>4.9. Late Submission Policy</h3>
 <p>
 If your assignment is submitted after this date, each hour it is late reduces
 the maximum mark it can achieve by 1%.
