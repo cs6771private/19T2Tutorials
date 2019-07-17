@@ -240,7 +240,7 @@ g.InsertEdge("a",u,1);</pre></td>
         <li><b>Throw</b>: std::runtime_error</li>
         <li><b>With string</b>: "Cannot call Graph::MergeReplace on old or new data if they don't exist in the graph"</li>
       </ul>
-    <td>
+    </td>
   </tr>
 
   <tr>
@@ -271,8 +271,21 @@ g.InsertEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
+    <td><pre>std::vector&lt;N&gt; GetNodes()</pre></td>
+    <td>Returns a vector of all nodes in the graph. Sorted by increasing order of node.</td>
+    <td><pre>g.GetWeights("e","b")</pre></td>
+    <td>
+    <ul>
+        <li><b>Condition</b>: If either src or dst is not in the graph</li>
+        <li><b>Throw</b>: std::out_of_range</li>
+        <li><b>With string</b>: "Cannot call Graph::GetWeights if src or dst node don't exist in the graph"</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
     <td><pre>std::vector&lt;E&gt; GetWeights(const N& src, const N& dst)</pre></td>
-    <td>Returns the weight of an edge between two nodes.</td>
+    <td>Returns a vector of the weights of edges between two nodes. Sorted by increasing order of edge.</td>
     <td><pre>g.GetWeights("e","b")</pre></td>
     <td>
     <ul>
