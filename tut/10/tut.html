@@ -1,4 +1,177 @@
 {% extends "templates/tut.html" %}
 {% block questions %}
 
+<strong>Consider the following code:</strong>
+{{ include_code("questions/private.cpp") }}
+
+<ol>
+  <li>Why does this code not compile?<br><br>
+    <div class="answer">You cannot access a private member from a derived class.</div>
+    Change the base class to:
+    <pre>class Base {
+protected:
+  int i_;
+};
+</pre>
+    The code will now compile, but what are the potential disadvantages of this solution? <br><br>
+    <div class="answer">
+      It is generally considered bad practice to make data members anything other than private without good reason. Otherwise, any class inheriting off it would be relying off its implementation, rather than its interface.
+    </div>
+  </li>
+  <li>Change the code to:
+    {{ include_code('questions/getter.cpp') }}
+    What benefits does this approach give us? Why do we return a const reference to <em>i_</em>?
+    <div class="answer">
+      This allows a subclass to only depend upon the interface of the base class, rather than the implementation. This means that if the base class chooses to refactor or modify the code, the subclass won't be affected.
+    </div>
+  </li>
+</ol>
+
+<strong>Consider the following code:</strong>
+{{ include_code('questions/type.cpp') }}
+<ol>
+  <li>
+    For each of these variables, what is the static and dynamic type (for b, consider this both after and before assigning d to it)?
+    <div class="answer">
+      The static type is the declared type of a variable. Hence, b has static type B, d has static type D, bref and dbref have static type B&, and dref has static type d.<br/>
+      The dynamic type is the type a variable actually is at runtime.<br/>
+      b and d are neither references or pointers. Hence, their dynamic type is <b>always</b> the same as their static type. Hence, b and d have dynamic types B and D respectively.<br/>
+      bref, dref, and dbref are references. Hence, their dynamic type is the dynamic type of the object they refer to. Hence, bref has dynamic type B, dref has dynamic type D, and dbref has dynamic type D.
+    </div>
+  </li>
+
+  <li>
+    The assignment <em>b = d;</em> is legal but is poor style as it causes the object slicing problem. What is the object slicing problem?
+    <div class="answer">
+      When you try and assign a derived class into a variable of type base class, the base class only has sufficient space for the base class subobject. Hence, it copies over the base class subobject and completely ignores the derived class' data.
+    </div>
+  </li>
+  <li>
+    What is the output of this code?
+    <div class="answer">
+      Since f is a virtual function, we use the dynamic type of objects to determine which function to call (if it was not, we would use the static types). Hence, we output "B D B D D".
+    </div>
+  </li>
+  <li>
+    How can we correct this code to prevent the object slicing problem?
+    <div class="answer">
+      Instead of storing an object of fixed size, store an object that can have dynamic size (specifically, a pointer). Use a std::unique_pointer&lt;B&gt; instead of a B for the type of b.
+    </div>
+  </li>
+
+</ol>
+<strong>Draw the vtables for classes A, B and C:</strong>
+{{ include_code('questions/vtable.cpp') }}
+
+<div class="answer">
+  <table>
+    <tr><th>A</th><th>B</th><th>C</th></tr>
+    <tr><td>A::f(int)</td><td>B::f(int)</td><td>B::f(int)</td></tr>
+    <tr><td>A::g()</td><td>A::g()</td><td>A::g()</td></tr>
+    <tr><td>~A()</td><td>~B()</td><td>~C()</td></tr>
+    <tr><td>VTABLE END</td><td>B::h()</td><td>B::h()</td></tr>
+    <tr><td></td><td>VTABLE END</td><td>C::f(int, int)</td></tr>
+    <tr><td></td><td></td><td>C::x()</td></tr>
+    <tr><td></td><td></td><td>VTABLE END</td></tr>
+  </table>
+</div>
+
+<strong>Consider the following code:</strong>
+{{ include_code('questions/basic.cpp') }}
+<ol>
+  <li>
+    Work out on paper/whiteboard what the output of this program is.
+    <div class="answer">
+      Animal (Fish member)<br/>
+      Animal (Amphibian member)<br/>
+      Amphibian (Fish member)<br/>
+      Fish<br/>
+    </div>
+  </li>
+  <li>
+    Change the declaration of class Fish to:
+    <pre>class Fish  : public Amphibian {
+</pre>
+    Work out what the new output is.
+    <div class="answer">
+      Animal (Amphibian member)<br/>
+      Amphibian (Fish base class)<br/>
+      Animal (Fish member)<br/>
+      Animal (Amphibian member)<br/>
+      Amphibian (Fish member)<br/>
+      Fish
+    </div>
+  </li>
+  <li>
+    Why are the outputs different?
+    <div class="answer">
+      Each derived class has a base class subobject which must be initialised before initialising anything else in the class.
+    </div>
+  </li>
+</ol>
+
+<strong>Consider the following code:</strong>
+{{ include_code('questions/destructors.cpp') }}
+On paper/whiteboard work out the output of this program.
+<div class="answer">
+  ~B()<br/>
+  ~Y() (B member)<br/>
+  ~A() (base class)<br/>
+  ~X() (A member)<br/>
+  Note that this is just the reveres order that you would do a constructor in.
+</div>
+
+<strong>Revision Questions</strong>
+<strong>Consider the following code:</strong>
+{{ include_code('questions/constructors.cpp') }}
+On paper/whiteboard work out the output of this program.
+<div class="answer">
+  Pointer: ctor dtor
+  Value: ctor copy-ctor dtor dtor
+</div>
+
+A friend function of a class can access:
+<ol type="A">
+  <li>Only the public members of the class</li>
+  <li>Only the public and protected members of the class</li>
+  <li>All members of the class</li>
+  <li>All members of the class and its base classes</li>
+  <li>Only the public and protected members of the class and its base classes</li>
+</ol>
+<div class="answer">
+  All members of the class.
+</div>
+
+On paper/whiteboard work out the output of the following program:
+{{ include_code('questions/revision.cpp') }}
+<div class="answer">
+  1 2 1 1
+</div>
+<ol>
+  <li>
+    What are the differences (e.g., types, semantics, memory usage) between a T, a pointer to a T, and a reference to a T?
+    <div class="answer">
+      <table>
+        <tr><th>type</th><th>T</th><th>T*</th><th>T&</th></tr>
+        <tr><td>semantics</td><td>A value</td><td>An optional reference to a value</td><td>A reference to a value</td></tr>
+        <tr><td>memory</td><td>sizeof(T)</td><td>sizeof(pointer)</td><td>sizeof(pointer)</td></tr>
+      </table>
+    </div>
+  </li>
+
+  <li>
+    Explain the differences in the meaning and effect of using <em>const</em> in the following member function prototypes:
+    <pre>const T&amp; getValueAtIndex(int i);
+T getValueAtIndex(const int i);
+T getValueAtIndex(int i) const;
+</pre>
+    <div class="answer">
+      The first returns a const reference. It returns a reference to the value stored in the container, but you can't modify the value through this reference.<br/>
+      The second returns a copy of the value stored in the container. A const int parameter is no different to an int parameter.<br/>
+      The third also returns a copy of the value stored in the container. The const here indicates that this is a const member function, and so does not modify the container.
+    </div>
+  </li>
+
+</ol>
+
 {% endblock %}
