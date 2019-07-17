@@ -458,7 +458,7 @@ For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
   </tr>
 </table>
 
-<h3>3.5. Iterator</h3>
+<h3>3.5. Your "Edge" Custom Iterator</h3>
 
 <p>You are required to define an iterator class <b>gdwg::const_iterator</b>.</p>
 
@@ -527,6 +527,14 @@ int main() {
 <p>Your Graph is <b>required</b> to use smart pointers (however you please) to solve this problem.</p>
 
 <p>You are <b>only allowed to create one resource per edge and node</b></p>
+
+<h4>But why smart pointers</h4>
+
+<p>You could feasibly implement the assignment without any smart pointers, through lots of redundant copying. For example, having a massive data structure like:</p>
+
+<pre>std::set&lt;N, std::vector&lt;std::pair&lt;N, E&gt;&gt;&gt;</pre>
+
+<p>However, we're pushing you in this assignment to produce a very space efficient solution. This means only storing one instance of each node and edge.</p>
 
 <h3>3.7. Throwing Exceptions</h3>
 
