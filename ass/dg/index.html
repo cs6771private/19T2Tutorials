@@ -194,7 +194,7 @@ gdwg::Graph&lt;std::string, int&gt; aMove{std::move(a)};</pre></td>
     <td>Adds a new node with value val to the graph. This function returns true if the node is added to the graph and false if there is already a node containing val in the graph (with the graph unchanged). </td>
     <td><pre>std::string s{"a"};
 g.InsertNode(s);</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
@@ -277,10 +277,15 @@ g.InsertEdge("a",u,1);</pre></td>
   </tr>
 
   <tr>
-    <td><pre>const_iterator find(const N& n);</pre></td>
+    <td><pre>const_iterator find(const N&, const N&, const E&);</pre></td>
     <td>Returns an iterator to the found node in the graph. If the node is not found the equivalent value of gdwg::Graph&lt;N, E&gt;::cend() is returned.</td>
-    <td><pre>auto it = g.find("e")</pre></td>
-    <td></td>
+    <td><pre>
+gwdg::Graph&lt;std::string, int&gt; g;
+std::string a1{"e"};
+std::string a2{"i"};
+int e = 8;
+auto it = g.find(a1, a2, e)</pre></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
@@ -299,12 +304,13 @@ g.InsertEdge("a",u,1);</pre></td>
 
   <tr>
     <td><pre>const_iterator erase(graph_const_iterator it);</pre></td>
-    <td>This function returns an iterator to the element AFTER the one that has been removed. If no erase can be made, the equivalent of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
-    <td><pre>auto it = g.find("e")
+    <td>This function removes the position at the location the iterator points to. If an invalid iterator is passed in, nothing happens. This function returns an iterator to the element AFTER the one that has been removed. If no erase can be made, the equivalent of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
+    <td><pre>gwdg::Graph&lt;std::string, int&gt; g;
+auto it = g.find("e", "i", 8);
 if (it != g.end()) {
   g.erase(it);
 }</pre></td>
-    <td></td>
+    <td>N/A</td>
   </tr>
 
   <tr>
@@ -693,6 +699,12 @@ Note you will not be penalized if your work has the potential to be taken withou
 <p>If you are pair programming (i.e. working off one computer), just write "Pair programming" in the commit message. However, if you pair program and commit with a single username, we will have trouble resolving any disputes.</p>
 
 <p><b>Groups will be finalised on Friday 19th July at 11:59pm</b></p>
+
+<p>
+  <div style="font-size: 30pt;">You must register your group <a href="https://docs.google.com/forms/d/e/1FAIpQLSe554C1TSfnaeLoZZ2ETgcCrsAB-NdOWlXghFDNCw0YVqPF2g/viewform">here</a> before that deadline</div><br />
+  <div style="font-size: 30pt;">You must register your group <a href="https://docs.google.com/forms/d/e/1FAIpQLSe554C1TSfnaeLoZZ2ETgcCrsAB-NdOWlXghFDNCw0YVqPF2g/viewform">here</a> before that deadline</div><br />
+  <div style="font-size: 30pt;">You must register your group <a href="https://docs.google.com/forms/d/e/1FAIpQLSe554C1TSfnaeLoZZ2ETgcCrsAB-NdOWlXghFDNCw0YVqPF2g/viewform">here</a> before that deadline</div>
+</p>
 
 <h4>If working individually (NOT RECOMMENDED)</h4>
 
