@@ -109,7 +109,7 @@ all nodes are distinct, as they contain different data values.
 )</pre></td>
 
     <td>Iterators over tuples of (source node, destination node, edge weight) and adds them to the graph. You are responsible for creating nodes if they don't exist as you iterate through.</td>
-    <td><pre>std::string s{"Hello"};
+    <td><pre>std::string s1{"Hello"};
 std::string s2{"how"};
 std::string s3{"are"};
 auto e1 = std::make_tuple(s1, 5.4, s2);
@@ -238,7 +238,8 @@ g.InsertEdge("a",u,1);</pre></td>
 
   <tr>
     <td><pre>void MergeReplace(const N& oldData, const N& newData)</pre></td>
-    <td>Replaces the data, oldData, stored at one node, denoted OldNode, with the data, newData, stored at another node, denoted NewNode, in the graph. After the operation has been performed successfully, every incoming (outgoing) edge of OldNode becomes an incoming (outgoing) edge of newNode, except that duplicate edges must be removed. Note that the edges that connect OldNode and NewNode are handled identically by this edge merging rule.</td>
+    <td>All instances of node oldData in the graph are replaced with instances of newData. After completing, every incoming and outgoing edge of oldData becomes an incoming/ougoing edge of newData, except that duplicate edges must be removed. Examples at the bottom of the table.
+    </td>
     <td><pre>g.MergeReplace("c", "e")</pre></td>
     <td>
       <ul>
@@ -398,6 +399,27 @@ if (it != g.end()) {
 
 </table>
 
+<h4>MergeReplace examples</h4>
+
+<p>Format is (N_src, N_dst, E)</p>
+
+<h5>Example 1 - basic</h5>
+<ul>
+<li>Operation: MergeReplace(A, B)</li>
+<li>Graph before: (A, B, 1), (A, C, 2), (A, D, 3)</li>
+<li>Graph after : (B, B, 1), (B, C, 2), (B, D, 3)</li>
+</ul>
+
+<h5>Example 2 - duplicate edge removed</h5>
+<ul>
+<li>Operation: MergeReplace(A, B)</li>
+<li>Graph before: (A, B, 1), (A, C, 2), (A, D, 3), (B, B, 1)</li>
+<li>Graph after : (B, B, 1), (B, C, 2), (B, D, 3)</li>
+</ul>
+
+<h5>Example 3 - Diagramatic</h5>
+<img src="https://i.imgur.com/gCDHqrD.png" />
+
 <h3>2.4. Friends</h3>
 
 In addition to the operations indicated earlier, the following operations should be supported as friend functions.
@@ -553,7 +575,14 @@ int main() {
 
 <p>Your Graph is <b>required</b> to use smart pointers (however you please) to solve this problem.</p>
 
-<p>You are <b>only allowed to create one resource per edge and node</b></p>
+<p>You are <b>only allowed to create one resource per edge and node</b>.</p>
+
+<p>Hint: You're likely to use some STL containers to store things, and somewhere in those containers you'll see instances of either:
+<ul>
+  <li>std::unique_ptr&lt;N&gt;</li>
+  <li>std::shared_ptr&lt;N&gt;</li>
+</ul>
+depending on your implementation choice.</p>
 
 <h4>But why smart pointers</h4>
 
