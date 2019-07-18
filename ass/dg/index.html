@@ -12,8 +12,9 @@ table td, table th { padding: 3px; }
 
 <h3>Change Log</h3>
 <ul>
-  <li>17/07/2019: erase(const N& n) changed to DeleteNode(const N& n)</li>
-  <li>17/07/2019: GetNodes() and GetConnected() added</li>
+  <li>17/07: erase(const N& n) changed to DeleteNode(const N& n)</li>
+  <li>17/07: GetNodes() and GetConnected() added</li>
+  <li>18/07: GetConnected() now says sorted by nodes (instead of edge - which made less sense)</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -285,7 +286,7 @@ g.InsertEdge("a",u,1);</pre></td>
 
   <tr>
     <td><pre>std::vector&lt;N&gt; GetConnected(const N& src)</pre></td>
-    <td>Returns a vector of the nodes connected to the src node passed in. Sorted by increasing order of edge.</td>
+    <td>Returns a vector of the nodes connected to the src node passed in. Sorted by increasing order of node (of those nodes that are connected).</td>
     <td><pre>g.GetConnected("e")</pre></td>
     <td>
     <ul>
