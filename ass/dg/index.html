@@ -112,8 +112,8 @@ all nodes are distinct, as they contain different data values.
     <td><pre>std::string s1{"Hello"};
 std::string s2{"how"};
 std::string s3{"are"};
-auto e1 = std::make_tuple(s1, 5.4, s2);
-auto e2 = std::make_tuple(s2, 7.6, s3);
+auto e1 = std::make_tuple(s1, s2, 5.4);
+auto e2 = std::make_tuple(s2, s3, 7.6);
 auto e = std::vector&lt;std::tuple&lt;std::string, std::string, double&gt;&gt;{e1, e2};
 gdwg::Graph&lt;std::string, double&gt; b{e.begin(), e.end()};
 </pre></td>
