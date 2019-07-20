@@ -15,6 +15,7 @@ table td, table th { padding: 3px; }
   <li>17/07: erase(const N& n) changed to DeleteNode(const N& n)</li>
   <li>17/07: GetNodes() and GetConnected() added</li>
   <li>18/07: GetConnected() now says sorted by nodes (instead of edge - which made less sense)</li>
+  <li>18/07: References to graph_const_iterator and non-const iterators removed</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -331,7 +332,7 @@ auto it = g.find(a1, a2, e)</pre></td>
   </tr>
 
   <tr>
-    <td><pre>const_iterator erase(graph_const_iterator it);</pre></td>
+    <td><pre>const_iterator erase(const_iterator it);</pre></td>
     <td>This function removes the position at the location the iterator points to. If an invalid iterator is passed in, nothing happens. This function returns an iterator to the element AFTER the one that has been removed. If no erase can be made, the equivalent of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
     <td><pre>gwdg::Graph&lt;std::string, int&gt; g;
 auto it = g.find("e", "i", 8);
@@ -511,8 +512,7 @@ For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
 
 <p>You are required to define an iterator class <b>gdwg::const_iterator</b>.</p>
 
-<p>The iterators will come in const and non-const forms, just like they would for any
-built-in STL container. The iterators should respond to the *, ++, --, == and !=
+<p>The iterators will come in a const form. The iterator should respond to the *, ++, --, == and !=
 operators</p>
 
 <p>When iterating through your graph the order of iteration should be based on the operator< for the underlying node type N</p>
