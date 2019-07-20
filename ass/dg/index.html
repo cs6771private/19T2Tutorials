@@ -15,6 +15,7 @@ table td, table th { padding: 3px; }
   <li>17/07: erase(const N& n) changed to DeleteNode(const N& n)</li>
   <li>17/07: GetNodes() and GetConnected() added</li>
   <li>18/07: GetConnected() now says sorted by nodes (instead of edge - which made less sense)</li>
+  <li>20/07: rbegin and rend shouldn't return const_iterators - they should return const_reverse_iterators</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -342,34 +343,6 @@ if (it != g.end()) {
   </tr>
 
   <tr>
-    <td><pre>const_iterator begin();</pre></td>
-    <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
-    <td><pre>auto it = g.begin()</pre></td>
-    <td>N/A</td>
-  </tr>
-
-  <tr>
-    <td><pre>const_iterator end();</pre></td>
-    <td>Returns a const_iterator pointing to the past-the-end element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::cbegin. The value returned shall not be dereferenced.</td>
-    <td><pre>auto it = g.end()</pre></td>
-    <td>N/A</td>
-  </tr>
-
-  <tr>
-    <td><pre>const_iterator rbegin();</pre></td>
-    <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
-    <td><pre>auto it = g.rbegin()</pre></td>
-    <td>N/A</td>
-  </tr>
-
-  <tr>
-    <td><pre>const_iterator rend();</pre></td>
-    <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
-    <td><pre>auto it = g.rend()</pre></td>
-    <td>N/A</td>
-
-
-  <tr>
     <td><pre>const_iterator cbegin();</pre></td>
     <td>Returns a const_iterator pointing to the first in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.cbegin()</pre></td>
@@ -384,16 +357,44 @@ if (it != g.end()) {
   </tr>
 
   <tr>
-    <td><pre>const_iterator crbegin();</pre></td>
-    <td>Returns a const_iterator pointing to the last in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
+    <td><pre>const_reverse_iterator crbegin();</pre></td>
+    <td>Returns a const_reverse_iterator pointing to the last element in the container. A const_reverse_iterator is a reverse iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const.</td>
     <td><pre>auto it = g.crbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
     <td><pre>const_iterator crend();</pre></td>
-    <td>Returns a const_iterator pointing to the before-the-first element in the container. A const_iterator is an iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
+    <td>Returns a const_reverse_iterator pointing to the before-the-first element in the container. A const_reverse_iterator is a reverse iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.crend()</pre></td>
+    <td>N/A</td>
+
+
+  <tr>
+    <td><pre>const_iterator begin();</pre></td>
+    <td>Exactly the same as cbegin()</td>
+    <td><pre>auto it = g.begin()</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
+    <td><pre>const_iterator end();</pre></td>
+    <td>Exactly the same as cend()</td>
+    <td><pre>auto it = g.end()</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
+    <td><pre>const_iterator rbegin();</pre></td>
+    <td>Exactly the same as crbegin()</td>
+    <td><pre>auto it = g.rbegin()</pre></td>
+    <td>N/A</td>
+  </tr>
+
+  <tr>
+    <td><pre>const_iterator rend();</pre></td>
+    <td>Exactly the same as crend()</td>
+    <td><pre>auto it = g.rend()</pre></td>
     <td>N/A</td>
   </tr>
 
