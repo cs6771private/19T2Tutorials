@@ -1,5 +1,42 @@
 {% extends "templates/tut.html" %}
 {% block questions %}
 
+<li>
+  What is iterator invalidation? Why does it occur?
+  <div class="answer">
+    Iterator invalidation occurs when a mutable operation changes the state of a container in such a way that any previous iterators for the container are no longer valid. This may occur simply because the object no longer exists (eg. std::set::erase), because the iterator was stored internally as a pointer and the object has been moved (eg. std::vector), or for some other reason.
+  </div>
+</li>
+<li>
+  Assignment 3 involves abstracting a container of containers as a single container. Consider a simple example of a vector&lt;vector&lt;int&gt;&gt;. Abstracting the container requires storing the outer iterator and the inner iterator. Discuss potential issues with this concept, and once you think you've discovered all of them, discuss how you might solve these issues.
+  <div class="answer">
+    <ul>
+      <li>Comparing end iterators (no inner iterator exists, and trying to access one is undefined behaviour)</li>
+      <li>++ operator on an empty vector in the middle</li>
+      <li>begin() with an empty vector at the start</li>
+    </ul>
+    Solution: Store a sentinel value (you need to know when it's the end, so you can know when not to check the inner iterator).
+  </div>
+</li>
+<li>
+  In the course repo, open up tutorials/week8/rope_user.cpp and tutorials/week8/rope.cpp/h.<br/>
+  We have defined a rope class as a bunch of strings tied together, and have defined a basic class and some starter code using it.<br/>
+  Write an iterator for this class so that main.cpp works.
+  <div class="answer">
+    Header file:
+    {{ include_code('solutions/rope.h') }}
+    Cpp file:
+    {{ include_code('solutions/rope.cpp') }}
+  </div>
+</li>
+<li>
+  Discuss two ways we might modify our code to allow both a const and a non-const iterator. What are the advantages and disadvantages for each?
+  <div class="answer">
+    The simple way is to copy-and paste the code, and modify as required to make both of the iterators. A cleaner way would be to use templates:<br/>
+    {{ include_code('solutions/template.cpp') }}
+    Note that if we were to use standard library iterators, then we would either need to template over both the inner and outer iterator type, or use a type trait (eg. std::conditional) to change the type we use based on template parameters.
+  </div>
+</li>
+<li>If you have time, try modifying rope_user.cpp so it iterates through the rope in reverse. What changes will you need to the class in order to ensure this works?</li>
 
 {% endblock %}
