@@ -37,6 +37,26 @@
     Note that if we were to use standard library iterators, then we would either need to template over both the inner and outer iterator type, or use a type trait (eg. std::conditional) to change the type we use based on template parameters.
   </div>
 </li>
+
 <li>If you have time, try modifying rope_user.cpp so it iterates through the rope in reverse. What changes will you need to the class in order to ensure this works?</li>
+
+<li>
+  Complete this Set wrapper class (yes, it's a bit redundant).
+  <ul>
+    <li>Implement the class methods</li>
+    <li>Template the container type and set set to be the default container</li>
+  </ul>
+  {{ include_code('questions/default.cpp') }}
+  <div class="answer">
+    {{ include_code('solutions/default.cpp') }}
+  </div>
+  <ul>
+    <li>Use template template parameters to avoid the case where we can accidentally define <pre>SillySet<int, std::vector<float>></pre></li>
+  </ul>
+  <div class="answer">
+    {{ include_code('solutions/ttp.cpp') }}
+  </div>
+
+</li>
 
 {% endblock %}
