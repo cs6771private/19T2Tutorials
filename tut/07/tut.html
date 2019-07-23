@@ -1,0 +1,65 @@
+{% extends "templates/tut.html" %}
+{% block questions %}
+
+<li>
+  Have you selected your group for ass3 yet?
+</li>
+
+<li>
+  Do you have any questions about the assignment?
+</li>
+
+<li>
+  How many instantiations of max are generated?
+  {{ include_code('questions/instant.h') }}
+  <div class="answer">
+    4
+  </div>
+</li>
+
+<li>
+  What is wrong with this implementation?
+  {{ include_code('questions/stack.h') }}
+  {{ include_code('questions/stack.cpp') }}
+  {{ include_code('questions/stack_use.cpp') }}
+  Compiled with <pre>g++ stack_use.cpp stack.cpp -o stack</pre>
+  <div class="answer">
+    Template definitions must be in the .h file because files using templates must be able to generate the code at compile time (as opposed to link time)
+  </div>
+</li>
+
+<li>
+  Convert the following class to a generic (templated) type.
+  {{ include_code('questions/stringqueue.h') }}
+
+  After converting it to a generic type:
+  <ul>
+    <li>Complete all incomplete implementations.</li>
+    <li>Add an appropriate default constructor</li>
+    <li>Add an appropriate copy constructor</li>
+  </ul>
+  <div class="answer">
+    {{ include_code('solutions/stringqueue.h') }}
+  </div>
+  Finally, make the size of this queue a non-type parameter.
+  <div class="answer">
+    {{ include_code('solutions/stringqueuenontype.h') }}
+  </div>
+  What are the advantages and disadvantages of the non-type parameter?
+  <div class="answer">
+  <p><b>Advantage:</b> Improved performance. Size of a queue is determined at compile time requiring less to be done / processed at runtime.</p>
+  <p><b>Disadvantage:</b> (1) Code explosion - instantiation created for a queue of every size. (2) Unable to copy construct easily</p>
+  </div>
+</li>
+
+<li>
+  Which part of this graph are:
+  <ul>
+    <li>Edges</li>
+    <li>Nodes</li>
+    <li>Weightings</li>
+  </ul>
+  <img src="https://www.researchgate.net/profile/Yilun_Shang/publication/271944978/figure/fig2/AS:669349501231106@1536596765134/A-weighted-directed-graph-G-with-six-vertices.png" />
+</li>
+
+{% endblock %}
