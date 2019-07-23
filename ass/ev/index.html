@@ -361,7 +361,7 @@ Note that these friend operations don't modify any of the given operands.
     <td><pre>
 a = b + c;</pre></td>
     <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = c.GetNumDimensions()
+      <b>Given</b>: X = b.GetNumDimensions(), Y = c.GetNumDimensions()
       <b>When</b>: X != Y<br />
       <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
@@ -374,7 +374,7 @@ a = b + c;</pre></td>
 <td><pre>
 a = b - c;</pre></td>
   <td>
-      <b>Given</b>: X = a.GetNumDimensions(), Y = b.GetNumDimensions()
+      <b>Given</b>: X = b.GetNumDimensions(), Y = c.GetNumDimensions()
       <b>When</b>: X != Y<br />
       <b>Throw</b>: "Dimensions of LHS(X) and RHS(Y) do not match"
     </td>
