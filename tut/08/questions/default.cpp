@@ -12,8 +12,8 @@ class SillySet {
 
 int main() {
 
-  SillySet<float, std::set<float>> s;
-  SillySet<int, std::unordered_set<int>> us;
+  SillySet<float> s;
+  SillySet<int> us;
 
   s.insert(5.4);
   s.insert(6.2);
