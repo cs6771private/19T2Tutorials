@@ -18,6 +18,9 @@ table td, table th { padding: 3px; }
   <li>20/07: References to graph_const_iterator and non-const iterators removed</li>
   <li>20/07: rbegin and rend shouldn't return const_iterators - they should return const_reverse_iterators</li>
   <li>23/07: GetConnected clear that is only for outgoing nodes</li>
+  <li>27/07: operator<< schematic output commas removed to match example</li>
+  <li>27/07: rbegin() and rend() more clearly return const_reverse_iterator</li>
+  <li>27/07: fixed operator<< example for outbound edges from node 3</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -387,14 +390,14 @@ if (it != g.end()) {
   </tr>
 
   <tr>
-    <td><pre>const_iterator rbegin();</pre></td>
+    <td><pre>const_reverse_iterator rbegin();</pre></td>
     <td>Exactly the same as crbegin()</td>
     <td><pre>auto it = g.rbegin()</pre></td>
     <td>N/A</td>
   </tr>
 
   <tr>
-    <td><pre>const_iterator rend();</pre></td>
+    <td><pre>const_reverse_iterator rend();</pre></td>
     <td>Exactly the same as crend()</td>
     <td><pre>auto it = g.rend()</pre></td>
     <td>N/A</td>
@@ -481,8 +484,8 @@ For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
   4 | 2
 )
 3 (
-  2 | -8
-  6 | 2
+  2 | 2
+  6 | -8
 )
 4 (
   1 | -4
