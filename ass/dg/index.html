@@ -454,20 +454,20 @@ Note that these friend operations don't modify any of the given operands.
     <td><pre>std::ostream& operator&lt;&lt;(std::ostream&, const gdwg::Graph&lt;N, E&gt;&)</pre></td>
     <td>Prints out the graph in the following format:
 <pre>[node1] (
-[2 spaces][node1_connected_node1][space][pipe][space][weight],
-[2 spaces][node1_connected_node2][space][pipe][space][weight],
+[2 spaces][node1_connected_node1][space][pipe][space][weight]
+[2 spaces][node1_connected_node2][space][pipe][space][weight]
 [etc etc]
-),
+)
 [node2] (
-[2 spaces][node2_connected_node1][space][pipe][space][weight],
-[2 spaces][node2_connected_node2][space][pipe][space][weight],
+[2 spaces][node2_connected_node1][space][pipe][space][weight]
+[2 spaces][node2_connected_node2][space][pipe][space][weight]
 [etc etc]
-),
+)
 [node3] (
-[2 spaces][node3_connected_node1][space][pipe][space][weight],
-[2 spaces][node3_connected_node2][space][pipe][space][weight],
+[2 spaces][node3_connected_node1][space][pipe][space][weight]
+[2 spaces][node3_connected_node2][space][pipe][space][weight]
 [etc etc]
-),
+)
 [etc etc]</pre>
 <hr />
 For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
