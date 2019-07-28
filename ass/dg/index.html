@@ -523,9 +523,10 @@ operators</p>
 <p>When iterating through your graph the order of iteration should be based on the operator< for the underlying node type N</p>
 
 <p>Your iterators should be appropriately declared as bi-directional. You should implement
-and test the complete bi-directional iterator functionality. This includes pre/post incre-
-ment and decrement. The post-increment/decrement operations should return a copy of
-the value pointed to before the increment/decrement is performed.</p>
+and test the complete bi-directional iterator functionality. This includes pre/post
+increment and decrement. The post-increment/decrement operations should return a copy of the
+iterator, which points at the element pointed to by the original before the
+increment / decrement is performed.</p>
 
 <p><b>We will assume that all iterators are invalidated after any modification of the graph</b></p>
 
