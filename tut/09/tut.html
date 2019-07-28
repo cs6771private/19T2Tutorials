@@ -2,4 +2,133 @@
 {% block questions %}
 
 
+<li>When would we specialise classes? Why do we not specialise functions?
+
+<div class="answer">
+<ul>
+	<li>We do not specialise functions because:
+		<ol>
+			<li>Specialising functions can have unintended behaviour - see lecture notes for more detail</li>
+			<li>We already have this capability in the form of function overloading
+		</ol>
+	</li>
+	<li>We specialise classes when we need to either:
+	<ol>
+	<li>preserve a particular semantic for something that would not work otherwise</li>
+	<li>make an optimisation for a specific type (e.g. case of std::vector&lt;bool&gt; having a huge space optimisation.)
+	</li>
+</ul>
+</div>
+</li>
+
+
+
+<li>Define your own type trait, from scratch, for is_a_pointer, to be used in an application like this
+<pre>template <typename T>
+printPointer(T t) {
+  if (traits::is_a_pointer<T>::value) {
+  	std::cout << *t << "\n";
+  } else {
+  	std::cout << t << "\n";
+  }
+}
+</pre>
+Ensure that your type trait is wrapped in a trait namespace.
+<div class="answer">
+{{ include_code('solutions/is_a_pointer.h') }}
+</div>
+</li>
+
+
+
+<li>
+Use type traits in STD to produce your own composition type trait that returns true if the type passed in is an integer or bool. It should be used as follows
+<pre>template <typename T>
+if (is_int_or_bool<T>::value) {
+  std::cout << "Is int or bool" << "\n";
+}
+</pre>
+<div class="answer">
+{{ include_code('solutions/is_int_or_bool.h') }}
+</div>
+</li>
+
+
+
+<li>
+What is an xvalue?
+<div class="answer">
+An rvalue that is about to expire (e.g. the result of std::move).
+</div>
+</li>
+
+<li>
+What is an prvalue?
+<div class="answer">
+An rvalue that is not an xvalue. Since std::move and other rvalue reference semantics were introduced in C++11, prior to C++11 we did not have these more granular definitions of rvalues
+</div>
+</li>
+
+
+
+
+<li>
+What are the inferred types for each of the following?
+{{ include_code('questions/decltype.cpp') }}
+<div class="answer">
+  {{ include_code('solutions/decltype.cpp') }}
+</div>
+</li>
+
+<li>What does the binding table for lvalues/rvalues look like?
+<div class="answer">
+<table>
+	<tr>
+		<td>template T&&</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+	</tr>
+	<tr>
+		<td>T&</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+	</tr>
+	<tr>
+		<td>const T&</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+	</tr>
+	<tr>
+		<td>T&&</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+		<td>True</td>
+	</tr>
+</div>
+</li>
+
+
+<li>
+TODO: Binding / Forwarding & Variadic
+</li>
+
+
+
+
+<li>
+Convert this normal C++ program using constexpr to another meta-programing that is a template metaprogram
+{{ include_code('questions/tempmet.cpp') }}
+<div class="answer">
+  {{ include_code('solutions/tempmet.cpp') }}
+</div>
+
+</li>
+
 {% endblock %}
