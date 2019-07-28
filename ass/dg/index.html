@@ -22,6 +22,7 @@ table td, table th { padding: 3px; }
   <li>27/07: rbegin() and rend() more clearly return const_reverse_iterator</li>
   <li>27/07: fixed operator<< example for outbound edges from node 3</li>
   <li>28/07: Removed reverse to iterator invalidation in erase function</li>
+  <li>29/07: Spacing between now and open paranthesis clarified in operator&lt;&lt;</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -457,19 +458,19 @@ Note that these friend operations don't modify any of the given operands.
     <td>Output Stream</td>
     <td><pre>std::ostream& operator&lt;&lt;(std::ostream&, const gdwg::Graph&lt;N, E&gt;&)</pre></td>
     <td>Prints out the graph in the following format:
-<pre>[node1] (
-[2 spaces][node1_connected_node1][space][pipe][space][weight]
-[2 spaces][node1_connected_node2][space][pipe][space][weight]
+<pre>[node1][1 space](
+[2 spaces][node1_connected_node1][1 space][pipe][1 space][weight]
+[2 spaces][node1_connected_node2][1 space][pipe][1 space][weight]
 [etc etc]
 )
-[node2] (
-[2 spaces][node2_connected_node1][space][pipe][space][weight]
-[2 spaces][node2_connected_node2][space][pipe][space][weight]
+[node2][1 space](
+[2 spaces][node2_connected_node1][1 space][pipe][1 space][weight]
+[2 spaces][node2_connected_node2][1 space][pipe][1 space][weight]
 [etc etc]
 )
-[node3] (
-[2 spaces][node3_connected_node1][space][pipe][space][weight]
-[2 spaces][node3_connected_node2][space][pipe][space][weight]
+[node3][1 space](
+[2 spaces][node3_connected_node1][1 space][pipe][1 space][weight]
+[2 spaces][node3_connected_node2][1 space][pipe][1 space][weight]
 [etc etc]
 )
 [etc etc]</pre>
