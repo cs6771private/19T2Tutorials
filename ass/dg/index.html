@@ -338,7 +338,7 @@ auto it = g.find(a1, a2, e)</pre></td>
 
   <tr>
     <td><pre>const_iterator erase(const_iterator it);</pre></td>
-    <td>This function removes the position at the location the iterator points to. If an invalid iterator is passed in, nothing happens. This function returns an iterator to the element AFTER the one that has been removed. If no erase can be made, the equivalent of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
+    <td>This function removes the position at the location the iterator points to. This function returns an iterator to the element AFTER the one that has been removed. If no erase can be made, the equivalent of gdwg::Graph&lt;N, E&gt;::end() is returned.</td>
     <td><pre>gwdg::Graph&lt;std::string, int&gt; g;
 auto it = g.find("e", "i", 8);
 if (it != g.end()) {
