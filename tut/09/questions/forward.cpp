@@ -1,4 +1,4 @@
-template <typename T, typename... Args>
+template <typename T>
 auto my_make_unique(T item) {
   return std::unique_ptr<T>{new T{item}};
 }
