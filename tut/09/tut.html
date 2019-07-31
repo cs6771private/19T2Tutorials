@@ -24,9 +24,9 @@
 
 
 <li>Define your own type trait, from scratch, for is_a_pointer, to be used in an application like this
-<pre>template <typename T>
+<pre>template &lt;typename T&gt;
 printPointer(T t) {
-  if (traits::is_a_pointer<T>::value) {
+  if (traits::is_a_pointer&lt;T&gt;::value) {
   	std::cout << *t << "\n";
   } else {
   	std::cout << t << "\n";
@@ -43,8 +43,8 @@ Ensure that your type trait is wrapped in a trait namespace.
 
 <li>
 Use type traits in the std namespace to produce your own composition type trait that returns true if the type passed in is an integer or floating point. It should be used as follows
-<pre>template <typename T>
-if (is_real_number<T>::value) {
+<pre>template &lt;typename T&gt;
+if (is_real_number&lt;T&gt;::value) {
   std::cout << "Is real number" << "\n";
 }
 </pre>
