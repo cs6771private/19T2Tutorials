@@ -1,4 +1,4 @@
 template <typename T>
-struct is_int_or_bool {
-  static bool type = std::is_integral<T>::type && std::is_float<T>::type;
+struct is_real_number {
+  static bool type = std::is_integral<T>::type && std::is_floating_point<T>::type;
 }

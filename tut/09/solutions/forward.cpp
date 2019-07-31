@@ -1,6 +1,6 @@
 template <typename T, typename... Args>
-auto my_make_unique(T item) {
-  return std::unique_ptr<T>{new T{item}};
+auto my_make_unique(Args&&... args) {
+  return std::unique_ptr<T>{new T{std::forward<Args>(args)...}};
 }
 
 int main() {

@@ -1,6 +1,6 @@
 template <typename T, typename... Args>
-auto my_make_unique(Args&&... args) {
-  return std::unique_ptr<T>{new T{std::forward<Args>(args)...}};
+auto my_make_unique(T item) {
+  return std::unique_ptr<T>{new T{item}};
 }
 
 int main() {
@@ -17,4 +17,3 @@ int main() {
   MyClass base{"hello"};
   std::cout << my_make_unique<std::vector<MyClass>>(6U, base)->size() << "\n";
 }
-

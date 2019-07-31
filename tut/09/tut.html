@@ -42,10 +42,10 @@ Ensure that your type trait is wrapped in a trait namespace.
 
 
 <li>
-Use type traits in STD to produce your own composition type trait that returns true if the type passed in is an integer or bool. It should be used as follows
+Use type traits in the std namespace to produce your own composition type trait that returns true if the type passed in is an integer or floating point. It should be used as follows
 <pre>template <typename T>
-if (is_int_or_bool<T>::value) {
-  std::cout << "Is int or bool" << "\n";
+if (is_real_number<T>::value) {
+  std::cout << "Is real number" << "\n";
 }
 </pre>
 <div class="answer">
@@ -136,7 +136,7 @@ This code currently doesn't work as the implementation for my_make_unique is inc
 
 
 <li>
-Convert this normal C++ program using constexpr to another meta-programing that is a template metaprogram
+Convert this normal C++ program using constexpr to a program using template meta-programming
 {{ include_code('questions/tempmet.cpp') }}
 <div class="answer">
   {{ include_code('solutions/tempmet.cpp') }}

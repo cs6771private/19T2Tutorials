@@ -2,12 +2,12 @@ namespace traits {
 
 template <typename T>
 struct is_a_pointer {
-  static bool type = false;
+  static constexpr bool value = false;
 }
 
 template <typename T>
 struct is_a_pointer<T*> {
-  static bool type = true;
+  static constexpr bool value = true;
 }
 
 }

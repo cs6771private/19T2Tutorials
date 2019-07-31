@@ -1,11 +1,11 @@
 #include <iostream>
 
 template<int n> struct Factorial {
-  static const long val = Factorial<n-1>::val * n;
+  static constexpr int val = Factorial<n-1>::val * n;
 };
 
 template<> struct Factorial<0> {
-  static const long val = 1; // must be a compile-time constant
+  static constexpr int val = 1; // must be a compile-time constant
 };
 
 int main() {

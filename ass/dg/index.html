@@ -23,6 +23,10 @@ table td, table th { padding: 3px; }
   <li>27/07: fixed operator<< example for outbound edges from node 3</li>
   <li>28/07: Removed reverse to iterator invalidation in erase function</li>
   <li>29/07: Spacing between now and open paranthesis clarified in operator&lt;&lt;</li>
+  <li>30/07: GetWeights direction clarified</li>
+  <li>31/07: Clarification: If there are multiple edges between node A and node B, then the result of GetConnected() of A will only have one node B in it's vector array</li>
+  <li>31/07: Clarification: Example data struture updated from set to map</li>
+  <li>31/07: Clarification: GetConnected() on a src node only returns the nodes connecting to it via src's OUTGOING edges</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -308,7 +312,7 @@ g.InsertEdge("a",u,1);</pre></td>
 
   <tr>
     <td><pre>std::vector&lt;E&gt; GetWeights(const N& src, const N& dst)</pre></td>
-    <td>Returns a vector of the weights of edges between two nodes. Sorted by increasing order of edge.</td>
+    <td>Returns a vector of the weights of edges between two nodes. Sorted by increasing order of edge. These edges are all outgoing edges of src toward dst.</td>
     <td><pre>g.GetWeights("e","b")</pre></td>
     <td>
     <ul>
@@ -596,7 +600,7 @@ depending on your implementation choice.</p>
 
 <p>You could feasibly implement the assignment without any smart pointers, through lots of redundant copying. For example, having a massive data structure like:</p>
 
-<pre>std::set&lt;N, std::vector&lt;std::pair&lt;N, E&gt;&gt;&gt;</pre>
+<pre>std::map&lt;N, std::vector&lt;std::pair&lt;N, E&gt;&gt;&gt;</pre>
 
 <p>You can see that in this structure you would have duplicates of nodes when trying to represent this complex structure. This takes up a lot of space. We want you to build a space efficient graph. This means only storing one instance of each node and edge.</p>
 
