@@ -375,7 +375,7 @@ if (it != g.end()) {
   </tr>
 
   <tr>
-    <td><pre>const_iterator crend();</pre></td>
+    <td><pre>const_reverse_iterator crend();</pre></td>
     <td>Returns a const_reverse_iterator pointing to the before-the-first element in the container. A const_reverse_iterator is a reverse iterator that points to const content. This iterator can be increased and decreased (unless it is itself also const), but it cannot be used to modify the contents it points to, even if the content it points to is not itself const. If the container is empty, this function returns the same as vector::crbegin. The value returned shall not be dereferenced.</td>
     <td><pre>auto it = g.crend()</pre></td>
     <td>N/A</td>
