@@ -29,7 +29,9 @@ table td, table th { padding: 3px; }
   <li>31/07: Clarification: GetConnected() on a src node only returns the nodes connecting to it via src's OUTGOING edges</li>
   <li>01/08: Clarification: crend() now has a correct return type of const_reverse_iterator</li>
   <li>02/08: Clarification: erase(N, N, E) now states that if the edge isn't present it returns false.</li>
-  <li>02/08: In section 3.5 (Edge Iterator) the type has been updated from <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b> to <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b></N,>
+  <li>02/08: In section 3.5 (Edge Iterator) the type has been updated from <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b> to <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b></li>
+  <li>02/08: Phrase "If an exception is not thrown" added to bool Replace function</li>
+
 </ul>
 
 <h2>1. Overview</h2>
@@ -240,7 +242,7 @@ g.InsertEdge("a",u,1);</pre></td>
 
   <tr>
     <td><pre>bool Replace(const N& oldData, const N& newData)</pre></td>
-    <td>Replaces the original data, oldData, stored at this particular node by the replacement data, newData. This function returns false if a node that contains value newData already exists in the graph (with the graph unchanged) and true otherwise.</td>
+    <td>Replaces the original data, oldData, stored at this particular node by the replacement data, newData. If an exception is not thrown, this function returns false if a node that contains value newData already exists in the graph (with the graph unchanged) and true otherwise.</td>
     <td><pre>g.Replace("a", "e")</pre></td>
     <td>
       <ul>
