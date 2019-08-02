@@ -27,7 +27,8 @@ table td, table th { padding: 3px; }
   <li>31/07: Clarification: If there are multiple edges between node A and node B, then the result of GetConnected() of A will only have one node B in it's vector array</li>
   <li>31/07: Clarification: Example data struture updated from set to map</li>
   <li>31/07: Clarification: GetConnected() on a src node only returns the nodes connecting to it via src's OUTGOING edges</li>
-  <li>01/08: crend() now has a correct return type of const_reverse_iterator</li>
+  <li>01/08: Clarification: crend() now has a correct return type of const_reverse_iterator</li>
+  <li>02/08: Clarification: erase(N, N, E) now states that if the edge isn't present it returns false.</li>
 </ul>
 
 <h2>1. Overview</h2>
@@ -338,7 +339,7 @@ auto it = g.find(a1, a2, e)</pre></td>
 
   <tr>
     <td><pre>bool erase(const N& src, const N& dst, const E& w)</pre></td>
-    <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph. This function returns an boolean as to whether the item has been removed or not (true if removed).</td>
+    <td>Deletes an edge from src to dst with weight w, only if the edge exists in the graph. This function returns an boolean as to whether the item has been removed or not (true if removed). If the edge is not in the graph it returns false.</td>
     <td><pre>g.erase("b", "c", 1)</pre></td>
     <td>N/A</td>
   </tr>
