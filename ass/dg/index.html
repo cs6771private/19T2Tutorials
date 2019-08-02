@@ -29,6 +29,7 @@ table td, table th { padding: 3px; }
   <li>31/07: Clarification: GetConnected() on a src node only returns the nodes connecting to it via src's OUTGOING edges</li>
   <li>01/08: Clarification: crend() now has a correct return type of const_reverse_iterator</li>
   <li>02/08: Clarification: erase(N, N, E) now states that if the edge isn't present it returns false.</li>
+  <li>02/08: In section 3.5 (Edge Iterator) the type has been updated from <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b> to <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b></N,>
 </ul>
 
 <h2>1. Overview</h2>
@@ -523,7 +524,7 @@ For example, for gdwg::Graph&lt;int, int&gt;, an output may be:
 
 <h3>3.5. Your "Edge" Custom Iterator</h3>
 
-<p>You are required to define an iterator class <b>gdwg::const_iterator</b>.</p>
+<p>You are required to define an iterator class <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b>.</p>
 
 <p>The iterators will come in a const form. The iterator should respond to the *, ++, --, == and !=
 operators</p>
