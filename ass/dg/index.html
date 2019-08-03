@@ -31,6 +31,7 @@ table td, table th { padding: 3px; }
   <li>02/08: Clarification: erase(N, N, E) now states that if the edge isn't present it returns false.</li>
   <li>02/08: In section 3.5 (Edge Iterator) the type has been updated from <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b> to <b>gdwg::Graph&lt;N, E&gt;::const_iterator</b></li>
   <li>02/08: Phrase "If an exception is not thrown" added to bool Replace function</li>
+  <li>03/08: Find now says "Returns an iterator to the found edge" instead of "Returns an iterator to the found node"</li>
 
 </ul>
 
@@ -330,7 +331,7 @@ g.InsertEdge("a",u,1);</pre></td>
 
   <tr>
     <td><pre>const_iterator find(const N&, const N&, const E&);</pre></td>
-    <td>Returns an iterator to the found node in the graph. If the edge is not found the equivalent value of gdwg::Graph&lt;N, E&gt;::cend() is returned.</td>
+    <td>Returns an iterator to the found edge in the graph. If the edge is not found the equivalent value of gdwg::Graph&lt;N, E&gt;::cend() is returned.</td>
     <td><pre>
 gwdg::Graph&lt;std::string, int&gt; g;
 std::string a1{"e"};
