@@ -7,7 +7,6 @@ Car::Car(const Car& other): manufacturer_{other.manufacturer_}, num_seats_{other
 }
 
 Car::Car(Car&& other) noexcept: manufacturer_{std::move(other.manufacturer_)}, num_seats_{other.num_seats_} {
-  n_objects++;
 }
 
 Car::~Car() noexcept {
