@@ -2,6 +2,7 @@
 {% block questions %}
 
 <li>
+	<b>Section 1 Practice</b>
 	What's wrong with this code?
 	{{ include_code("questions/1.cpp") }}
 	<ol type="A">
@@ -15,10 +16,46 @@
 	</div>
 </li>
 
+<li>
+	<b>Section 1 Practice</b>
+	Which of the following are NOT valid function overloads?
+
+	<ol type="A">
+		<li>
+<pre>
+bool foo(int a, int b);
+bool foo(double a, double b);
+</pre>
+		</li>
+		<li>
+<pre>
+bool foo(int a, int b);
+double foo(int c, int d);
+</pre>
+		</li>
+		<li>
+<pre>
+bool foo(int a, int b);
+double foo(int c, double d);
+</pre>
+		</li>
+		<li>
+<pre>
+int foo(char* a, char* b);
+int foo(std::string a, std::string b);
+</pre>
+		</li>
+	</ol>
+	<div class="answer">
+		B - can't distinguish by return type
+	</div>
+</li>
+
 <!--<li>
+	<b>Section 1 Practice</b>
 	multiple catches & rethrow - what does it output?
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -32,7 +69,7 @@
 	<b>Section 1 Practice</b>
 	Variadic templates, what is the output?
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -42,25 +79,12 @@
 	</div>
 </li>
 
-<li>
-	<b>Section 1 Practice</b>
-	Valid function overloading
-
-	<ol type="A>"
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ol>
-	<div class="answer">
-	</div>
-</li>
 
 <li>
 	<b>Section 1 Practice</b>
 	Define iterator
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -74,7 +98,7 @@
 	<b>Section 1 Practice</b>
 	Lambda usage answer
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -89,7 +113,7 @@
 	<b>Section 1 Practice</b>
 	Value of references
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -104,7 +128,7 @@
 	<b>Section 1 Practice</b>
 	Is this an rvalue or an lvalue
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -118,7 +142,7 @@
 	<b>Section 1 Practice</b>
 	Difference between unit and behaviour testing
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -132,7 +156,7 @@
 	<b>Section 2 Practice</b>
 	What is static polymorphism/templates? Why do we use it?
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -146,7 +170,7 @@
 	<b>Section 3 Practice</b>
 	add a non-type parameter to the findmin function (6.1.4.2)
 
-	<ol type="A>"
+	<ol type="A">
 		<li></li>
 		<li></li>
 		<li></li>
