@@ -1,0 +1,159 @@
+{% extends "templates/tut.html" %}
+{% block questions %}
+
+<li>
+	What's wrong with this code?
+	{{ include_code("questions/1.cpp") }}
+	<ol type="A>"
+		<li>You can't initialiser a double "3.0" into an integer without casting</li>
+		<li>The initialiser list is not in the correct order</li>
+		<li>The output operator for Lemon only takes in const Lemons, but we try and use it on a non-const Lemon object.</li>
+		<li>Lemon cannot be constructed this way when the associated constructor is marked explicit</li>
+	</ol>
+	<div class="answer">
+		B
+	</div>
+</li>
+
+<!--<li>
+	multiple catches & rethrow - what does it output?
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+<li>
+	<b>Section 1 Practice</b>
+	Variadic templates, what is the output?
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+<li>
+	<b>Section 1 Practice</b>
+	Valid function overloading
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+<li>
+	<b>Section 1 Practice</b>
+	Define iterator
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+<li>
+	<b>Section 1 Practice</b>
+	Lambda usage answer
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+
+<li>
+	<b>Section 1 Practice</b>
+	Value of references
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+
+<li>
+	<b>Section 1 Practice</b>
+	Is this an rvalue or an lvalue
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+<li>
+	<b>Section 1 Practice</b>
+	Difference between unit and behaviour testing
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+<li>
+	<b>Section 2 Practice</b>
+	What is static polymorphism/templates? Why do we use it?
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>
+
+<li>
+	<b>Section 3 Practice</b>
+	add a non-type parameter to the findmin function (6.1.4.2)
+
+	<ol type="A>"
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	<div class="answer">
+	</div>
+</li>-->
+
+{% endblock %}
