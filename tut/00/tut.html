@@ -51,6 +51,62 @@ int foo(std::string a, std::string b);
 	</div>
 </li>
 
+
+<li>
+	<b>Section 1 Practice</b>
+	Define "iterator" in the context of C++ STL
+
+	<ol type="A">
+		<li>The operator ++ used as either pre-increment or post-increment</li>
+		<li>A variable used in for-loops (typically called "i") used to keep track of the index of an item during a loop iteration</li>
+		<li>An abstraction of a pointer that represents a container in a linear form</li>
+		<li>A pair of functions (usually begin() and end()) used by a container</li>
+	</ol>
+	<div class="answer">
+		C
+	</div>
+</li>
+
+
+<li>
+	<b>Section 1 Practice</b>
+	Which of the following is NOT a major reason why we prefer references over pointers in many instances?
+
+	<ol type="A">
+		<li>References often require less syntatic changes (e.g. no explicit deferencing require to get value) than pointers</li>
+		<li>References cannot be set to null, unlike pointers</li>
+		<li>References use less memory than pointers</li>
+	</ol>
+	<div class="answer">
+		C - references do not use less memory than pointers
+	</div>
+</li>
+
+<li>
+	<b>Section 1 Practice</b>
+	Observe the following code
+<pre>void foo(const int& a) { std::cout << a; }
+int i = 3;
+foo(5); // usage 1
+foo(i); // usage 2
+
+int j = std::move(i);
+foo(j); // usage 3
+</pre>
+
+	In each of the following 3 usages, is the call argument an lvalue or an value?
+
+	<ol type="A">
+		<li>Usage1=rvalue, Usage2=lvalue, Usage3=lvalue</li>
+		<li>Usage1=lvalue, Usage2=lvalue, Usage3=lvalue</li>
+		<li>Usage1=lvalue, Usage2=rvalue, Usage3=rvalue</li>
+		<li>Usage1=rvalue, Usage2=rvalue, Usage3=lvalue</li>
+		<li>Usage1=rvalue, Usage2=rvalue, Usage3=rvalue</li>
+	</ol>
+	<div class="answer">
+		A
+	</div>
+</li>
 <!--<li>
 	<b>Section 1 Practice</b>
 	multiple catches & rethrow - what does it output?
@@ -80,20 +136,6 @@ int foo(std::string a, std::string b);
 </li>
 
 
-<li>
-	<b>Section 1 Practice</b>
-	Define "iterator" in the context of C++ STL
-
-	<ol type="A">
-		<li></li>
-		<li>A variable used in for-loops (typically called "i") used to keep track of the index of an item during a loop iteration</li>
-		<li>An abstraction of a pointer that represents a container in a linear form</li>
-		<li>A pair of functions (usually begin() and end()) used by a container</li>
-	</ol>
-	<div class="answer">
-		C
-	</div>
-</li>
 
 <li>
 	<b>Section 1 Practice</b>
@@ -110,34 +152,6 @@ int foo(std::string a, std::string b);
 </li>
 
 
-<li>
-	<b>Section 1 Practice</b>
-	Value of references
-
-	<ol type="A">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ol>
-	<div class="answer">
-	</div>
-</li>
-
-
-<li>
-	<b>Section 1 Practice</b>
-	Is this an rvalue or an lvalue
-
-	<ol type="A">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ol>
-	<div class="answer">
-	</div>
-</li>
 
 <li>
 	<b>Section 1 Practice</b>
