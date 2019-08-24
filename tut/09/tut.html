@@ -26,7 +26,7 @@
 <li>Define your own type trait, from scratch, for is_a_pointer, to be used in an application like this
 <pre>template &lt;typename T&gt;
 printPointer(T t) {
-  if (traits::is_a_pointer&lt;T&gt;::value) {
+  if constexpr (traits::is_a_pointer&lt;T&gt;::value) {
   	std::cout << *t << "\n";
   } else {
   	std::cout << t << "\n";
