@@ -6,7 +6,7 @@
 	What's wrong with this code?
 	{{ include_code("questions/1.cpp") }}
 	<ol type="A">
-		<li>You can't initialiser a double "3.0" into an integer without casting</li>
+		<li>A non-const member "radius_" cannot be initialised with a const parameter "r" in the constructor</li>
 		<li>The initialiser list is not in the correct order</li>
 		<li>The output operator for Lemon only takes in const Lemons, but we try and use it on a non-const Lemon object.</li>
 		<li>Lemon cannot be constructed this way when the associated constructor is marked explicit</li>
@@ -82,15 +82,16 @@ int foo(std::string a, std::string b);
 
 <li>
 	<b>Section 1 Practice</b>
-	Define iterator
+	Define "iterator" in the context of C++ STL
 
 	<ol type="A">
 		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
+		<li>A variable used in for-loops (typically called "i") used to keep track of the index of an item during a loop iteration</li>
+		<li>An abstraction of a pointer that represents a container in a linear form</li>
+		<li>A pair of functions (usually begin() and end()) used by a container</li>
 	</ol>
 	<div class="answer">
+		C
 	</div>
 </li>
 
