@@ -10,7 +10,7 @@ int main() {
   }
   std::cout << "\n";
 
-  // Const do it with for-range
+  // Can't do it with for-range
 
   for (auto iter = temperatures.crbegin();
        iter != temperatures.crend(); ++iter) {

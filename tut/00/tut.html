@@ -156,24 +156,30 @@ foo(j); // usage 3
 
 -->
 
-<!--
-
-
 <li>
 	<b>Section 1 Practice</b>
-	Delegating constructor
+
+<pre>class Foo {
+ public:
+  Foo() : Foo(5) {}
+  Foo(int var) : var_{var} {}
+ private:
+  int var_;
+}
+</pre>
+
+	What is the term we use to refer to the function Foo() in class Foo?
 
 	<ol type="A">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
+		<li>Delegating Constructor</li>
+		<li>Delegating Assignment</li>
+		<li>Polymorphic Constructor</li>
+		<li>Polymorphic Assignment</li>
 	</ol>
 	<div class="answer">
+		A
 	</div>
 </li>
-
--->
 
 
 <li>
@@ -191,9 +197,9 @@ foo(j); // usage 3
 	(2 mark) What are the 3 components of the STL? What is a benefit of using the STL?
 
 	<div class="answer">
-		(1).
+		(1). Iterators, Containers, Algorithms.
 
-		(2).
+		(2). Containers not needing to know about algorithms; algorithms not needing to know about iterators
 	</div>
 
 </li>
