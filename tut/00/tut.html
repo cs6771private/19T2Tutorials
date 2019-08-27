@@ -205,19 +205,19 @@ foo(j); // usage 3
 </li>
 
 <li>
-	<b>Section 3 Practice</b>
-<pre>template <typename T>
+	<b>Section 3 Practice (2 marks)</b>
+<pre>template &lt;typename T&gt;
 auto createDefaultArray(int size) {
-  return std::make_unique<T[]>(size);
+  return std::make_unique&lt;T[]&gt;(size);
 }
 </pre>
 
 	Add a non-type parameter for "size" such that the createDefaultArray function is now templated across two template parameters (one typed, one non-typed).
 
 	<div class="answer">
-<pre>template <typename T, int size>
+<pre>template &lt;typename T, int size&gt;
 auto createDefaultArray() {
-  return std::make_unique<T[]>(size);
+  return std::make_unique&lt;T[]&gt;(size);
 }
 </pre>
 	</div>
@@ -225,7 +225,7 @@ auto createDefaultArray() {
 
 
 <li>
-	<b>Section 3 Practice</b>
+	<b>Section 3 Practice (2 marks)</b>
 <pre>
 class Magnitude {
  public:
@@ -278,7 +278,7 @@ int main() {
 
 
 <li>
-	<b>Section 3 Practice</b>
+	<b>Section 3 Practice (4 marks)</b>
 <pre>template &lt;typname T&gt;
 class EuclideanVector {
  public:
@@ -345,7 +345,7 @@ class EuclideanVector {
 
 
 <li>
-	<b>Section 3 Practice</b>
+	<b>Section 3 Practice (3 marks)</b>
 <pre>#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;string&gt;
