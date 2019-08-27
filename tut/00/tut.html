@@ -206,7 +206,6 @@ foo(j); // usage 3
 
 <li>
 	<b>Section 3 Practice</b>
-	add a non-type parameter to the function 
 <pre>template <typename T>
 auto createDefaultArray(int size) {
   return std::make_unique<T[]>(size);
@@ -220,6 +219,178 @@ auto createDefaultArray(int size) {
 auto createDefaultArray() {
   return std::make_unique<T[]>(size);
 }
+</pre>
+	</div>
+</li>
+
+
+<li>
+	<b>Section 3 Practice</b>
+<pre>
+class Magnitude {
+ public:
+  Magnitude() : Magnitude(1) {}
+  Magnitude(int l) : litres_{l} {}
+  static Magnitude multiply(const Magnitude& a, const Magnitude& b) {
+    return Magnitude{a.getLitres() * b.getLitres()};
+  }
+  int getLitres() {
+    return litres_;
+  }
+ private:
+  int litres_;
+}
+
+int main() {
+  Magnitude a{8};
+  Magnitude b{9};
+  std::cout << Magnitude::multiply(a, b);
+}
+</pre>
+
+	This code currently does not take advantage of operator overloading. Re-write the code with the appropriate multiplication operator. You can re-write the main function to demonstrate your knowledge of this.
+
+	<div class="answer">
+<pre>
+class Magnitude {
+ public:
+  Magnitude() : Magnitude(1) {}
+  Magnitude(int l) : litres_{l} {}
+  friend Magnitude multiply(const Magnitude& a, const Magnitude& b) {
+    return Magnitude{a.getLitres() * b.getLitres()};
+  }
+  int getLitres() {
+    return litres_;
+  }
+ private:
+  int litres_;
+}
+
+int main() {
+  Magnitude a{8};
+  Magnitude b{9};
+  std::cout << (a * b);
+}
+</pre>
+	</div>
+</li>
+
+
+
+<li>
+	<b>Section 3 Practice</b>
+<pre>template &lt;typname T&gt;
+class EuclideanVector {
+ public:
+  EuclideanVector() : EuclideanVector(10) {}
+  EuclideanVector(int size) : vec_{new T[size]}, size_{size} {}
+ private:
+  T *vec_;
+  int size_;
+}
+</pre>
+
+	Implement the rule of 5 (copy and move semantics, and destructor)
+	<div class="answer">
+<pre>template &lt;typname T&gt;
+class EuclideanVector {
+ public:
+  EuclideanVector() : EuclideanVector(10) {}
+  EuclideanVector(int size) : vec_{new T[size]}, size_{size} {
+    for (int i = 0; i < size_; ++i) {
+      vec_[i] = 0;
+    }
+  }
+  EuclideanVector(connt EuclideanVector& old) {
+    size_ = old.size_;
+    vec_ = new T[size_];
+    for (int i = 0; i < size_; ++i) {
+      vec_[i] = old.vec_[i];
+    }
+  }
+  EuclideanVector(EuclideanVector&& old) {
+    size_ = std;:move(old.size_);
+    vec_ = new T[size_];
+    for (int i = 0; i < size_; ++i) {
+      vec_[i] = old.vec_[i];
+    }
+    delete[] old.vec_;
+  }
+  EuclideanVector& operator=(const EuclideanVector& old) {
+  	size_ = old.size_;
+    vec_ = new T[size_];
+    for (int i = 0; i < size_; ++i) {
+      vec_[i] = old.vec_[i];
+    }
+  }
+  EuclideanVector& operator=(EuclideanVector&& old) {
+  	size_ = std::move(old.size_);
+    vec_ = new T[size_];
+    for (int i = 0; i < size_; ++i) {
+      vec_[i] = old.vec_[i];
+    }
+    delete[] old.vec_;
+  }
+  ~EuclideanVector() {
+  	delete[] old.vec_;
+  }
+ private:
+  T *vec_;
+  int size_;
+}
+</pre>
+	</div>
+</li>
+
+
+
+<li>
+	<b>Section 3 Practice</b>
+<pre>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+int main() {
+  std::vector&lt;std::string&gt; vec;
+  vec.push_back("Hayden");
+  vec.push_back("is");
+  vec.push_back("made");
+  vec.push_back("of");
+  vec.push_back("pineapple");
+  int sum = 0;
+
+  std::cout << "Sum: " << sum << "\n";
+}
+</pre>
+
+	Complete this function using STL algorithms and C++11 lambdas to find the sum of all lowercase vowels in all of the strings inside the vector "vec". You will be marked on appropriate use of STL algorithms.
+	<div class="answer">
+<pre>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;numeric&gt;
+
+int main() {
+  std::vector&lt;std::string&gt; vec;
+  vec.push_back("Hayden");
+  vec.push_back("is");
+  vec.push_back("made");
+  vec.push_back("of");
+  vec.push_back("pineapple");
+  int sum = 0;
+
+  sum = std::accumulate(vec.begin(), vec.end(), 0, [] (auto sum, const std::string& item) {
+  	int num_vowels = std::accumulate(item.begin(), item.end(), 0, [] (auto sum2, const char i) {
+  	  return (i == 'a' || i == 'o' || i == 'e' || i == 'u' || i == 'i') ? sum2 + 1 : sum2;
+  	});
+  	return sum + num_vowels;
+  });
+  
+  std::cout << "Sum: " << sum << "\n";
+}
+
+// Note: there may be better answers than this, but this one is acceptable
 </pre>
 	</div>
 </li>
