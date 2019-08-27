@@ -23,6 +23,8 @@ protected:
     What benefits does this approach give us? Why do we return a const reference to <em>i_</em>?
     <div class="answer">
       This allows a subclass to only depend upon the interface of the base class, rather than the implementation. This means that if the base class chooses to refactor or modify the code, the subclass won't be affected.
+      We return a const reference to i because a getter should work on a const object. By returning a const reference, rather than a non-const reference, we both disallow modification, and allow the function to be called on a const object.
+      If we later want to add a setter, this gives us the power to do so, through either a non-const getter, or a manual setter.
     </div>
   </li>
 </ol>
