@@ -204,20 +204,24 @@ foo(j); // usage 3
 
 </li>
 
-<!--
-
 <li>
 	<b>Section 3 Practice</b>
-	add a non-type parameter to the findmin function (6.1.4.2)
+	add a non-type parameter to the function 
+<pre>template <typename T>
+auto createDefaultArray(int size) {
+  return std::make_unique<T[]>(size);
+}
+</pre>
 
-	<ol type="A">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ol>
+	Add a non-type parameter for "size" such that the createDefaultArray function is now templated across two template parameters (one typed, one non-typed).
+
 	<div class="answer">
+<pre>template <typename T, int size>
+auto createDefaultArray() {
+  return std::make_unique<T[]>(size);
+}
+</pre>
 	</div>
-</li>-->
+</li>
 
 {% endblock %}
