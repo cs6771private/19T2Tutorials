@@ -334,17 +334,17 @@ class EuclideanVector {
     for (int i = 0; i < size_; ++i) {
       vec_[i] = old.vec_[i];
     }
+    return *this;
   }
   EuclideanVector& operator=(EuclideanVector&& old) {
-  	size_ = std::move(old.size_);
-    vec_ = new T[size_];
-    for (int i = 0; i < size_; ++i) {
-      vec_[i] = old.vec_[i];
-    }
-    delete[] old.vec_;
+    delete[] vec_;
+    size_ = std::move(old.size_);
+    vec_ = old.vec_;
+    old.vec_ = nullptr;
+    return *this;
   }
   ~EuclideanVector() {
-  	delete[] old.vec_;
+    delete[] old.vec_;
   }
  private:
   T *vec_;
