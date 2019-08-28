@@ -250,26 +250,37 @@ int main() {
 
 	This code currently does not take advantage of operator overloading. Re-write the code with the appropriate multiplication operator. You can re-write the main function to demonstrate your knowledge of this.
 
+Your new code should work with the following main function.
+<pre>int main() {
+  Magnitude a{8};
+  Magnitude b{9};
+  std::cout << (a * b) << "\n";
+}</pre>
+
 	<div class="answer">
 <pre>
 class Magnitude {
  public:
   Magnitude() : Magnitude(1) {}
   Magnitude(int l) : litres_{l} {}
-  friend Magnitude multiply(const Magnitude& a, const Magnitude& b) {
+  friend Magnitude operator*(const Magnitude& a, const Magnitude& b) {
     return Magnitude{a.getLitres() * b.getLitres()};
   }
-  int getLitres() {
+  friend std::ostream& operator<<(std::ostream& os, const Magnitude& m) {
+    os << m.getLitres();
+    return os;
+  }
+  int getLitres() const {
     return litres_;
   }
  private:
   int litres_;
-}
+};
 
 int main() {
   Magnitude a{8};
   Magnitude b{9};
-  std::cout << (a * b);
+  std::cout << (a * b) << "\n";
 }
 </pre>
 	</div>
@@ -317,7 +328,8 @@ class EuclideanVector {
     delete[] old.vec_;
   }
   EuclideanVector& operator=(const EuclideanVector& old) {
-  	size_ = old.size_;
+    size_ = old.size_;
+    delete[] vec_;
     vec_ = new T[size_];
     for (int i = 0; i < size_; ++i) {
       vec_[i] = old.vec_[i];
