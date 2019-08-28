@@ -35,10 +35,10 @@ protected:
   <li>
     For each of these variables, what is the static and dynamic type (for b, consider this both after and before assigning d to it)?
     <div class="answer">
-      The static type is the declared type of a variable. Hence, b has static type B, d has static type D, bref and dbref have static type B&, and dref has static type d.<br/>
+      The static type is the declared type of a variable. Hence, b has static type B, d has static type D, bref and dbref have static type B&, and dref has static type D&.<br/>
       The dynamic type is the type a variable actually is at runtime.<br/>
       b and d are neither references or pointers. Hence, their dynamic type is <b>always</b> the same as their static type. Hence, b and d have dynamic types B and D respectively.<br/>
-      bref, dref, and dbref are references. Hence, their dynamic type is the dynamic type of the object they refer to. Hence, bref has dynamic type B, dref has dynamic type D, and dbref has dynamic type D.
+      bref, dref, and dbref are references. Hence, their dynamic type is the dynamic type of the object they refer to. Hence, bref has dynamic type B&, dref has dynamic type D&, and dbref has dynamic type D&.
     </div>
   </li>
 
