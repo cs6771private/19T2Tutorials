@@ -344,7 +344,7 @@ class EuclideanVector {
     return *this;
   }
   ~EuclideanVector() {
-    delete[] old.vec_;
+    delete[] vec_;
   }
  private:
   T *vec_;
